@@ -1,0 +1,37 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+
+	<persistence-unit name="modelUnit" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>Producto</class>
+		<class>Horario</class>
+		<class>ServicioLavanderia</class>
+		<class>CaracteristicaServicio</class>
+		<class>ServicioIncluido</class>
+		<class>ServicioDeAlojamiento</class>
+		<class>TipoHabitacion</class>
+		<class>Dotacion</class>
+		<class>Reserva</class>
+		<class>CadenaHotelera</class>
+		<class>Hotel</class>
+		<class>ServicioReservado</class>
+		<class>Salon</class>
+		<class>CaracteristicaAdicional</class>
+		<class>Cuenta</class>
+		<class>Usuario</class>
+		<class>ServicioAlimentacion</class>
+		<class>Habitacion</class>
+		
+		<properties>
+	      <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
+	      <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:spring"/>
+	      <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
+	      <property name="hibernate.connection.username" value="sa"/>
+	      <property name="hibernate.connection.password" value=""/>
+	      <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+    	</properties>
+	</persistence-unit>
+</persistence>
+

@@ -1,0 +1,34 @@
+{
+	"title": "Aplicación transaccional de Parranderos Uniandes",
+	"frameH": 600,
+	"frameW": 800,
+	"bannerPath": "./src/main/resources/config/logo.png",
+	"menuBar":
+	[
+		{ "menuTitle": "Registro",
+		  "options":
+			[
+				{
+					"label": "RegistroHabitacion",
+					"event": "registroHabitacion"
+				},
+				{
+					"label": "RegistroCaracteristicaServicio",
+					"event": "registroCaracteristicaServicio"
+				},
+				{
+					"label": "RegistroPlanConsumo",
+					"event": "registroPlanConsumo"
+				},
+				{
+					"label": "RegistroCaracteristicaPlan",
+					"event": "registroCaracteristicaPlan"
+				}
+			]
+		}
+		
+			
+		
+	]
+}
+	

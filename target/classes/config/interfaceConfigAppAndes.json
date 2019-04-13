@@ -1,0 +1,129 @@
+{
+	"title": "Aplicación transaccional de Parranderos Uniandes",
+	"frameH": 600,
+	"frameW": 800,
+	"bannerPath": "./src/main/resources/config/banner.png",
+	"menuBar":
+	[
+		{ "menuTitle": "Usuarios",
+		  "options":
+			[
+				{
+					"label": "Registrar un usuario",
+					"event": "registrarUsuario"
+				}
+			]
+		},
+		
+		{ "menuTitle": "TipoDeHabitacion",
+		  "options":
+			[
+				{
+					"label": "Registrar un Tipo De Habitacion",
+					"event": "registrarTipoDeHabitacion"
+				}
+			]
+		},
+		
+		{ "menuTitle": "Habitacion",
+		  "options":
+			[
+				{
+					"label": "Registrar un habitacion",
+					"event": "registrarHabitacion"
+				}
+			]
+		},
+		
+		{ "menuTitle": "ServicioHoteles",
+		  "options":
+			[
+				{
+					"label": "Registrar un Servicio Lavanderia",
+					"event": "registrarServicioLavanderia"
+				},
+				{
+					"label": "Registrar un Servicio Alimentacion o Tienda",
+					"event": "registrarServicioAlimentacion"
+				},
+				{
+					"label": "Registrar un Servicio Salon",
+					"event": "registrarServicioSalon"
+				},
+				{
+					"label": "Registrar un Servicio Reservado",
+					"event": "registrarServicioReservado"
+				}
+			]
+		},
+		
+		{ "menuTitle": "PlanConsumo",
+		  "options":
+			[
+				{
+					"label": "Registrar una Plan Consumo",
+					"event": "registrarPlanConsumo"
+				}
+			]
+		},
+		
+		{ "menuTitle": "ReservaAlojamiento",
+		  "options":
+			[
+				{
+					"label": "Registrar un Reserva Alojamiento",
+					"event": "registrarReservaAlojamiento"
+				}
+			]
+		},
+
+		{ "menuTitle": "ReservaDeServicio",
+		  "options":
+			[
+				{
+					"label": "RegistrarReservaServicio",
+					"event": "registrarReservaDeServicio"
+				}
+			]
+		},
+
+		{ "menuTitle": "LlegadaCliente",
+		  "options":
+			[
+				{
+					"label": "RegistrarLlegadaCliente",
+					"event": "registrarLlegadaCliente"
+				}
+			]
+		},
+		{ "menuTitle": "RegistrarConsumoServicio",
+		  "options":
+			[
+				{
+					"label": "RegistrarConsumoServicio",
+					"event": "registrarConsumoServicio"
+				}
+			]
+		},
+		{ "menuTitle": "SalidaCliente",
+		  "options":
+			[
+				{
+					"label": "RegistrarSalidaCliente",
+					"event": "registrarSalidaCliente"
+				}
+			]
+		},
+		{ "menuTitle": "Acerca de ...",
+		  "options":
+			[
+				{
+					"label": "Acerca de ...",
+					"event": "acercaDe"
+				}
+			]
+		}		
+		
+	]
+}
+	
