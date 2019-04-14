@@ -1,8 +1,16 @@
-CREATE TABLE SALON 
+--------------------------------------------------------
+--  File created - Sunday-April-14-2019   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Table SALON
+--------------------------------------------------------
+
+  CREATE TABLE SALON 
    (	IDSERVICIO NUMBER, 
 	NOMBRE VARCHAR2(20 BYTE), 
 	CAPACIDAD NUMBER, 
-	COSTOPORHORA NUMBER
+	COSTOPORHORA NUMBER, 
+	TIPO VARCHAR2(20 BYTE)
    ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS NOLOGGING
@@ -10,7 +18,9 @@ CREATE TABLE SALON
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE TBSPROD ;
-
+--------------------------------------------------------
+--  DDL for Index SALON_PK
+--------------------------------------------------------
 
   CREATE UNIQUE INDEX SALON_PK ON SALON (IDSERVICIO) 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOLOGGING 
@@ -18,7 +28,9 @@ CREATE TABLE SALON
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE TBSPROD ;
-
+--------------------------------------------------------
+--  Constraints for Table SALON
+--------------------------------------------------------
 
   ALTER TABLE SALON MODIFY (COSTOPORHORA NOT NULL ENABLE);
   ALTER TABLE SALON MODIFY (CAPACIDAD NOT NULL ENABLE);
@@ -32,7 +44,9 @@ CREATE TABLE SALON
   TABLESPACE TBSPROD  ENABLE;
   ALTER TABLE SALON ADD CONSTRAINT CK_COSTOPORHORA CHECK (COSTOPORHORA > 0) ENABLE;
   ALTER TABLE SALON ADD CONSTRAINT CK_CAPACIDAD CHECK (CAPACIDAD > 0) ENABLE;
-
+--------------------------------------------------------
+--  Ref Constraints for Table SALON
+--------------------------------------------------------
 
   ALTER TABLE SALON ADD CONSTRAINT FK_SERVICOMP FOREIGN KEY (IDSERVICIO)
 	  REFERENCES SERVICIOHOTELCOMPLEMENTARIO (IDSCOMPLEMENTARIO) ENABLE;
