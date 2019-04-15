@@ -2,69 +2,34 @@ package uniandes.isis2304.hotelAndes.negocio;
 
 public interface VOHotel {
 
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHotel#getId()
-	 */
-	long getId();
+	String getNombreHotel();
 
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHotel#setId(long)
-	 */
-	void setId(long id);
+	void setNombreHotel(String nombreHotel);
 
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHotel#getNombre()
-	 */
-	String getNombre();
+	long getEstrellas();
 
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHotel#setNombre(java.lang.String)
-	 */
-	void setNombre(String nombre);
+	void setEstrellas(long estrellas);
 
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHotel#getEstrellas()
-	 */
-	int getEstrellas();
-
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHotel#setEstrellas(int)
-	 */
-	void setEstrellas(int estrellas);
-
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHotel#getPais()
-	 */
-	String getPais();
-
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHotel#setPais(java.lang.String)
-	 */
-	void setPais(String pais);
-
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHotel#getCiudad()
-	 */
 	String getCiudad();
 
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHotel#setCiudad(java.lang.String)
-	 */
 	void setCiudad(String ciudad);
 
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHotel#getIdCadenaHotelera()
-	 */
+	String getPais();
+
+	void setPais(String pais);
+
 	long getIdCadenaHotelera();
 
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHotel#setIdCadenaHotelera(long)
-	 */
 	void setIdCadenaHotelera(long idCadenaHotelera);
 
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHotel#toString()
-	 */
+	long getIdHotel();
+
+	void setIdHotel(long idHotel);
+
+	long getCantidadHabitaciones();
+
+	void setCantidadHabitaciones(long cantidadHabitaciones);
+
 	String toString();
 
 }

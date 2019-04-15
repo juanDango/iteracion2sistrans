@@ -2,29 +2,14 @@ package uniandes.isis2304.hotelAndes.negocio;
 
 public interface VOCuentaServicio {
 
-	/**
-	 * @return El id de la Cadena Hotelera
-	 */
-	long getidCuenta();
+	long getIdCuenta();
 
-	/**
-	 * @param id - El nuevo id de la Cadena Hotelera 
-	 */
-	void setidCuenta(long id);
+	void setIdCuenta(long idCuenta);
 
-	/**
-	 * @return El nombre de la Cadena Hotelera
-	 */
-	long getidServicioComplementario();
+	long getIdServicio();
 
-	/**
-	 * @param nombre - El nuevo nombre de la Cadena Hotelera
-	 */
-	void setidServicioComplementario(long idServicioComplementario);
+	void setIdServicio(long idServicio);
 
-	/**
-	 * @return Una cadena con la información básica de la Cadena Hotelera
-	 */
 	String toString();
 
 }

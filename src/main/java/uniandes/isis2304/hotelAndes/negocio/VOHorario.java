@@ -4,59 +4,26 @@ import java.sql.Timestamp;
 
 public interface VOHorario {
 
-	/**
-	 * @return el id del horario
-	 */
 	long getIdHorario();
 
-	/**
-	 * @param idHorario - el nuevo valor para el id
-	 */
 	void setIdHorario(long idHorario);
 
-	/**
-	 * @return la fecha inicial del horario
-	 */
-	Timestamp getFechaInicial();
+	long getHoraInicio();
 
-	/**
-	 * @param fechaInicial - nueva fecha inicial del horario
-	 */
-	void setFechaInicial(Timestamp fechaInicial);
+	void setHoraInicio(long horaInicio);
 
-	/**
-	 * @return la hora inicial del horario
-	 */
-	int getHoraInicial();
+	long getHoraFinal();
 
-	/**
-	 * @param horaInicial - La nueva hora inicial
-	 */
-	void setHoraInicial(int horaInicial);
+	void setHoraFinal(long horaFinal);
 
-	/**
-	 * @return la fecha final del horario
-	 */
+	Timestamp getFechaInicio();
+
+	void setFechaInicio(Timestamp fechaInicio);
+
 	Timestamp getFechaFinal();
 
-	/**
-	 * @param fechaFinal - El nuevo valor de la fecha final
-	 */
 	void setFechaFinal(Timestamp fechaFinal);
 
-	/**
-	 * @return hora a la que finaliza el servicio
-	 */
-	int getHoraFinal();
-
-	/**
-	 * @param horaFinal nuevo valor para la hora final
-	 */
-	void setHoraFinal(int horaFinal);
-
-	/**
-	 * @return Una cadena con la información básica de la Horario
-	 */
 	String toString();
 
 }

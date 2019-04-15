@@ -1,116 +1,95 @@
 package uniandes.isis2304.hotelAndes.negocio;
 
-/**
- * Clase para modelar el concepto Producto del negocio de HotelAndes
- *
- * @author Juan Daniel Castrellon
- */
-public class Producto implements VOProducti
-{
-	/* ****************************************************************
-	 * 			Atributos
-	 *****************************************************************/
-	/**
-	 * El identificador ÚNICO de la Producto
-	 */
-	private long id;
+public class Producto implements VOProducto {
 	
-	/**
-	 * El nombre de la Producto
-	 */
+	//----------
+	//Atributos
+	//----------
+	
+	private long idProducto;
+	
 	private String nombreProducto;
 	
-	/**
-	 * El precio del producto (precio > 0)
-	 */
-	private double precio;
+	private long precio;
+	
+	//------------
+	//Constructor
+	//------------
 
-	/* ****************************************************************
-	 * 			Métodos
-	 *****************************************************************/
-	/**
-	 * Constructor por defecto
-	 */
-	public Producto() 
-	{
-		this.id = 0;
-		this.nombreProducto = "";
-		this.precio = 0;
-	}
-
-	/**
-	 * Constructor con valores
-	 * @param id - El id del Producto
-	 * @param nombre - El nombre de la Producto
-	 */
-	public Producto(long id, String nombre, double precio) 
-	{
-		this.id = id;
-		this.nombreProducto = nombre;
+	public Producto(long idProducto, String nombreProducto, long precio) {
+		this.idProducto = idProducto;
+		this.nombreProducto = nombreProducto;
 		this.precio = precio;
 	}
 
+	public Producto() {
+		this.idProducto = 0;
+		this.nombreProducto = "";
+		this.precio = 0;
+	}
+	
+	//------------------
+	//Getters y Setters
+	//------------------
+	
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOProducti#getId()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOProducto#getIdProducto()
 	 */
 	@Override
-	public long getId() 
-	{
-		return id;
+	public long getIdProducto() {
+		return idProducto;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOProducti#setId(long)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOProducto#setIdProducto(long)
 	 */
 	@Override
-	public void setId(long id) 
-	{
-		this.id = id;
+	public void setIdProducto(long idProducto) {
+		this.idProducto = idProducto;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOProducti#getNombreProducto()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOProducto#getNombreProducto()
 	 */
 	@Override
-	public String getNombreProducto() 
-	{
+	public String getNombreProducto() {
 		return nombreProducto;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOProducti#setNombreProducto(java.lang.String)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOProducto#setNombreProducto(java.lang.String)
 	 */
 	@Override
-	public void setNombreProducto(String nombre) 
-	{
-		this.nombreProducto = nombre;
-	}
-	
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOProducti#getPrecio()
-	 */
-	@Override
-	public double  getPrecio()
-	{
-		return precio;
-	}
-	
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOProducti#setPrecio(double)
-	 */
-	@Override
-	public void setPrecio(double precio)
-	{
-		this.precio = precio;
+	public void setNombreProducto(String nombreProducto) {
+		this.nombreProducto = nombreProducto;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOProducti#toString()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOProducto#getPrecio()
 	 */
 	@Override
-	public String toString() 
-	{
-		return "Producto [id=" + id + ", nombre=" + nombreProducto + ", precio=" + precio + "]";
+	public long getPrecio() {
+		return precio;
+	}
+
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOProducto#setPrecio(long)
+	 */
+	@Override
+	public void setPrecio(long precio) {
+		this.precio = precio;
+	}
+	
+	//----------
+	//toString
+	//----------
+	
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOProducto#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Producto [id=" + idProducto + ", nombre=" + nombreProducto + ", precio=" + precio + "]";
 	}
 
 }

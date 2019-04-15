@@ -2,50 +2,46 @@ package uniandes.isis2304.hotelAndes.negocio;
 
 public class Registro implements VORegistro {
 
-	private long idRegistro;
+	//----------
+	//Atributos
+	//----------
 	
-	private long idRegistrador;
-
+	private long idRegistro;
 	
 	private long idReserva;
 	
-	private char checkIn;
+	private char estadoCheckIn;
 	
-	private char checkOut;
+	private char estadoCheckOut;
 	
-	public Registro (){
-		idRegistro = 0;
-		idReserva = 0;
-		checkIn = ' ';
-		checkOut = ' ';
-		idRegistrador = 0;
-	}
+	private long idRegistrador;
+	
+	//------------
+	//Constructor
+	//------------
 
-	public Registro(long idRegistrador, long idRegistro, long idReserva, char checkIn, char checkOut) {
-		super();
+	public Registro(long idRegistro, long idReserva, char estadoCheckIn, char estadoCheckOut, long idRegistrador) {
 		this.idRegistro = idRegistro;
 		this.idReserva = idReserva;
-		this.checkIn = checkIn;
-		this.checkOut = checkOut;
+		this.estadoCheckIn = estadoCheckIn;
+		this.estadoCheckOut = estadoCheckOut;
 		this.idRegistrador = idRegistrador;
 	}
 
-	/**
-	 * @return the idRegistrador
-	 */
-	public long getIdRegistrador() {
-		return idRegistrador;
+	public Registro() {
+		this.idRegistro = 0;
+		this.idReserva = 0;
+		this.estadoCheckIn = 0;
+		this.estadoCheckOut = 0;
+		this.idRegistrador = 0;
 	}
-
-	/**
-	 * @param idRegistrador the idRegistrador to set
-	 */
-	public void setIdRegistrador(long idRegistrador) {
-		this.idRegistrador = idRegistrador;
-	}
-
+	
+	//------------------
+	//Getters y Setters
+	//------------------
+	
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VORegistro#getIdRegistro()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VORegistro#getIdRegistro()
 	 */
 	@Override
 	public long getIdRegistro() {
@@ -53,7 +49,7 @@ public class Registro implements VORegistro {
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VORegistro#setIdRegistro(long)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VORegistro#setIdRegistro(long)
 	 */
 	@Override
 	public void setIdRegistro(long idRegistro) {
@@ -61,7 +57,7 @@ public class Registro implements VORegistro {
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VORegistro#getIdReserva()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VORegistro#getIdReserva()
 	 */
 	@Override
 	public long getIdReserva() {
@@ -69,7 +65,7 @@ public class Registro implements VORegistro {
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VORegistro#setIdReserva(long)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VORegistro#setIdReserva(long)
 	 */
 	@Override
 	public void setIdReserva(long idReserva) {
@@ -77,43 +73,63 @@ public class Registro implements VORegistro {
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VORegistro#getCheckIn()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VORegistro#getEstadoCheckIn()
 	 */
 	@Override
-	public char getCheckIn() {
-		return checkIn;
+	public char getEstadoCheckIn() {
+		return estadoCheckIn;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VORegistro#setCheckIn(char)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VORegistro#setEstadoCheckIn(char)
 	 */
 	@Override
-	public void setCheckIn(char checkIn) {
-		this.checkIn = checkIn;
+	public void setEstadoCheckIn(char estadoCheckIn) {
+		this.estadoCheckIn = estadoCheckIn;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VORegistro#getCheckOut()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VORegistro#getEstadoCheckOut()
 	 */
 	@Override
-	public char getCheckOut() {
-		return checkOut;
+	public char getEstadoCheckOut() {
+		return estadoCheckOut;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VORegistro#setCheckOut(char)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VORegistro#setEstadoCheckOut(char)
 	 */
 	@Override
-	public void setCheckOut(char checkOut) {
-		this.checkOut = checkOut;
+	public void setEstadoCheckOut(char estadoCheckOut) {
+		this.estadoCheckOut = estadoCheckOut;
+	}
+
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VORegistro#getIdRegistrador()
+	 */
+	@Override
+	public long getIdRegistrador() {
+		return idRegistrador;
+	}
+
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VORegistro#setIdRegistrador(long)
+	 */
+	@Override
+	public void setIdRegistrador(long idRegistrador) {
+		this.idRegistrador = idRegistrador;
 	}
 	
+	//----------
+	//toString
+	//----------
+	
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VORegistro#toString()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VORegistro#toString()
 	 */
 	@Override
-	public String toString() 
-	{
-		return "Registro [idRegistro=" + idRegistro + ", idReserva=" + idReserva + ", checkIn=" + checkIn + ", checkOut" + checkOut + "]";
+	public String toString() {
+		return "Registro [id=" + idRegistro + ", reserva=" + idReserva + ", check in=" + estadoCheckIn + ", check out=" + estadoCheckOut + ", registrador=" + idRegistrador +"]";
 	}
+	
 }

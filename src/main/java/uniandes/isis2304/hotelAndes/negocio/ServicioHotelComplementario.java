@@ -1,91 +1,71 @@
 package uniandes.isis2304.hotelAndes.negocio;
 
-/**
- * Clase para modelar el concepto ServicioHotelComplementario del negocio de HotelAndes
- *
- * @author Juan Daniel Castrellon
- */
-public class ServicioHotelComplementario implements VOServicioHotelComplementario
-{
-	/* ****************************************************************
-	 * 			Atributos
-	 *****************************************************************/
-	/**
-	 * El identificador ÚNICO del Servicio Hotel Complementario
-	 */
-	private long id;
+public class ServicioHotelComplementario implements VOServicioHotelComplementario {
 	
-	/**
-	 * El nombre del Servicio  Hotel Complementario
-	 */
-	private String nombre;
+	//----------
+	//Atributos
+	//----------
+	
+	protected long idSComplementario;
+	
+	private String nombreServicio;
 	
 	private long idHotel;
+	
+	//------------
+	//Constructor
+	//------------
 
-	/* ****************************************************************
-	 * 			Métodos
-	 *****************************************************************/
-	/**
-	 * Constructor por defecto
-	 */
-	public ServicioHotelComplementario() 
-	{
-		this.id = 0;
-		this.nombre = "";
-		this.idHotel = 0;
-	}
-
-	/**
-	 * Constructor con valores
-	 * @param id - El id del Servicio Hotel Complementario
-	 * @param nombre - El nombre del Servicio Hotel Complementario
-	 */
-	public ServicioHotelComplementario(long id, String nombre, long idHotel) 
-	{
-		this.id = id;
-		this.nombre = nombre;
+	public ServicioHotelComplementario(long idSComplementario, String nombreServicio, long idHotel) {
+		this.idSComplementario = idSComplementario;
+		this.nombreServicio = nombreServicio;
 		this.idHotel = idHotel;
 	}
 
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOServicioHotelComplementario#getId()
-	 */
-	@Override
-	public long getId() 
-	{
-		return id;
+	public ServicioHotelComplementario() {
+		this.idSComplementario = 0;
+		this.nombreServicio = "";
+		this.idHotel = 0;
 	}
-
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOServicioHotelComplementario#setId(long)
-	 */
-	@Override
-	public void setId(long id) 
-	{
-		this.id = id;
-	}
-
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOServicioHotelComplementario#getNombre()
-	 */
-	@Override
-	public String getNombre() 
-	{
-		return nombre;
-	}
-
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOServicioHotelComplementario#setNombre(java.lang.String)
-	 */
-	@Override
-	public void setNombre(String nombre) 
-	{
-		this.nombre = nombre;
-	}
-
 	
+	//------------------
+	//Getters y Setters
+	//------------------
+
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOServicioHotelComplementario#getIdHotel()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOServicioHotelComplementario#getIdSComplementario()
+	 */
+	@Override
+	public long getIdSComplementario() {
+		return idSComplementario;
+	}
+
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOServicioHotelComplementario#setIdSComplementario(long)
+	 */
+	@Override
+	public void setIdSComplementario(long idSComplementario) {
+		this.idSComplementario = idSComplementario;
+	}
+
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOServicioHotelComplementario#getNombreServicio()
+	 */
+	@Override
+	public String getNombreServicio() {
+		return nombreServicio;
+	}
+
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOServicioHotelComplementario#setNombreServicio(java.lang.String)
+	 */
+	@Override
+	public void setNombreServicio(String nombreServicio) {
+		this.nombreServicio = nombreServicio;
+	}
+
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOServicioHotelComplementario#getIdHotel()
 	 */
 	@Override
 	public long getIdHotel() {
@@ -93,20 +73,26 @@ public class ServicioHotelComplementario implements VOServicioHotelComplementari
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOServicioHotelComplementario#setIdHotel(long)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOServicioHotelComplementario#setIdHotel(long)
 	 */
 	@Override
 	public void setIdHotel(long idHotel) {
 		this.idHotel = idHotel;
 	}
-
+	
+	//----------
+	//toString
+	//----------
+	
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOServicioHotelComplementario#toString()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOServicioHotelComplementario#toString()
 	 */
 	@Override
-	public String toString() 
-	{
-		return "Servicio Hotel Complementario [id=" + id + ", nombre=" + nombre + ", idHotel=" + idHotel +"]";
+	public String toString() {
+		return "Servicio Complementario [id=" + idSComplementario + ", nombre=" + nombreServicio + ", hotel=" + idHotel + "]";
 	}
 
+	public String toStringTemporal() { 
+		return "[id=" + idSComplementario + ", nombre=" + nombreServicio + ", hotel=" + idHotel ;
+	}
 }

@@ -1,133 +1,102 @@
 package uniandes.isis2304.hotelAndes.negocio;
 
-/**
- * Clase para modelar el concepto CaracteristicaAdicional del negocio de HotelAndes
- *
- * @author Juan Daniel Castrellon
- */
-public class CaracteristicaAdicional implements VOCaracteristicaAdicional
-{
-	/* ****************************************************************
-	 * 			Atributos
-	 *****************************************************************/
-	/**
-	 * El identificador ÚNICO de la Caracteristica Adicional
-	 */
-	private long idCaracteristica;
+public class CaracteristicaAdicional implements VOCaracteristicaAdicional {
 	
-	/**
-	 * El nombre de la Caracteristica Adicional (CK > 0)
-	 */
-	private int limite;
+	//------------
+	//Atributos
+	//------------
 	
-	/**
-	 * El descuento de la caracteristica adicional
-	 */
-	private double dcto;
+	private long idCaracteristicaAdicional;
 	
-	/**
-	 * La descripcion de la caracteristica adicional
-	 */
+	private long limite;
+	
+	private long dcto;
+	
 	private String descripcion;
 	
-	/**
-	 * El id del plan de consumo al cual esta asociado
-	 */
-	private long planDeConsumoId;
+	private long idServicioComplementario;
 	
-	/**
-	 * El id del servicio al cual esta asociado
-	 */
-	private long idServicioHotel;
+	private long idServicioAlojamiento;
 
-	/* ****************************************************************
-	 * 			Métodos
-	 *****************************************************************/
-	/**
-	 * Constructor por defecto
-	 */
-	public CaracteristicaAdicional() 
-	{
-		this.idCaracteristica = 0;
-		this.limite = 0;
-		this.dcto = 0.0;
-		this.descripcion = "";
-		this.planDeConsumoId = 0;
-		this.idServicioHotel = 0;
-	}
-
-	/**
-	 * Constructor con valores
-	 * @param id - El id de la Caracteristica Adicional
-	 * @param limite - El limite de la Caracteristica Adicional
-	 * @param dcto - El descuento de la Caracteristica
-	 * @param descripcion - La descripcion de la Caracteristica
-	 * @param planDeConsumoId - El plan de consumo al cual esta asociada la Caracteristica
-	 * @param idServicioHotel - El servicio al cual esta asociada la Caracteristica
-	 */
-	public CaracteristicaAdicional(long idCaracteristica, int limite, double dcto, String descripcion, long planDeConsumoId, long idServicioHotel) {
-		this.idCaracteristica = idCaracteristica;
+	//-------------
+	//Constructor
+	//-------------
+	
+	public CaracteristicaAdicional(long idCaracteristicaAdicional, long limite, long dcto, String descripcion,
+			long idServicioComplementario, long idServicioAlojamiento) {
+		super();
+		this.idCaracteristicaAdicional = idCaracteristicaAdicional;
 		this.limite = limite;
 		this.dcto = dcto;
 		this.descripcion = descripcion;
-		this.planDeConsumoId = planDeConsumoId;
-		this.idServicioHotel = idServicioHotel;
+		this.idServicioComplementario = idServicioComplementario;
+		this.idServicioAlojamiento = idServicioAlojamiento;
+	}
+	
+	public CaracteristicaAdicional() {
+		super();
+		this.idCaracteristicaAdicional = 0;
+		this.limite = 0;
+		this.dcto = 0;
+		this.descripcion = "";
+		this.idServicioComplementario = 0;
+		this.idServicioAlojamiento = 0;
+	}
+
+	//------------------
+	//Getters y Setters
+	//------------------
+	
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaAdicional#getIdCaracteristicaAdicional()
+	 */
+	@Override
+	public long getIdCaracteristicaAdicional() {
+		return idCaracteristicaAdicional;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCarateristicaAdicional#getIdCaracteristica()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaAdicional#setIdCaracteristicaAdicional(long)
 	 */
 	@Override
-	public long getIdCaracteristica() 
-	{
-		return idCaracteristica;
+	public void setIdCaracteristicaAdicional(long idCaracteristicaAdicional) {
+		this.idCaracteristicaAdicional = idCaracteristicaAdicional;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCarateristicaAdicional#setIdCaracteristica(long)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaAdicional#getLimite()
 	 */
 	@Override
-	public void setIdCaracteristica(long id) 
-	{
-		this.idCaracteristica = id;
-	}
-
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCarateristicaAdicional#getLimite()
-	 */
-	@Override
-	public int getLimite() 
-	{
+	public long getLimite() {
 		return limite;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCarateristicaAdicional#setLimite(int)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaAdicional#setLimite(long)
 	 */
 	@Override
-	public void setLimite(int limite) 
-	{
+	public void setLimite(long limite) {
 		this.limite = limite;
 	}
-	
+
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCarateristicaAdicional#getDcto()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaAdicional#getDcto()
 	 */
 	@Override
-	public double getDcto() {
+	public long getDcto() {
 		return dcto;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCarateristicaAdicional#setDcto(double)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaAdicional#setDcto(long)
 	 */
 	@Override
-	public void setDcto(double dcto) {
+	public void setDcto(long dcto) {
 		this.dcto = dcto;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCarateristicaAdicional#getDescripcion()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaAdicional#getDescripcion()
 	 */
 	@Override
 	public String getDescripcion() {
@@ -135,7 +104,7 @@ public class CaracteristicaAdicional implements VOCaracteristicaAdicional
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCarateristicaAdicional#setDescripcion(java.lang.String)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaAdicional#setDescripcion(java.lang.String)
 	 */
 	@Override
 	public void setDescripcion(String descripcion) {
@@ -143,44 +112,47 @@ public class CaracteristicaAdicional implements VOCaracteristicaAdicional
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCarateristicaAdicional#getPlanDeConsumoId()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaAdicional#getIdServicioComplementario()
 	 */
 	@Override
-	public long getPlanDeConsumoId() {
-		return planDeConsumoId;
+	public long getIdServicioComplementario() {
+		return idServicioComplementario;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCarateristicaAdicional#setPlanDeConsumoId(long)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaAdicional#setIdServicioComplementario(long)
 	 */
 	@Override
-	public void setPlanDeConsumoId(long planDeConsumoId) {
-		this.planDeConsumoId = planDeConsumoId;
+	public void setIdServicioComplementario(long idServicioComplementario) {
+		this.idServicioComplementario = idServicioComplementario;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCarateristicaAdicional#getIdServicioHotel()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaAdicional#getIdServicioAlojamiento()
 	 */
 	@Override
-	public long getIdServicioHotel() {
-		return idServicioHotel;
+	public long getIdServicioAlojamiento() {
+		return idServicioAlojamiento;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCarateristicaAdicional#setIdServicioHotel(long)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaAdicional#setIdServicioAlojamiento(long)
 	 */
 	@Override
-	public void setIdServicioHotel(long idServicioHotel) {
-		this.idServicioHotel = idServicioHotel;
+	public void setIdServicioAlojamiento(long idServicioAlojamiento) {
+		this.idServicioAlojamiento = idServicioAlojamiento;
 	}
-
+	
+	//---------
+	//toString
+	//---------
+	
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCarateristicaAdicional#toString()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaAdicional#toString()
 	 */
 	@Override
-	public String toString() 
-	{
-		return "Caracteristica Adicional [id=" + idCaracteristica + ", limite=" + limite + ", dcto=" + dcto + ", descripcion=" + descripcion + ", planDeConsumoId="+planDeConsumoId + ", idServicioHotel=" + idServicioHotel + "]";
+	public String toString() {
+		return "Caracteristica Adicional [id=" + idCaracteristicaAdicional + ", límite=" + limite + ", dcto=" + dcto + ", descripcion=" + descripcion + ", idServicio=" + idServicioComplementario + ", idAlojamiento=" + idServicioAlojamiento +"]";
 	}
-
+	
 }

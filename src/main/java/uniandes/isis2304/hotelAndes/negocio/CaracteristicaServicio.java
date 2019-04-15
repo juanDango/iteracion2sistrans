@@ -2,31 +2,44 @@ package uniandes.isis2304.hotelAndes.negocio;
 
 public class CaracteristicaServicio implements VOCaracteristicaServicio {
 
+	//----------
+	//Atributos
+	//----------
+	
 	private long idCaracteristica;
 	
 	private long idServicio;
 	
-	private String descripcion;
-	
 	private String nombreCaracteristica;
 	
-	public CaracteristicaServicio(){
-		idCaracteristica = 0;
-		idServicio = 0;
-		descripcion = "";
-		nombreCaracteristica = "";
-	}
+	private String descripcion;
 
-	public CaracteristicaServicio(long idCaracteristica, long idServicio, String descripcion,
-			String nombreCaracteristica) {
+	//------------
+	//Constructor
+	//------------
+	
+	public CaracteristicaServicio(long idCaracteristica, long idServicio, String nombreCaracteristica,
+			String descripcion) {
 		this.idCaracteristica = idCaracteristica;
 		this.idServicio = idServicio;
-		this.descripcion = descripcion;
 		this.nombreCaracteristica = nombreCaracteristica;
+		this.descripcion = descripcion;
 	}
-
+	
+	public CaracteristicaServicio() {
+		super();
+		this.idCaracteristica = 0;
+		this.idServicio = 0;
+		this.nombreCaracteristica = "";
+		this.descripcion = "";
+	}
+	
+	//------------------
+	//Getters y Setters
+	//------------------
+	
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCaracteristicaSercvicio#getIdCaracteristica()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaServicio#getIdCaracteristica()
 	 */
 	@Override
 	public long getIdCaracteristica() {
@@ -34,7 +47,7 @@ public class CaracteristicaServicio implements VOCaracteristicaServicio {
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCaracteristicaSercvicio#setIdCaracteristica(long)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaServicio#setIdCaracteristica(long)
 	 */
 	@Override
 	public void setIdCaracteristica(long idCaracteristica) {
@@ -42,23 +55,39 @@ public class CaracteristicaServicio implements VOCaracteristicaServicio {
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCaracteristicaSercvicio#getidServicio()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaServicio#getIdServicio()
 	 */
 	@Override
-	public long getidServicio() {
+	public long getIdServicio() {
 		return idServicio;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCaracteristicaSercvicio#setidServicio(long)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaServicio#setIdServicio(long)
 	 */
 	@Override
-	public void setidServicio(long idServicio) {
+	public void setIdServicio(long idServicio) {
 		this.idServicio = idServicio;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCaracteristicaSercvicio#getDescripcion()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaServicio#getNombreCaracteristica()
+	 */
+	@Override
+	public String getNombreCaracteristica() {
+		return nombreCaracteristica;
+	}
+
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaServicio#setNombreCaracteristica(java.lang.String)
+	 */
+	@Override
+	public void setNombreCaracteristica(String nombreCaracteristica) {
+		this.nombreCaracteristica = nombreCaracteristica;
+	}
+
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaServicio#getDescripcion()
 	 */
 	@Override
 	public String getDescripcion() {
@@ -66,35 +95,22 @@ public class CaracteristicaServicio implements VOCaracteristicaServicio {
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCaracteristicaSercvicio#setDescripcion(java.lang.String)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaServicio#setDescripcion(java.lang.String)
 	 */
 	@Override
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCaracteristicaSercvicio#getnombreCaracteristica()
-	 */
-	@Override
-	public String getnombreCaracteristica() {
-		return nombreCaracteristica;
-	}
-
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCaracteristicaSercvicio#setnombreCaracteristica(java.lang.String)
-	 */
-	@Override
-	public void setnombreCaracteristica(String nombreCaracteristica) {
-		this.nombreCaracteristica = nombreCaracteristica;
-	}
+	
+	//----------
+	//toString
+	//----------
 	
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCaracteristicaSercvicio#toString()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCaracteristicaServicio#toString()
 	 */
 	@Override
-	public String toString() 
-	{
-		return "Caracteristica Servicio [idCaracteristica=" + idCaracteristica + ", idServicio=" + idServicio + ", descripcion=" + descripcion + ", nombreCaracteristica=" + nombreCaracteristica + "]";
+	public String toString() {
+		return "Caracteristica Servicio [idCaracteristica=" + idCaracteristica + ", idServicio=" + idServicio + ", nombreCaracteristica=" + nombreCaracteristica + ", descripcion=" + descripcion +"]";
 	}
 }

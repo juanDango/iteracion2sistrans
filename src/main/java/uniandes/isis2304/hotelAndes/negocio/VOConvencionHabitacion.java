@@ -1,10 +1,10 @@
 package uniandes.isis2304.hotelAndes.negocio;
 
-public interface VODotacionHabitacion {
+public interface VOConvencionHabitacion {
 
-	long getIdDotacion();
+	long getIdConvencion();
 
-	void setIdDotacion(long idDotacion);
+	void setIdConvencion(long idConvencion);
 
 	long getIdHabitacion();
 

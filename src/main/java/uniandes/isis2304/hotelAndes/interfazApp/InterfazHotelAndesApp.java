@@ -378,7 +378,7 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 				Timestamp inicio = new Timestamp(new SimpleDateFormat("dd/MM/yyyy").parse(fechaInicio).getTime());
 				String fechaFin = JOptionPane.showInputDialog(this, "Ingrese la fecha desea dejar el hotel", "dd/MM/yyyy");
 				Timestamp fin = new Timestamp(new SimpleDateFormat("dd/MM/yyyy").parse(fechaFin).getTime());
-				Horario a = hotelAndes.adicionarHorario(0, 0, inicio, fin);
+				VOHorario a = hotelAndes.adicionarHorario(0, 0, inicio, fin);
 				
 				String idHotel = JOptionPane.showInputDialog(this, "id del hotel en que desea");
 				String idPlanConsumo = JOptionPane.showInputDialog(this, "Ingrese el plan de consumo");
@@ -391,7 +391,7 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 				{
 					if(hotelAndes.darUsuarioPorId(Long.parseLong(idCliente)).equals("Cliente"))
 					{
-						Cuenta b = hotelAndes.adicionarCuenta(0, options[n], Long.parseLong(idPlanConsumo), Long.parseLong(idCliente), 0);
+						VOCuenta b = hotelAndes.adicionarCuenta(0, options[n], Long.parseLong(idPlanConsumo), Long.parseLong(idCliente), 0);
 						Reserva res = hotelAndes.adicionarReserva(Long.parseLong(abono), Long.parseLong(idHabitacion), a.getIdHorario(), Long.parseLong(idCliente), Long.parseLong(idHotel), b.getIdCliente());
 						String rta = "Se agrego la reserva: \n";
 						rta += res.toString();
@@ -418,7 +418,7 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 				String fechaInicio = JOptionPane.showInputDialog(this, "Ingrese la fecha a la que desea tener su servicio", "dd/MM/yyyy");
 				Timestamp inicio = new Timestamp(new SimpleDateFormat("dd/MM/yyyy").parse(fechaInicio).getTime());
 				String horaInicio = JOptionPane.showInputDialog(this, "Ingrese la hora de inicio");
-				Horario a = hotelAndes.adicionarHorario(Integer.parseInt(horaInicio), Integer.parseInt(horaInicio) + servicio.getDuracion(), inicio, inicio);
+				VOHorario a = hotelAndes.adicionarHorario(Integer.parseInt(horaInicio), Integer.parseInt(horaInicio) + servicio.getDuracion(), inicio, inicio);
 				
 				//Creacion de la cuenta
 				String idNumeroDeCuenta = JOptionPane.showInputDialog(this, "Ingrese el id numeroDeLaCuenta");
@@ -446,7 +446,7 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 			if(estadoAplicacion == 2)
 			{
 				String idReserva = JOptionPane.showInputDialog(this, "Ingrese el numero de reserva");
-				Registro res = hotelAndes.adicionarRegistro(Long.parseLong(idReserva), 'E', 'F', identificacionCliente);
+				VORegistro res = hotelAndes.adicionarRegistro(Long.parseLong(idReserva), 'E', 'F', identificacionCliente);
 				String rta = "Se agrego el registro: \n";
 				rta += res.toString();
 				panelDatos.actualizarInterfaz(rta);
@@ -539,7 +539,7 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 		int capacidad = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese la capacidad"));
 		int idHotel = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese el idHotel"));
 
-		Habitacion habitacion = hotelAndes.adicionarHabitacion(tipoHabitacion, costoNoche, capacidad, idHotel);
+		VOHabitacion habitacion = hotelAndes.adicionarHabitacion(tipoHabitacion, costoNoche, capacidad, idHotel);
 		if(habitacion == null)
 		{
 			JOptionPane.showMessageDialog(this, "No fue posible agregar la Habitacion","hotelAndes", JOptionPane.PLAIN_MESSAGE);
@@ -586,7 +586,7 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 		int h1 = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese la hora a la que abre el servicio"));
 		int h2 = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese la hora a la que cierro el servicio"));
 
-		Horario a = hotelAndes.adicionarHorario(h1, h2, null, null);
+		VOHorario a = hotelAndes.adicionarHorario(h1, h2, null, null);
 		ServicioAlimentacion serv = hotelAndes.adicionarServicioAlimentacion(nombreServicio, idHotel, nombreServicio, estilo, capacidad, tipo, esConsumo, a.getIdHorario(), descripcion);
 		if(serv == null)
 		{
@@ -627,7 +627,7 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 			Timestamp inicio = new Timestamp(new SimpleDateFormat("dd/MM/yyyy").parse(fechaInicio).getTime());
 			String fechaFin = JOptionPane.showInputDialog(this, "Ingrese la fecha desea dejar el hotel", "dd/MM/yyyy");
 			Timestamp fin = new Timestamp(new SimpleDateFormat("dd/MM/yyyy").parse(fechaFin).getTime());
-			Plan serv = hotelAndes.adicionarPlan(nombrePlan, tipo, inicio, fin);
+			VOPlan serv = hotelAndes.adicionarPlan(nombrePlan, tipo, inicio, fin);
 			if(serv == null)
 			{
 				JOptionPane.showMessageDialog(this, "No fue posible agregar el plan","hotelAndes", JOptionPane.PLAIN_MESSAGE);
@@ -655,9 +655,9 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 			Timestamp inicio = new Timestamp(new SimpleDateFormat("dd/MM/yyyy").parse(fechaInicio).getTime());
 			String fechaFin = JOptionPane.showInputDialog(this, "Ingrese la fecha desea dejar el hotel", "dd/MM/yyyy");
 			Timestamp fin = new Timestamp(new SimpleDateFormat("dd/MM/yyyy").parse(fechaFin).getTime());
-			Horario a = hotelAndes.adicionarHorario(0, 0, inicio, fin);
+			VOHorario a = hotelAndes.adicionarHorario(0, 0, inicio, fin);
 			Reserva resv = hotelAndes.adicionarReserva(abono, idHabitacion, a.getIdHorario(), idCliente, idHotel,0);
-			Cuenta cuenta = hotelAndes.adicionarCuenta(0, "Efectivo", 0 , idCliente, resv.getIdReserva());
+			VOCuenta cuenta = hotelAndes.adicionarCuenta(0, "Efectivo", 0 , idCliente, resv.getIdReserva());
 			resv.setIdCuenta(cuenta.getIdCuenta());
 			ServicioAlojamiento  serv = hotelAndes.adicionarServicioAlojamiento(cantidadPersonas, cuenta.getIdCuenta());
 			ServicioAlojamientoHabitacion servhab = hotelAndes.adicionarServicioAlojamientoHabitacion(serv.getId(), idHabitacion);
@@ -680,7 +680,7 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 		int idCuenta = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese el id de su cuenta de consumo"));
 		int idServicio = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese el id del servicio"));
 
-		CuentaServicio serv = hotelAndes.adicionarCuentaServicio(idCuenta, idServicio);
+		VOCuentaServicio serv = hotelAndes.adicionarCuentaServicio(idCuenta, idServicio);
 		if(serv == null)
 		{
 			JOptionPane.showMessageDialog(this, "No fue posible agregar la reserva del servicio","hotelAndes", JOptionPane.PLAIN_MESSAGE);
@@ -697,7 +697,7 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 		int idCuenta = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese el id de su cuenta de consumo"));
 		int idServicio = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese el id del servicio que consume"));
 
-		CuentaServicio serv = hotelAndes.adicionarCuentaServicio(idCuenta, idServicio);
+		VOCuentaServicio serv = hotelAndes.adicionarCuentaServicio(idCuenta, idServicio);
 		if(serv == null)
 		{
 			JOptionPane.showMessageDialog(this, "No fue posible agregar la reserva del servicio","hotelAndes", JOptionPane.PLAIN_MESSAGE);

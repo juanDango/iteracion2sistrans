@@ -10,13 +10,17 @@ public interface VORegistro {
 
 	void setIdReserva(long idReserva);
 
-	char getCheckIn();
+	char getEstadoCheckIn();
 
-	void setCheckIn(char checkIn);
+	void setEstadoCheckIn(char estadoCheckIn);
 
-	char getCheckOut();
+	char getEstadoCheckOut();
 
-	void setCheckOut(char checkOut);
+	void setEstadoCheckOut(char estadoCheckOut);
+
+	long getIdRegistrador();
+
+	void setIdRegistrador(long idRegistrador);
 
 	String toString();
 

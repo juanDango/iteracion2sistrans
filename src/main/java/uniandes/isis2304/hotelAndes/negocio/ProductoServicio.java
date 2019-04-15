@@ -2,22 +2,35 @@ package uniandes.isis2304.hotelAndes.negocio;
 
 public class ProductoServicio implements VOProductoServicio {
 
+	//----------
+	//Atributos
+	//----------
+	
 	private long idProducto;
 	
 	private long idServicio;
 	
-	public ProductoServicio(){
-		idProducto = 0;
-		idServicio = 0;
-	}
+	//------------
+	//Constructor
+	//------------
 
 	public ProductoServicio(long idProducto, long idServicio) {
+		super();
 		this.idProducto = idProducto;
 		this.idServicio = idServicio;
 	}
 
+	public ProductoServicio() {
+		this.idProducto = 0;
+		this.idServicio = 0;
+	}
+	
+	//------------------
+	//Getters y Setters
+	//------------------
+	
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOProductoServicio#getIdProducto()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOProductoServicio#getIdProducto()
 	 */
 	@Override
 	public long getIdProducto() {
@@ -25,7 +38,7 @@ public class ProductoServicio implements VOProductoServicio {
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOProductoServicio#setIdProducto(long)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOProductoServicio#setIdProducto(long)
 	 */
 	@Override
 	public void setIdProducto(long idProducto) {
@@ -33,7 +46,7 @@ public class ProductoServicio implements VOProductoServicio {
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOProductoServicio#getIdServicio()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOProductoServicio#getIdServicio()
 	 */
 	@Override
 	public long getIdServicio() {
@@ -41,19 +54,23 @@ public class ProductoServicio implements VOProductoServicio {
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOProductoServicio#setIdServicio(long)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOProductoServicio#setIdServicio(long)
 	 */
 	@Override
 	public void setIdServicio(long idServicio) {
 		this.idServicio = idServicio;
 	}
 	
+	//----------
+	//toString
+	//----------
+	
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOProductoServicio#toString()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOProductoServicio#toString()
 	 */
 	@Override
-	public String toString() 
-	{
-		return "Producto Servicio [idProducto=" + idProducto + ", idServicio=" + idServicio + "]";
+	public String toString() {
+		return "Producto Servicio [producto=" + idProducto + ", servicio=" + idServicio + "]";
 	}
+	
 }

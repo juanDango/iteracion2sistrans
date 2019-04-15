@@ -1,178 +1,100 @@
 package uniandes.isis2304.hotelAndes.negocio;
 
-import java.sql.Timestamp;
+public class Cuenta implements VOCuenta {
 
-/**
- * Clase para modelar el concepto Cuenta del negocio de HotelAndes
- *
- * @author Juan Daniel Castrellon
- */
-public class Cuenta implements VOCuenta
-{
-	/* ****************************************************************
-	 * 			Atributos
-	 *****************************************************************/
-	/**
-	 * El identificador ÚNICO del Cuenta
-	 */
+	//----------
+	//Atributos
+	//----------
+	
 	private long idCuenta;
 	
-	/**
-	 * El valor a pagar del Cuenta
-	 */
-	private double valor;
+	private long valor;
 	
-	/**
-	 * El tipo de pago de la cuenta
-	 */
-	private String metodoPago;
+	private String metodoDePago;
 	
-	/**
-	 * lLa cedula de identificacion del cliente dueño de la cuenta (cedula > 0)
-	 */
-	private long cedula;
-	
-	/**
-	 * El id del plan de cosumo si existe
-	 */
 	private long idPlanConsumo;
 	
 	private long idCliente;
 	
 	private long idReserva;
+	
+	//------------
+	//Constructor
+	//------------
 
-	public String getMetodoPago() {
-		return metodoPago;
-	}
-
-	public void setMetodoPago(String metodoPago) {
-		this.metodoPago = metodoPago;
-	}
-
-	public long getIdCliente() {
-		return idCliente;
-	}
-
-	public void setIdCliente(long idCliente) {
+	public Cuenta(long idCuenta, long valor, String metodoDePago, long idPlanConsumo, long idCliente,
+			long idReserva) {
+		this.idCuenta = idCuenta;
+		this.valor = valor;
+		this.metodoDePago = metodoDePago;
+		this.idPlanConsumo = idPlanConsumo;
 		this.idCliente = idCliente;
-	}
-
-	public long getIdReserva() {
-		return idReserva;
-	}
-
-	public void setIdReserva(long idReserva) {
 		this.idReserva = idReserva;
 	}
 
-	public void setValor(double valor) {
-		this.valor = valor;
-	}
-
-	/* ****************************************************************
-	 * 			Métodos
-	 *****************************************************************/
-	/**
-	 * Constructor por defecto
-	 */
-	public Cuenta() 
-	{
+	public Cuenta() {
 		this.idCuenta = 0;
-		this.valor= 0;
-		this.metodoPago = "";
-		this.cedula = 0;
-		this.idReserva=0;
+		this.valor = 0;
+		this.metodoDePago = "";
 		this.idPlanConsumo = 0;
+		this.idCliente = 0;
+		this.idReserva = 0;
 	}
 
-	/**
-	 * Constructor con valores
-	 * @param id - El id del Cuenta
-	 * @param valor - El valor del Cuenta
-	 * @param metodoPago - Describe como se va a pagar la cuenta
-	 * @param cedula - La cedula del propietario de la cuenta
-	 * @param idPlan - El id del plan
-	 */
-	public Cuenta(long id, double valor, String tipo, long cedula, long idPlan, long idReserva) 
-	{
-		this.idCuenta = id;
-		this.valor = valor;
-		this.metodoPago = tipo;
-		this.cedula = cedula;
-		this.idPlanConsumo = idPlan;
-		this.idReserva=idReserva;
-	}
 
+	//------------------
+	//Getters y Setters
+	//------------------
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCuenta#getIdCuenta()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCuenta#getIdCuenta()
 	 */
 	@Override
-	public long getIdCuenta() 
-	{
+	public long getIdCuenta() {
 		return idCuenta;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCuenta#setIdCuenta(long)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCuenta#setIdCuenta(long)
 	 */
 	@Override
-	public void setIdCuenta(long id) 
-	{
-		this.idCuenta = id;
+	public void setIdCuenta(long idCuenta) {
+		this.idCuenta = idCuenta;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCuenta#getValor()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCuenta#getValor()
 	 */
 	@Override
-	public double getValor() 
-	{
+	public long getValor() {
 		return valor;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCuenta#setValor(int)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCuenta#setValor(long)
 	 */
 	@Override
-	public void setValor(int valor) 
-	{
+	public void setValor(long valor) {
 		this.valor = valor;
 	}
-	
+
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCuenta#getmetodoPago()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCuenta#getMetodoDePago()
 	 */
 	@Override
-	public String getmetodoPago() {
-		return metodoPago;
+	public String getMetodoDePago() {
+		return metodoDePago;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCuenta#setmetodoPago(java.lang.String)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCuenta#setMetodoDePago(java.lang.String)
 	 */
 	@Override
-	public void setmetodoPago(String tipo) {
-		this.metodoPago = tipo;
+	public void setMetodoDePago(String metodoDePago) {
+		this.metodoDePago = metodoDePago;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCuenta#getCedula()
-	 */
-	@Override
-	public long getCedula() {
-		return cedula;
-	}
-
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCuenta#setCedula(long)
-	 */
-	@Override
-	public void setCedula(long cedula) {
-		this.cedula = cedula;
-	}
-
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCuenta#getIdPlanConsumo()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCuenta#getIdPlanConsumo()
 	 */
 	@Override
 	public long getIdPlanConsumo() {
@@ -180,20 +102,54 @@ public class Cuenta implements VOCuenta
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCuenta#setIdPlanConsumo(long)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCuenta#setIdPlanConsumo(long)
 	 */
 	@Override
-	public void setIdPlanConsumo(long IdPlanConsumo) {
-		this.idPlanConsumo = IdPlanConsumo;
+	public void setIdPlanConsumo(long idPlanConsumo) {
+		this.idPlanConsumo = idPlanConsumo;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCuenta#toString()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCuenta#getIdCliente()
 	 */
 	@Override
-	public String toString() 
-	{
-		return "Cuenta [idCuenta=" + idCuenta + ", valor=" + valor + ", metodoPago="+ metodoPago +", cedula=" + cedula + ", idPlanConsumo=" + idPlanConsumo + "]";
+	public long getIdCliente() {
+		return idCliente;
 	}
 
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCuenta#setIdCliente(long)
+	 */
+	@Override
+	public void setIdCliente(long idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCuenta#getIdReserva()
+	 */
+	@Override
+	public long getIdReserva() {
+		return idReserva;
+	}
+
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCuenta#setIdReserva(long)
+	 */
+	@Override
+	public void setIdReserva(long idReserva) {
+		this.idReserva = idReserva;
+	}
+	
+	//----------
+	//toString
+	//----------
+	
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCuenta#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Cuenta [id=" + idCuenta + ", valor=" + valor + ", metodo de pago=" + metodoDePago + ", plan consumo=" + idPlanConsumo+ ", cliente=" + idCliente + ", reserva=" + idReserva +"]";
+	}
 }

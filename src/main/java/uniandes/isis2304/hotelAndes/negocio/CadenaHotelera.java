@@ -1,78 +1,73 @@
 package uniandes.isis2304.hotelAndes.negocio;
 
-import java.util.ArrayList;
-import java.util.List;
+public class CadenaHotelera implements VOCadenaHoletelera {
+	
+	
+	//----------
+	//Atributos
+	//----------
+	private long idCadenaHotelera;
+	
+	private String nombreCadenaHotelera;
 
-/**
- * Clase para modelar el concepto CadenaHotelera del negocio de HotelAndes
- *
- * @author Juan Daniel Castrellon
- */
-public class CadenaHotelera implements VOCadenaHotelera
-{
-	/* ****************************************************************
-	 * 			Atributos
-	 *****************************************************************/
-	/**
-	 * El identificador ÚNICO de la cadena hotelera
+	//-------------
+	//Constructores
+	//-------------
+	public CadenaHotelera(long idCadenaHotelera, String nombreCadenaHotelera) {
+		this.idCadenaHotelera = idCadenaHotelera;
+		this.nombreCadenaHotelera = nombreCadenaHotelera;
+	}
+	
+	public CadenaHotelera() {
+		this.idCadenaHotelera = 0;
+		this.nombreCadenaHotelera = "";
+	}
+
+	//------------------
+	//Getters y setters
+	//------------------
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCadenaHoletelera#getIdCadenaHotelera()
 	 */
-	private long id;
-	
-	/**
-	 * El nombre de la cadena hotelera
-	 */
-	private String nombre;
-	
-	
-	/* ****************************************************************
-	 * 			Métodos
-	 *****************************************************************/
-	/**
-	 * Constructor por defecto
-	 */
-	public CadenaHotelera() 
-	{
-		this.id = 0;
-		this.nombre = "";
-	}
-
-	/**
-	 * Constructor con valores
-	 * @param id - El id de la cadena hotelera
-	 * @param nombre - El nombre de la cadena hotelera
-	 */
-	public CadenaHotelera(long id, String nombre) 
-	{
-		this.id = id;
-		this.nombre = nombre;
-		
-	}
-
-	
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	
-
-
 	@Override
-	public String toString() 
-	{
-		return "Cadena Hotelera [id=" + id + ", nombre=" + nombre + "]";
+	public long getIdCadenaHotelera() {
+		return idCadenaHotelera;
+	}
+
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCadenaHoletelera#setIdCadenaHotelera(long)
+	 */
+	@Override
+	public void setIdCadenaHotelera(long idCadenaHotelera) {
+		this.idCadenaHotelera = idCadenaHotelera;
+	}
+
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCadenaHoletelera#getNombreCadenaHotelera()
+	 */
+	@Override
+	public String getNombreCadenaHotelera() {
+		return nombreCadenaHotelera;
+	}
+
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCadenaHoletelera#setNombreCadenaHotelera(java.lang.String)
+	 */
+	@Override
+	public void setNombreCadenaHotelera(String nombreCadenaHotelera) {
+		this.nombreCadenaHotelera = nombreCadenaHotelera;
+	}
+	
+	//---------
+	//toString
+	//---------
+	
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCadenaHoletelera#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Cadena Hotelera [id=" + idCadenaHotelera + ", nombreCadenaHotelera=" + nombreCadenaHotelera +"]";
 	}
 
 }

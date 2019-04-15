@@ -1,72 +1,52 @@
 package uniandes.isis2304.hotelAndes.negocio;
 
-/**
- * Clase para modelar el concepto Habitacion del negocio de HotelAndes
- *
- * @author Juan Daniel Castrellon
- */
-public class Habitacion implements VOHabitacion
-{
-	/* ****************************************************************
-	 * 			Atributos
-	 *****************************************************************/
-	/**
-	 * es el código de la habitacion
-	 */
+public class Habitacion implements VOHabitacion {
+
+	//----------
+	//Atributos
+	//----------
+	
 	private long idHabitacion;
 	
-	/**
-	 * El tipo de la habitacion a tomar
-	 */
 	private String tipoHabitacion;
 	
-	/**
-	 * El costo por noche
-	 */
-	private double costoNoche;
+	private long costoNoche;
 	
-	/**
-	 * la capacidad que tiene la habitacion
-	 */
-	private int capacidad;
+	private long capacidadHabitacion;
 	
-	/**
-	 * El correo electronico con el que el Habitacion vinculo la cuenta
-	 */
 	private long idHotel;
-
-	/* ****************************************************************
-	 * 			Métodos
-	 *****************************************************************/
-	/**
-	 * Constructor por defecto
-	 */
-	public Habitacion() 
-	{
-		this.idHabitacion = 0;
-		this.tipoHabitacion = "";
-		this.costoNoche = 0;
-		this.capacidad = 0;
-		this.idHotel = 0;
-	}
 	
-	/**
-	 * Constructor con parametros
-	 * @param idHabitacion - el tipo de documento del Habitacion
-	 * @param tipoHabitacion - el numero de documento del Habitacion
-	 * @param idHotel - el correo electronico vinculado
-	 * @param rol - el rol del Habitacion en la app
-	 */
-	public Habitacion(long idHabitacion, String tipoHabitacion, double costoNoche, int capacidad, long idHotel) {
+	private long numeroHabitacion;
+	
+	//------------
+	//Constructor
+	//------------
+
+	public Habitacion(long idHabitacion, String tipoHabitacion, long costoNoche, long capacidadHabitacion, long idHotel,
+			long numeroHabitacion) {
 		this.idHabitacion = idHabitacion;
 		this.tipoHabitacion = tipoHabitacion;
 		this.costoNoche = costoNoche;
-		this.capacidad = capacidad;
+		this.capacidadHabitacion = capacidadHabitacion;
 		this.idHotel = idHotel;
+		this.numeroHabitacion = numeroHabitacion;
 	}
 
+	public Habitacion() {
+		this.idHabitacion = 0;
+		this.tipoHabitacion = "";
+		this.costoNoche = 0;
+		this.capacidadHabitacion = 0;
+		this.idHotel = 0;
+		this.numeroHabitacion = 0;
+	}
+	
+	//------------------
+	//Getters y Setters
+	//------------------
+	
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHabitacion#getIdHabitacion()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOHabitacion#getIdHabitacion()
 	 */
 	@Override
 	public long getIdHabitacion() {
@@ -74,7 +54,7 @@ public class Habitacion implements VOHabitacion
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHabitacion#setIdHabitacion(long)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOHabitacion#setIdHabitacion(long)
 	 */
 	@Override
 	public void setIdHabitacion(long idHabitacion) {
@@ -82,7 +62,7 @@ public class Habitacion implements VOHabitacion
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHabitacion#getTipoHabitacion()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOHabitacion#getTipoHabitacion()
 	 */
 	@Override
 	public String getTipoHabitacion() {
@@ -90,7 +70,7 @@ public class Habitacion implements VOHabitacion
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHabitacion#setTipoHabitacion(java.lang.String)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOHabitacion#setTipoHabitacion(java.lang.String)
 	 */
 	@Override
 	public void setTipoHabitacion(String tipoHabitacion) {
@@ -98,7 +78,39 @@ public class Habitacion implements VOHabitacion
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHabitacion#getIdHotel()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOHabitacion#getCostoNoche()
+	 */
+	@Override
+	public long getCostoNoche() {
+		return costoNoche;
+	}
+
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOHabitacion#setCostoNoche(long)
+	 */
+	@Override
+	public void setCostoNoche(long costoNoche) {
+		this.costoNoche = costoNoche;
+	}
+
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOHabitacion#getCapacidadHabitacion()
+	 */
+	@Override
+	public long getCapacidadHabitacion() {
+		return capacidadHabitacion;
+	}
+
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOHabitacion#setCapacidadHabitacion(long)
+	 */
+	@Override
+	public void setCapacidadHabitacion(long capacidadHabitacion) {
+		this.capacidadHabitacion = capacidadHabitacion;
+	}
+
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOHabitacion#getIdHotel()
 	 */
 	@Override
 	public long getIdHotel() {
@@ -106,7 +118,7 @@ public class Habitacion implements VOHabitacion
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHabitacion#setIdHotel(long)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOHabitacion#setIdHotel(long)
 	 */
 	@Override
 	public void setIdHotel(long idHotel) {
@@ -114,44 +126,31 @@ public class Habitacion implements VOHabitacion
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHabitacion#getCostoNoche()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOHabitacion#getNumeroHabitacion()
 	 */
 	@Override
-	public double getCostoNoche() {
-		return costoNoche;
+	public long getNumeroHabitacion() {
+		return numeroHabitacion;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHabitacion#setcostoNoche(double)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOHabitacion#setNumeroHabitacion(long)
 	 */
 	@Override
-	public void setcostoNoche(double costoNoche) {
-		this.costoNoche = costoNoche;
-	}
-
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHabitacion#getCapacidad()
-	 */
-	@Override
-	public int getCapacidad() {
-		return capacidad;
+	public void setNumeroHabitacion(long numeroHabitacion) {
+		this.numeroHabitacion = numeroHabitacion;
 	}
 	
+	//----------
+	//toString
+	//----------
+	
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHabitacion#setCapacidad(int)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOHabitacion#toString()
 	 */
 	@Override
-	public void setCapacidad(int capacidad) {
-		this.capacidad = capacidad;
+	public String toString() {
+		return "Habitacion [id=" + idHabitacion + ", tipo=" + tipoHabitacion + ", costo noche=" + costoNoche + ", capacidad Habitacion=" + capacidadHabitacion + ", hotel=" + idHotel + ", numeroHabitacion=" + numeroHabitacion +"]";
 	}
-
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOHabitacion#toString()
-	 */
-	@Override
-	public String toString() 
-	{
-		return "Habitacion [tipoDocumento=" + idHabitacion + ", tipoHabitacion=" + tipoHabitacion + ", costoNoche=" + costoNoche + ", capacidad=" + capacidad + ", idHotel=" + idHotel + "]";
-	}
-
+	
 }

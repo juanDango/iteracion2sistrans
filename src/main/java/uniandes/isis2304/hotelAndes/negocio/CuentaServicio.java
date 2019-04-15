@@ -1,91 +1,75 @@
 package uniandes.isis2304.hotelAndes.negocio;
 
-/**
- * Clase para modelar el concepto CuentaServicio del negocio de HotelAndes
- *
- * @author Juan Daniel Castrellon
- */
-public class CuentaServicio implements VOCuentaServicio
-{
-	/* ****************************************************************
-	 * 			Atributos
-	 *****************************************************************/
-	/**
-	 * El identificador ÚNICO del plan a asociar
-	 */
+public class CuentaServicio implements VOCuentaServicio {
+
+	//----------
+	//Atributos
+	//----------
+	
 	private long idCuenta;
 	
-	/**
-	 * El identidicador de la Caracteristica Adicional a asociar
-	 */
-	private long idServicioComplementario;
+	private long idServicio;
 
-	/* ****************************************************************
-	 * 			Métodos
-	 *****************************************************************/
-	/**
-	 * Constructor por defecto
-	 */
-	public CuentaServicio() 
-	{
-		this.idCuenta = 0;
-		this.idServicioComplementario = 0;
-	}
+	//------------
+	//Constructor
+	//------------
 
-	/**
-	 * Constructor con valores
-	 * @param id - El id de la cadena hotelera
-	 * @param nombre - El nombre de la cadena hotelera
-	 */
-	public CuentaServicio(long idCuenta, long idServicioComplementario) 
-	{
+	public CuentaServicio(long idCuenta, long idServicio) {
 		this.idCuenta = idCuenta;
-		this.idServicioComplementario = idServicioComplementario;
+		this.idServicio = idServicio;
 	}
 
+	public CuentaServicio() {
+		this.idCuenta = 0;
+		this.idServicio = 0;
+	}
+	
+	//------------------
+	//Getters y Setters
+	//------------------
+	
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCuentaServicio#getidCuenta()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCuentaServicio#getIdCuenta()
 	 */
 	@Override
-	public long getidCuenta() 
-	{
+	public long getIdCuenta() {
 		return idCuenta;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCuentaServicio#setidCuenta(long)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCuentaServicio#setIdCuenta(long)
 	 */
 	@Override
-	public void setidCuenta(long id) 
-	{
-		this.idCuenta = id;
+	public void setIdCuenta(long idCuenta) {
+		this.idCuenta = idCuenta;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCuentaServicio#getidServicioComplementario()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCuentaServicio#getIdServicio()
 	 */
 	@Override
-	public long getidServicioComplementario() 
-	{
-		return idServicioComplementario;
+	public long getIdServicio() {
+		return idServicio;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCuentaServicio#setidServicioComplementario(long)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCuentaServicio#setIdServicio(long)
 	 */
 	@Override
-	public void setidServicioComplementario(long idServicioComplementario) 
-	{
-		this.idServicioComplementario = idServicioComplementario;
+	public void setIdServicio(long idServicio) {
+		this.idServicio = idServicio;
 	}
-
+	
+	//----------
+	//toString
+	//----------
+	
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOCuentaServicio#toString()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOCuentaServicio#toString()
 	 */
 	@Override
-	public String toString() 
-	{
-		return "Cuenta Servicio [idCuenta=" + idCuenta + ", idServicioComplementario=" + idServicioComplementario + "]";
+	public String toString() {
+		return "Cuenta Servicio [Cuenta=" + idCuenta + ", servicio=" + idServicio + "]";
 	}
-
+	
 }

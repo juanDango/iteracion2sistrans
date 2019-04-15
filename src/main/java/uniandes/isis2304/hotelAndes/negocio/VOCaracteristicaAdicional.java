@@ -2,69 +2,30 @@ package uniandes.isis2304.hotelAndes.negocio;
 
 public interface VOCaracteristicaAdicional {
 
-	/**
-	 * @return El id de la Caracteristica Adicional
-	 */
-	long getIdCaracteristica();
+	long getIdCaracteristicaAdicional();
 
-	/**
-	 * @param id - El nuevo id de la Caracteristica Adicional 
-	 */
-	void setIdCaracteristica(long id);
+	void setIdCaracteristicaAdicional(long idCaracteristicaAdicional);
 
-	/**
-	 * @return El nombre de la Caracteristica Adicional
-	 */
-	int getLimite();
+	long getLimite();
 
-	/**
-	 * @param nombre - El nuevo nombre de la Caracteristica Adicional
-	 */
-	void setLimite(int limite);
+	void setLimite(long limite);
 
-	/**
-	 * @return el descuento de la Caracteristica
-	 */
-	double getDcto();
+	long getDcto();
 
-	/**
-	 * @param dcto - el nuevo valor del descuento
-	 */
-	void setDcto(double dcto);
+	void setDcto(long dcto);
 
-	/**
-	 * @return la descripcion de la Caracteristica
-	 */
 	String getDescripcion();
 
-	/**
-	 * @param descripcion - el nuevo valor de la descripcion
-	 */
 	void setDescripcion(String descripcion);
 
-	/**
-	 * @return el id del plan de consumo asociado
-	 */
-	long getPlanDeConsumoId();
+	long getIdServicioComplementario();
 
-	/**
-	 * @param planDeConsumoId el nuevo id del plan de consumo
-	 */
-	void setPlanDeConsumoId(long planDeConsumoId);
+	void setIdServicioComplementario(long idServicioComplementario);
 
-	/**
-	 * @return el id del servicio del hotel
-	 */
-	long getIdServicioHotel();
+	long getIdServicioAlojamiento();
 
-	/**
-	 * @param idServicioHotel - El nuevo id del servicio del hotel
-	 */
-	void setIdServicioHotel(long idServicioHotel);
+	void setIdServicioAlojamiento(long idServicioAlojamiento);
 
-	/**
-	 * @return Una cadena con la información básica de la Caracteristica Adicional
-	 */
 	String toString();
 
 }

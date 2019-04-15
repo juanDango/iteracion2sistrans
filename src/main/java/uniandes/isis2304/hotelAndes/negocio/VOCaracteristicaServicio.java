@@ -6,21 +6,18 @@ public interface VOCaracteristicaServicio {
 
 	void setIdCaracteristica(long idCaracteristica);
 
-	long getidServicio();
+	long getIdServicio();
 
-	void setidServicio(long idServicio);
+	void setIdServicio(long idServicio);
+
+	String getNombreCaracteristica();
+
+	void setNombreCaracteristica(String nombreCaracteristica);
 
 	String getDescripcion();
 
 	void setDescripcion(String descripcion);
 
-	String getnombreCaracteristica();
-
-	void setnombreCaracteristica(String nombreCaracteristica);
-
-	/**
-	 * @return Una cadena con la información básica de la Caracteristica Adicional
-	 */
 	String toString();
 
 }

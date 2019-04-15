@@ -2,44 +2,54 @@ package uniandes.isis2304.hotelAndes.negocio;
 
 public class Reserva {
 	
-	public Reserva(long idReserva, long abono,long idHabitacion, long idHorario,long idCliente,long idHotel, long idCuenta) {
-		this.idReserva=idReserva;
-		this.abono=abono;
-		this.idHabitacion=idHabitacion;
-		this.idHorario=idHorario;
-		this.idCliente = idCliente;
-		this.idHotel = idHotel;
-		this.idCuenta = idCuenta;
-	}
-	public Reserva() {
-		this.idReserva=0;
-		this.abono=0;
-		this.idHabitacion=0;
-		this.idHorario=0;
-		this.idCliente = 0;
-		this.idHotel = 0;
-		this.idCuenta = 0;
-	}
-	@Override
-	public String toString() {
-		return "Reserva [idReserva=" + idReserva + ", abono=" + abono + ", idHabitacion=" + idHabitacion
-				+ ", idHorario=" + idHorario + ", idCliente=" + idCliente + ", idHotel=" + idHotel + ", idCuenta="
-				+ idCuenta + "]";
-	}
-
+	//----------
+	//Atributos
+	//----------
+	
 	private long idReserva;
 	
 	private long abono;
 	
 	private long idHabitacion;
-
+	
 	private long idHorario;
-
+	
 	private long idCliente;
-
+	
 	private long idHotel;
 	
 	private long idCuenta;
+	
+	//------------
+	//Constructor
+	//------------
+
+	public Reserva(long idReserva, long abono, long idHabitacion, long idHorario, long idCliente, long idHotel,
+			long idCuenta) {
+		this.idReserva = idReserva;
+		this.abono = abono;
+		this.idHabitacion = idHabitacion;
+		this.idHorario = idHorario;
+		this.idCliente = idCliente;
+		this.idHotel = idHotel;
+		this.idCuenta = idCuenta;
+	}
+
+	public Reserva() {
+		this.idReserva = 0;
+		this.abono = 0;
+		this.idHabitacion = 0;
+		this.idHorario = 0;
+		this.idCliente = 0;
+		this.idHotel = 0;
+		this.idCuenta = 0;
+	}
+	
+	//------------------
+	//Getters y Setters
+	//------------------
+	
+
 
 	public long getIdReserva() {
 		return idReserva;
@@ -96,8 +106,14 @@ public class Reserva {
 	public void setIdCuenta(long idCuenta) {
 		this.idCuenta = idCuenta;
 	}
-
-
-
 	
+	//----------
+	//toString
+	//----------
+	
+	@Override
+	public String toString() {
+		return "Reserva [id=" + idReserva + ", abono=" + abono + ", habitacion=" + idHabitacion + ", horario=" + idHorario + ", cliente=" + idCliente + ", hotel=" + idHotel + ", cuenta=" + idCuenta + "]";
+	}
+
 }

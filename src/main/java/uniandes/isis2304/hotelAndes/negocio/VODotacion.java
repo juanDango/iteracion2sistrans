@@ -14,13 +14,13 @@ public interface VODotacion {
 
 	void setEsCobrable(char esCobrable);
 
-	double getValorObjeto();
+	long getValorObjeto();
 
-	void setValorObjeto(double valorObjeto);
+	void setValorObjeto(long valorObjeto);
 
-	int getIdHabitacion();
+	long getIdHabitacion();
 
-	void setIdHabitacion(int idHabitacion);
+	void setIdHabitacion(long idHabitacion);
 
 	String toString();
 

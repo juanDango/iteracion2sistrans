@@ -2,111 +2,80 @@ package uniandes.isis2304.hotelAndes.negocio;
 
 import java.sql.Timestamp;
 
-/**
- * Clase para modelar el concepto Plan del negocio de HotelAndes
- *
- * @author Juan Daniel Castrellon
- */
-public class Plan implements VOPlan
-{
-	/* ****************************************************************
-	 * 			Atributos
-	 *****************************************************************/
-	/**
-	 * El identificador ÚNICO del Plan
-	 */
-	private long id;
+public class Plan implements VOPlan {
+
+	//----------
+	//Atributos
+	//----------
 	
-	/**
-	 * El nombre del Plan
-	 */
+	private long idPlan;
+	
 	private String nombrePlan;
 	
-	/**
-	 * El tipo del Plan
-	 */
 	private String tipo;
 	
-	/**
-	 * la fecha inicial del Plan
-	 */
 	private Timestamp fechaInicial;
 	
-	/**
-	 * la fecha final del Plan
-	 */
 	private Timestamp fechaFinal;
+	
+	//------------
+	//Constructor
+	//------------
 
-	/* ****************************************************************
-	 * 			Métodos
-	 *****************************************************************/
-	/**
-	 * Constructor por defecto
-	 */
-	public Plan() 
-	{
-		this.id = 0;
+	public Plan(long idPlan, String nombrePlan, String tipo, Timestamp fechaInicial, Timestamp fechaFinal) {
+		this.idPlan = idPlan;
+		this.nombrePlan = nombrePlan;
+		this.tipo = tipo;
+		this.fechaInicial = fechaInicial;
+		this.fechaFinal = fechaFinal;
+	}
+
+	public Plan() {
+		this.idPlan = 0;
 		this.nombrePlan = "";
 		this.tipo = "";
+		this.fechaInicial = new Timestamp(0);
 		this.fechaFinal = new Timestamp(0);
-		this.fechaFinal = new Timestamp(0);
 	}
-
-	/**
-	 * Constructor con valores
-	 * @param id - El id del Plan
-	 * @param nombre - El nombre del Plan
-	 * @param tipo - El tipo del plan
-	 * @param fechaInicial - la fecha a la cual inicia el plan
-	 * @param fechaFinal - la fecha a la cual termina el plan
+	
+	//------------------
+	//Getters y Setters
+	//------------------
+	
+	/* (non-Javadoc)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOPlan#getIdPlan()
 	 */
-	public Plan(long id, String nombre, String tipo, Timestamp fechaInicial, Timestamp fechaFinal) 
-	{
-		this.id = id;
-		this.nombrePlan = nombre;
-		this.tipo = tipo;
-		this.fechaFinal = fechaFinal;
-		this.fechaInicial = fechaInicial;
+	@Override
+	public long getIdPlan() {
+		return idPlan;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOPlan#getId()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOPlan#setIdPlan(long)
 	 */
 	@Override
-	public long getId() 
-	{
-		return id;
+	public void setIdPlan(long idPlan) {
+		this.idPlan = idPlan;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOPlan#setId(long)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOPlan#getNombrePlan()
 	 */
 	@Override
-	public void setId(long id) 
-	{
-		this.id = id;
-	}
-
-	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOPlan#getNombrePlan()
-	 */
-	@Override
-	public String getNombrePlan() 
-	{
+	public String getNombrePlan() {
 		return nombrePlan;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOPlan#setNombrePlan(java.lang.String)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOPlan#setNombrePlan(java.lang.String)
 	 */
 	@Override
-	public void setNombrePlan(String nombrePlan) 
-	{
+	public void setNombrePlan(String nombrePlan) {
 		this.nombrePlan = nombrePlan;
 	}
-	
+
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOPlan#getTipo()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOPlan#getTipo()
 	 */
 	@Override
 	public String getTipo() {
@@ -114,7 +83,7 @@ public class Plan implements VOPlan
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOPlan#setTipo(java.lang.String)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOPlan#setTipo(java.lang.String)
 	 */
 	@Override
 	public void setTipo(String tipo) {
@@ -122,7 +91,7 @@ public class Plan implements VOPlan
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOPlan#getFechaInicial()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOPlan#getFechaInicial()
 	 */
 	@Override
 	public Timestamp getFechaInicial() {
@@ -130,7 +99,7 @@ public class Plan implements VOPlan
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOPlan#setFechaInicial(java.sql.Timestamp)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOPlan#setFechaInicial(java.sql.Timestamp)
 	 */
 	@Override
 	public void setFechaInicial(Timestamp fechaInicial) {
@@ -138,7 +107,7 @@ public class Plan implements VOPlan
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOPlan#getFechaFinal()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOPlan#getFechaFinal()
 	 */
 	@Override
 	public Timestamp getFechaFinal() {
@@ -146,20 +115,23 @@ public class Plan implements VOPlan
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOPlan#setFechaFinal(java.sql.Timestamp)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOPlan#setFechaFinal(java.sql.Timestamp)
 	 */
 	@Override
 	public void setFechaFinal(Timestamp fechaFinal) {
 		this.fechaFinal = fechaFinal;
 	}
-
+	
+	//----------
+	//toString
+	//----------
+	
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VOPlan#toString()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VOPlan#toString()
 	 */
 	@Override
-	public String toString() 
-	{
-		return "Plan [id=" + id + ", nombre=" + nombrePlan + ", tipo="+ tipo +", fechaInicial=" + fechaInicial + ", fechaFinal=" + fechaFinal + "]";
+	public String toString() {
+		return "Plan [id=" + idPlan + ", nombre Plan=" + nombrePlan + ", tipo=" + tipo + ", fecha inicial=" + fechaInicial + ", fecha Final=" + fechaFinal + "]";
 	}
-
+	
 }

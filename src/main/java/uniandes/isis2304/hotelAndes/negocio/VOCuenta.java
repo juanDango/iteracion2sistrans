@@ -2,59 +2,33 @@ package uniandes.isis2304.hotelAndes.negocio;
 
 public interface VOCuenta {
 
-	/**
-	 * @return El id de la Cuenta
-	 */
+	//------------------
+	//Getters y Setters
+	//------------------
 	long getIdCuenta();
 
-	/**
-	 * @param id - El nuevo id de la Cuenta 
-	 */
-	void setIdCuenta(long id);
+	void setIdCuenta(long idCuenta);
 
-	/**
-	 * @return El valor de la Cuenta
-	 */
-	double getValor();
+	long getValor();
 
-	/**
-	 * @param valor - El nuevo valor de la Cuenta
-	 */
-	void setValor(int valor);
+	void setValor(long valor);
 
-	/**
-	 * @return el tipo de pago de la cuenta
-	 */
-	String getmetodoPago();
+	String getMetodoDePago();
 
-	/**
-	 * @param tipo - el nuevo tipo de pago de la cuenta
-	 */
-	void setmetodoPago(String tipo);
+	void setMetodoDePago(String metodoDePago);
 
-	/**
-	 * @return cedula
-	 */
-	long getCedula();
-
-	/**
-	 * @param cedula, la nueva cedula
-	 */
-	void setCedula(long cedula);
-
-	/**
-	 * @return el plan de consumo asociado
-	 */
 	long getIdPlanConsumo();
 
-	/**
-	 * @param IdPlanConsumo, el nuevo plan de consumo
-	 */
-	void setIdPlanConsumo(long IdPlanConsumo);
+	void setIdPlanConsumo(long idPlanConsumo);
 
-	/**
-	 * @return Una cadena con la información básica de la Cuenta
-	 */
+	long getIdCliente();
+
+	void setIdCliente(long idCliente);
+
+	long getIdReserva();
+
+	void setIdReserva(long idReserva);
+
 	String toString();
 
 }

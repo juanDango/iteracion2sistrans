@@ -2,25 +2,25 @@ package uniandes.isis2304.hotelAndes.negocio;
 
 public class Dotacion implements VODotacion {
 
+	//----------
+	//Atributos
+	//----------
+	
 	private long idDotacion;
 	
 	private String nombreObjeto;
 	
 	private char esCobrable;
 	
-	private double valorObjeto;
+	private long valorObjeto;
 	
-	private int idHabitacion;
+	private long idHabitacion;
 	
-	public Dotacion(){
-		this.idDotacion = 0;
-		this.nombreObjeto = "";
-		this.esCobrable = 0;
-		this.valorObjeto = 0;
-		this.idHabitacion = 0;
-	}
+	//------------
+	//Constructor
+	//------------
 
-	public Dotacion(long idDotacion, String nombreObjeto, char esCobrable, double valorObjeto, int idHabitacion) {
+	public Dotacion(long idDotacion, String nombreObjeto, char esCobrable, long valorObjeto, long idHabitacion) {
 		this.idDotacion = idDotacion;
 		this.nombreObjeto = nombreObjeto;
 		this.esCobrable = esCobrable;
@@ -28,8 +28,20 @@ public class Dotacion implements VODotacion {
 		this.idHabitacion = idHabitacion;
 	}
 
+	public Dotacion() {
+		this.idDotacion = 0;
+		this.nombreObjeto = "";
+		this.esCobrable = 0;
+		this.valorObjeto = 0;
+		this.idHabitacion = 0;
+	}
+	
+	//------------------
+	//Getters y Setters
+	//------------------
+	
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VODotacion#getIdDotacion()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VODotacion#getIdDotacion()
 	 */
 	@Override
 	public long getIdDotacion() {
@@ -37,7 +49,7 @@ public class Dotacion implements VODotacion {
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VODotacion#setIdDotacion(long)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VODotacion#setIdDotacion(long)
 	 */
 	@Override
 	public void setIdDotacion(long idDotacion) {
@@ -45,7 +57,7 @@ public class Dotacion implements VODotacion {
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VODotacion#getNombreObjeto()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VODotacion#getNombreObjeto()
 	 */
 	@Override
 	public String getNombreObjeto() {
@@ -53,7 +65,7 @@ public class Dotacion implements VODotacion {
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VODotacion#setNombreObjeto(java.lang.String)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VODotacion#setNombreObjeto(java.lang.String)
 	 */
 	@Override
 	public void setNombreObjeto(String nombreObjeto) {
@@ -61,7 +73,7 @@ public class Dotacion implements VODotacion {
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VODotacion#getEsCobrable()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VODotacion#getEsCobrable()
 	 */
 	@Override
 	public char getEsCobrable() {
@@ -69,7 +81,7 @@ public class Dotacion implements VODotacion {
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VODotacion#setEsCobrable(int)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VODotacion#setEsCobrable(char)
 	 */
 	@Override
 	public void setEsCobrable(char esCobrable) {
@@ -77,43 +89,47 @@ public class Dotacion implements VODotacion {
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VODotacion#getValorObjeto()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VODotacion#getValorObjeto()
 	 */
 	@Override
-	public double getValorObjeto() {
+	public long getValorObjeto() {
 		return valorObjeto;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VODotacion#setValorObjeto(double)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VODotacion#setValorObjeto(long)
 	 */
 	@Override
-	public void setValorObjeto(double valorObjeto) {
+	public void setValorObjeto(long valorObjeto) {
 		this.valorObjeto = valorObjeto;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VODotacion#getIdHabitacion()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VODotacion#getIdHabitacion()
 	 */
 	@Override
-	public int getIdHabitacion() {
+	public long getIdHabitacion() {
 		return idHabitacion;
 	}
 
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VODotacion#setIdHabitacion(int)
+	 * @see uniandes.isis2304.hotelAndes.negocio.VODotacion#setIdHabitacion(long)
 	 */
 	@Override
-	public void setIdHabitacion(int idHabitacion) {
+	public void setIdHabitacion(long idHabitacion) {
 		this.idHabitacion = idHabitacion;
 	}
 	
+	//----------
+	//toString
+	//----------
+	
 	/* (non-Javadoc)
-	 * @see hotelAndes.negocio.VODotacion#toString()
+	 * @see uniandes.isis2304.hotelAndes.negocio.VODotacion#toString()
 	 */
 	@Override
-	public String toString(){
-		return "Dotacion [idDotacion=" + idDotacion + ", nombreObjeto=" + nombreObjeto + ", esCobrable=" + esCobrable + ", valorObjeto=" + valorObjeto + ", idHabitacion=" + idHabitacion + "]";
+	public String toString() {
+		return "Dotacion [idDotacion=" + idDotacion + ", nombre Objero=" + nombreObjeto + ", es Cobrable=" + esCobrable + ", valor Objeto=" + valorObjeto + ", habitacion=" + idHabitacion + "]";
 	}
 	
 }

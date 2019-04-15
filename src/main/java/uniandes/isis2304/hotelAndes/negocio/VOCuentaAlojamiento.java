@@ -6,9 +6,9 @@ public interface VOCuentaAlojamiento {
 
 	void setIdCuenta(long idCuenta);
 
-	long getIdServicio();
+	long getIdServicioAlojamiento();
 
-	void setIdServicio(long idServicio);
+	void setIdServicioAlojamiento(long idServicioAlojamiento);
 
 	String toString();
 
