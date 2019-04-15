@@ -26,6 +26,7 @@ FROM   (SELECT hotel,
                        AND th.nombretipo = ha.tipohabitacion
                        AND sa.idservicioalojamiento = sah.idservicioalojamiento
                        AND sah.idhabitacion = ha.idhabitacion
+                       AND ha.tipohabitacion LIKE 'Sencilla'
                        AND Extract(year FROM h.fechainicio) = 2019) 
         GROUP  BY hotel, 
                   "mes", 
@@ -53,6 +54,7 @@ FROM   (SELECT hotel,
                        AND th.nombretipo = ha.tipohabitacion
                        AND sa.idservicioalojamiento = sah.idservicioalojamiento
                        AND sah.idhabitacion = ha.idhabitacion
+                       AND ha.tipohabitacion LIKE 'Sencilla'
                        AND Extract(year FROM h.fechainicio) = 2019) 
         GROUP  BY hotel, 
                   "mes", 
