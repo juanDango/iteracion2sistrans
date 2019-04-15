@@ -14,7 +14,7 @@ FROM   (SELECT idcliente,
                                servicioalojamiento sa
                                WHERE  h.idhorario = re.idhorario
                                AND sa.idcuenta = cu.idcuenta
-                               AND (DAY(WEEK, h.fechainicio, h.fechafinal)>=14) OR cu.valor >= 15000000)
+                               AND (DATEDIFF(DAY, h.fechainicio, h.fechafinal)>=14) OR cu.valor >= 15000000)
                 GROUP  BY mes, 
                           anio, 
                           idcliente) 
