@@ -3,7 +3,7 @@ SELECT tt.hotel,
        dm."mes", 
        tt.maxi 
 FROM   (SELECT hotel, 
-               Max(ingremax) AS maxi 
+               Min(ingremax) AS maxi 
         FROM   (SELECT hotel, 
                "mes", 
                "dia", 

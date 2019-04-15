@@ -11,7 +11,7 @@ FROM   (SELECT hotel,
         FROM   (SELECT ha.idhotel AS hotel, 
                        Extract (day FROM h.fechainicio)  AS "dia", 
                        Extract(month FROM h.fechainicio) AS "mes", 
-                       ha.capacidadhabitacion AS monto 
+                       cu.valor AS monto 
                 FROM   hotel hot,
                        servicioalojamiento sa,
                        horario h,
@@ -26,8 +26,8 @@ FROM   (SELECT hotel,
                        AND th.nombretipo = ha.tipohabitacion
                        AND sa.idservicioalojamiento = sah.idservicioalojamiento
                        AND sah.idhabitacion = ha.idhabitacion
-                       AND ha.tipohabitacion LIKE 'Sencilla'
-                       AND Extract(year FROM h.fechainicio) = 2019) 
+                       AND ha.tipohabitacion LIKE ?
+                       AND Extract(year FROM h.fechainicio) = ?) 
         GROUP  BY hotel, 
                   "mes", 
                   "dia") 
@@ -39,7 +39,7 @@ FROM   (SELECT hotel,
         FROM   (SELECT ha.idhotel AS hotel, 
                        Extract (day FROM h.fechainicio)  AS "dia", 
                        Extract(month FROM h.fechainicio) AS "mes", 
-                       ha.capacidadhabitacion AS monto 
+                       cu.valor AS monto 
                 FROM   hotel hot,
                        servicioalojamiento sa,
                        horario h,
@@ -54,8 +54,8 @@ FROM   (SELECT hotel,
                        AND th.nombretipo = ha.tipohabitacion
                        AND sa.idservicioalojamiento = sah.idservicioalojamiento
                        AND sah.idhabitacion = ha.idhabitacion
-                       AND ha.tipohabitacion LIKE 'Sencilla'
-                       AND Extract(year FROM h.fechainicio) = 2019) 
+                       AND ha.tipohabitacion LIKE ?
+                       AND Extract(year FROM h.fechainicio) = ?) 
         GROUP  BY hotel, 
                   "mes", 
                   "dia") dm 

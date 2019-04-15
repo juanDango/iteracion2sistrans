@@ -11,7 +11,7 @@ FROM   (SELECT hotel,
         FROM   (SELECT ha.idhotel AS hotel, 
                        Extract (day FROM h.fechainicio)  AS "dia", 
                        Extract(month FROM h.fechainicio) AS "mes", 
-                       ha.capacidadhabitacion AS monto 
+                       cu.valor AS monto 
                 FROM   hotel hot,
                        servicioalojamiento sa,
                        horario h,
@@ -39,7 +39,7 @@ FROM   (SELECT hotel,
         FROM   (SELECT ha.idhotel AS hotel, 
                        Extract (day FROM h.fechainicio)  AS "dia", 
                        Extract(month FROM h.fechainicio) AS "mes", 
-                       ha.capacidadhabitacion AS monto 
+                       cu.valor AS monto 
                 FROM   hotel hot,
                        servicioalojamiento sa,
                        horario h,
