@@ -18,7 +18,7 @@ public class Hotel implements VOHotel {
 	
 	private long idHotel;
 	
-	private long cantidadHabitaciones;
+	private long cantHabitaciones;
 	
 	//------------
 	//Constructor
@@ -32,7 +32,7 @@ public class Hotel implements VOHotel {
 		this.pais = pais;
 		this.idCadenaHotelera = idCadenaHotelera;
 		this.idHotel = idHotel;
-		this.cantidadHabitaciones = cantidadHabitaciones;
+		this.cantHabitaciones = cantidadHabitaciones;
 	}
 
 	public Hotel() {
@@ -42,7 +42,7 @@ public class Hotel implements VOHotel {
 		this.pais = "";
 		this.idCadenaHotelera = 0;
 		this.idHotel = 0;
-		this.cantidadHabitaciones = 0;
+		this.cantHabitaciones = 0;
 	}
 	
 	//------------------
@@ -150,7 +150,7 @@ public class Hotel implements VOHotel {
 	 */
 	@Override
 	public long getCantidadHabitaciones() {
-		return cantidadHabitaciones;
+		return cantHabitaciones;
 	}
 
 	/* (non-Javadoc)
@@ -158,7 +158,7 @@ public class Hotel implements VOHotel {
 	 */
 	@Override
 	public void setCantidadHabitaciones(long cantidadHabitaciones) {
-		this.cantidadHabitaciones = cantidadHabitaciones;
+		this.cantHabitaciones = cantidadHabitaciones;
 	}
 	
 	//----------
@@ -170,7 +170,7 @@ public class Hotel implements VOHotel {
 	 */
 	@Override
 	public String toString() {
-		return "Hotel [nombre Hotel=" + nombreHotel + ", estrellas=" + estrellas + ", ciudad=" + ciudad + ", pais=" + pais + ", cadena hotelera=" + idCadenaHotelera + ", idHotel=" + idHotel + ", cantidad Habitacionesl=" + cantidadHabitaciones + "]";
+		return "Hotel [nombre Hotel=" + nombreHotel + ", estrellas=" + estrellas + ", ciudad=" + ciudad + ", pais=" + pais + ", cadena hotelera=" + idCadenaHotelera + ", idHotel=" + idHotel + ", cantidad Habitacionesl=" + cantHabitaciones + "]";
 	}
 	
 }

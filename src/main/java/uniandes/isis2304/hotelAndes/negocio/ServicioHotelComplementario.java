@@ -12,6 +12,8 @@ public class ServicioHotelComplementario implements VOServicioHotelComplementari
 	
 	private long idHotel;
 	
+	private long idHorario;
+
 	//------------
 	//Constructor
 	//------------
@@ -94,5 +96,13 @@ public class ServicioHotelComplementario implements VOServicioHotelComplementari
 
 	public String toStringTemporal() { 
 		return "[id=" + idSComplementario + ", nombre=" + nombreServicio + ", hotel=" + idHotel ;
+	}
+
+	public long getIdHorario() {
+		return idHorario;
+	}
+
+	public void setIdHorario(long idHorario) {
+		this.idHorario = idHorario;
 	}
 }

@@ -1,6 +1,6 @@
 package uniandes.isis2304.hotelAndes.negocio;
 
-public class Convención implements VOConvencion {
+public class Convencion implements VOConvencion {
 
 	//----------
 	//Atributos
@@ -18,14 +18,14 @@ public class Convención implements VOConvencion {
 	//Constructor
 	//------------
 	
-	public Convención(long idConvencion, long idHotel, long numParticipantes, String nombreConvencion) {
+	public Convencion(long idConvencion, long idHotel, long numParticipantes, String nombreConvencion) {
 		this.idConvencion = idConvencion;
 		this.idHotel = idHotel;
 		this.numParticipantes = numParticipantes;
 		this.nombreConvencion = nombreConvencion;
 	}
 	
-	public Convención() {
+	public Convencion() {
 		this.idConvencion = 0;
 		this.idHotel = 0;
 		this.numParticipantes = 0;

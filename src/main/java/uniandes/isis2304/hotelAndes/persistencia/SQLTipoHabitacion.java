@@ -38,11 +38,11 @@ public class SQLTipoHabitacion {
 		return (long)q.executeUnique();
 	}
 
-	public Horario darTipoHabitacionPorNombre(PersistenceManager pm, String nombreTipo){
+	public TipoHabitacion darTipoHabitacionPorNombre(PersistenceManager pm, String nombreTipo){
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pha.darTablaReserva() + " WHERE NOMBRETIPO = ?");
-		q.setResultClass(Horario.class);
+		q.setResultClass(TipoHabitacion.class);
 		q.setParameters(nombreTipo);
-		return (Horario) q.executeUnique();
+		return (TipoHabitacion) q.executeUnique();
 	}
 	
 }

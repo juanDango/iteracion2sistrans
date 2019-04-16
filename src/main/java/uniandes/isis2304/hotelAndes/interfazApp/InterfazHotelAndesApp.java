@@ -365,6 +365,7 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 	//-----------
 	//Cliente
 	//-----------
+	/*
 	public void servicioAlojamiento()
 	{
 		try 
@@ -745,6 +746,7 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 	 * Limpia todas las tuplas de todas las tablas de la base de datos de hotelandes
 	 * Muestra en el panel de datos el número de tuplas eliminadas de cada tabla
 	 */
+	/*
 	public void limpiarBD ()
 	{
 		try 
@@ -841,5 +843,6 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 			e.printStackTrace( );
 		}
 	}
+	
 }
 

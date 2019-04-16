@@ -10,6 +10,7 @@ import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
+import javax.jdo.Query;
 
 import org.apache.log4j.Logger;
 import com.google.gson.JsonArray;
@@ -36,14 +37,13 @@ import uniandes.isis2304.hotelAndes.negocio.Reserva;
 import uniandes.isis2304.hotelAndes.negocio.Salon;
 import uniandes.isis2304.hotelAndes.negocio.ServicioAlimentacion;
 import uniandes.isis2304.hotelAndes.negocio.ServicioAlojamiento;
-import uniandes.isis2304.hotelAndes.negocio.ServicioAlojamientoHabitacion;
+//import uniandes.isis2304.hotelAndes.negocio.ServicioAlojamientoHabitacion;
 import uniandes.isis2304.hotelAndes.negocio.ServicioHotelComplementario;
 import uniandes.isis2304.hotelAndes.negocio.ServicioIncluido;
 import uniandes.isis2304.hotelAndes.negocio.ServicioLavanderia;
 import uniandes.isis2304.hotelAndes.negocio.ServicioReservado;
 import uniandes.isis2304.hotelAndes.negocio.TipoHabitacion;
 import uniandes.isis2304.hotelAndes.negocio.Usuario;
-import uniandes.isis2304.superAndes.negocio.Bodega;
 
 public class PersistenciaHotelAndes {
 
@@ -65,63 +65,63 @@ public class PersistenciaHotelAndes {
 
 	private SQLCadenaHotelera sqlCadenaHotelera;
 
-	private SQLCaracteristicaAdicional sqlCaracteristicaAdicional;
+	//private SQLCaracteristicaAdicional sqlCaracteristicaAdicional;
 
-	private SQLCaracteristicaServicio sqlCaracteristicaServicio;
+	//private SQLCaracteristicaServicio sqlCaracteristicaServicio;
 	
-	private SQLConvencion sqlConvencion;
+	//private SQLConvencion sqlConvencion;
 	
-	private SQLConvencionHabitacion sqlConvencionHabitacion;
+	//private SQLConvencionHabitacion sqlConvencionHabitacion;
 	
-	private SQLConvencionRestBarCafeteria sqlConvencionRestBarCafeteria;
+	//private SQLConvencionRestBarCafeteria sqlConvencionRestBarCafeteria;
 	
-	private SQLConvencionSalon sqlConvencionSalon;
+	//private SQLConvencionSalon sqlConvencionSalon;
 
 	private SQLCuenta sqlCuenta;
 
-	private SQLCuentaAlojamiento sqlCuentaAlojamiento;
+	//private SQLCuentaAlojamiento sqlCuentaAlojamiento;
 
 	private SQLCuentaServicio sqlCuentaServicio;
 
-	private SQLDotacion sqlDotacion;
+	//private SQLDotacion sqlDotacion;
 
-	private SQLDotacionHabitacion sqlDotacionHabitacion;
+	//private SQLDotacionHabitacion sqlDotacionHabitacion;
 
 	private SQLHabitacion sqlHabitacion;
 
 	private SQLHorario sqlHorario;
 
-	private SQLHotel sqlHotel;
+	//private SQLHotel sqlHotel;
 
 	private SQLPlan sqlPlan;
 
-	private SQLPlanCaracteristicaAdicional sqlPlanCaracteristicaAdicional;
+	//private SQLPlanCaracteristicaAdicional sqlPlanCaracteristicaAdicional;
 
-	private SQLProducto sqlProducto;
+	//private SQLProducto sqlProducto;
 
-	private SQLProductoServicio sqlProductoServicio;
+	//private SQLProductoServicio sqlProductoServicio;
 
 	private SQLRegistro sqlRegistro;
 
 	private SQLReserva sqlReserva;
 
-	private SQLSalon sqlSalon;
+	//private SQLSalon sqlSalon;
 
-	private SQLServicioAlimentacion sqlServicioAlimentacion;
+	//private SQLServicioAlimentacion sqlServicioAlimentacion;
 
 	private SQLServicioAlojamiento sqlServicioAlojamiento;
 
-	private SQLServicioAlojamientoHabitacion sqlServicioAlojamientoHabitacion;
+	//private SQLServicioAlojamientoHabitacion sqlServicioAlojamientoHabitacion;
 	
-	private SQLServicioArreglos sqlServicioArreglos;
+	//private SQLServicioArreglos sqlServicioArreglos;
 
-	private SQLServicioHotelComplementario sqlServicioHotelComplementario;
+	//private SQLServicioHotelComplementario sqlServicioHotelComplementario;
 
-	private SQLServicioIncluido sqlServicioIncluido;
+	//private SQLServicioIncluido sqlServicioIncluido;
 
-	private SQLServicioLavanderia sqlServicioLavanderia;
+	//private SQLServicioLavanderia sqlServicioLavanderia;
 
-	private SQLServicioReservado sqlServicioReservado;
+	//private SQLServicioReservado sqlServicioReservado;
 
 	private SQLTipoHabitacion sqlTipoHabitacion;
 
@@ -231,35 +231,35 @@ public class PersistenciaHotelAndes {
 	private void crearClasesSQL ()
 	{
 		sqlCadenaHotelera = new SQLCadenaHotelera(this);
-		sqlCaracteristicaAdicional = new SQLCaracteristicaAdicional(this);
-		sqlCaracteristicaServicio = new SQLCaracteristicaServicio(this);
-		sqlConvencion = new SQLConvencion(this);
-		sqlConvencionHabitacion = new SQLConvencionHabitacion(this);
-		sqlConvencionRestBarCafeteria = new SQLConvencionRestBarCafeteria(this);
-		sqlConvencionSalon = new SQLConvencionSalon(this);
+		//sqlCaracteristicaAdicional = new SQLCaracteristicaAdicional(this);
+		//sqlCaracteristicaServicio = new SQLCaracteristicaServicio(this);
+		//sqlConvencion = new SQLConvencion(this);
+		//sqlConvencionHabitacion = new SQLConvencionHabitacion(this);
+		//sqlConvencionRestBarCafeteria = new SQLConvencionRestBarCafeteria(this);
+		//sqlConvencionSalon = new SQLConvencionSalon(this);
 		sqlCuenta = new SQLCuenta(this);
-		sqlCuentaAlojamiento = new SQLCuentaAlojamiento(this);
+		//sqlCuentaAlojamiento = new SQLCuentaAlojamiento(this);
 		sqlCuentaServicio = new SQLCuentaServicio (this);
-		sqlDotacion = new SQLDotacion(this);		
-		sqlDotacionHabitacion = new SQLDotacionHabitacion(this);
+		//sqlDotacion = new SQLDotacion(this);		
+		//sqlDotacionHabitacion = new SQLDotacionHabitacion(this);
 		sqlHabitacion = new SQLHabitacion(this);
 		sqlHorario = new SQLHorario(this);
-		sqlHotel = new SQLHotel(this);
+		//sqlHotel = new SQLHotel(this);
 		sqlPlan = new SQLPlan(this);
-		sqlPlanCaracteristicaAdicional = new SQLPlanCaracteristicaAdicional(this);
-		sqlProducto = new SQLProducto (this);
-		sqlProductoServicio = new SQLProductoServicio(this);		
+		//sqlPlanCaracteristicaAdicional = new SQLPlanCaracteristicaAdicional(this);
+		//sqlProducto = new SQLProducto (this);
+		//sqlProductoServicio = new SQLProductoServicio(this);		
 		sqlRegistro = new SQLRegistro(this);
 		sqlReserva = new SQLReserva(this);
-		sqlSalon = new SQLSalon(this);
-		sqlServicioAlimentacion = new SQLServicioAlimentacion(this);
+		//sqlSalon = new SQLSalon(this);
+		//sqlServicioAlimentacion = new SQLServicioAlimentacion(this);
 		sqlServicioAlojamiento = new SQLServicioAlojamiento(this);
-		sqlServicioAlojamientoHabitacion = new SQLServicioAlojamientoHabitacion(this);
-		sqlServicioArreglos = new SQLServicioArreglos(this);
-		sqlServicioHotelComplementario = new SQLServicioHotelComplementario(this);
-		sqlServicioIncluido = new SQLServicioIncluido(this);		
-		sqlServicioLavanderia = new SQLServicioLavanderia(this);
-		sqlServicioReservado = new SQLServicioReservado(this);
+		//sqlServicioAlojamientoHabitacion = new SQLServicioAlojamientoHabitacion(this);
+		//sqlServicioArreglos = new SQLServicioArreglos(this);
+		//sqlServicioHotelComplementario = new SQLServicioHotelComplementario(this);
+		//sqlServicioIncluido = new SQLServicioIncluido(this);		
+		//sqlServicioLavanderia = new SQLServicioLavanderia(this);
+		//sqlServicioReservado = new SQLServicioReservado(this);
 		sqlTipoHabitacion = new SQLTipoHabitacion(this);
 		sqlUsuario = new SQLUsuario(this);
 		sqlUtil = new SQLUtil(this);
@@ -430,13 +430,6 @@ public class PersistenciaHotelAndes {
 		return tablas.get (32);
 	}
 
-	private long nextval ()
-	{
-		long resp = sqlUtil.nextval (pmf.getPersistenceManager());
-		log.trace ("Generando secuencia: " + resp);
-		return resp;
-	}
-
 	private String darDetalleException(Exception e) 
 	{
 		String resp = "";
@@ -452,7 +445,7 @@ public class PersistenciaHotelAndes {
 	//Metodos de cuenta
 	//------------------
 	
-	public Cuenta adicionarCuenta(long valor, String metodoDePago, long idPlan, long idCliente, long idReserva) 
+	public Cuenta adicionarCuenta(long idCuenta, long valor, String metodoDePago, long idPlan, long idCliente, long idReserva) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx=pm.currentTransaction();
@@ -460,13 +453,8 @@ public class PersistenciaHotelAndes {
 		try
 		{
 			tx.begin();
-			long idCuenta = nextval ();
 			long tuplasInsertadas = 0;
-			Cuenta bd = sqlCuenta.darCuentaPorId(pm, idCuenta);
-			if(bd.getIdCuenta() == idCuenta)
-			{
-				 tuplasInsertadas = sqlCuenta.adicionarCuenta(pmf.getPersistenceManager(), idCuenta, valor, metodoDePago, idPlan, idCliente, idReserva);
-			}
+			tuplasInsertadas = sqlCuenta.adicionarCuenta(pmf.getPersistenceManager(), idCuenta, valor, metodoDePago, idPlan, idCliente, idReserva);
 			tx.commit();
 
 			System.out.println("Inserción de cuenta: " + idCuenta + ": " + tuplasInsertadas + " tuplas insertadas");
@@ -491,11 +479,11 @@ public class PersistenciaHotelAndes {
 		}
 	}
 	
-	//-------------------
-	//Metodos de horario
-	//-------------------
-	
-	public Horario adicionarHorario(long horaInicio, long horaFinal, Timestamp fechaInicio, Timestamp fechaFinal) 
+	//--------------------------------
+	//Metodo para cuenta servicio
+	//--------------------------------
+
+	public CuentaServicio adicionarCuentaServicio(long idCuenta, long idServicioComplementario) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx=pm.currentTransaction();
@@ -503,13 +491,46 @@ public class PersistenciaHotelAndes {
 		try
 		{
 			tx.begin();
-			long idHorario = nextval ();
 			long tuplasInsertadas = 0;
-			Horario bd = sqlHorario.darHorarioPorId(pm, idHorario);
-			if(bd.getIdHorario() == idHorario)
+			tuplasInsertadas = sqlCuentaServicio.adicionarCuentaServicio(pmf.getPersistenceManager(), idCuenta, idServicioComplementario);
+			tx.commit();
+
+			System.out.println("Inserción de Plan: " + idCuenta + ": " + tuplasInsertadas + " tuplas insertadas");
+
+			return new CuentaServicio(idCuenta, idServicioComplementario);
+
+
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
 			{
-				 tuplasInsertadas = sqlHorario.adicionarHorario(pmf.getPersistenceManager(), idHorario, horaInicio, horaFinal, fechaInicio, fechaFinal);
+				tx.rollback();
 			}
+			pm.close();
+		}
+	}
+	
+	//-------------------
+	//Metodos de horario
+	//-------------------
+	
+	public Horario adicionarHorario(long idHorario,long horaInicio, long horaFinal, Timestamp fechaInicio, Timestamp fechaFinal) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+
+		try
+		{
+			tx.begin();
+			long tuplasInsertadas = 0;
+			tuplasInsertadas = sqlHorario.adicionarHorario(pmf.getPersistenceManager(), idHorario, horaInicio, horaFinal, fechaInicio, fechaFinal);
 			tx.commit();
 
 			System.out.println("Inserción de horario: " + idHorario + ": " + tuplasInsertadas + " tuplas insertadas");
@@ -534,11 +555,11 @@ public class PersistenciaHotelAndes {
 		}
 	}
 	
-	//-------------------
-	//Metodos de reserva
-	//-------------------
-	
-	public Reserva adicionarReserva(long abono, long idHabitacion, long idHorario, long idCliente, long idHotel, long idCuenta) 
+	//--------------------------------
+	//Metodo para servicio alojamiento
+	//--------------------------------
+
+	public Registro adicionarRegistro(long idRegistro, long idReserva, char estadoCheckIn, char estadoCheckOut, long idRegistrador) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx=pm.currentTransaction();
@@ -546,18 +567,76 @@ public class PersistenciaHotelAndes {
 		try
 		{
 			tx.begin();
-			long idUsuario = nextval ();
 			long tuplasInsertadas = 0;
-			Cuenta bd = sqlCuenta.darCuentaPorId(pm, idUsuario);
-			if(bd.getIdUsuario() == idUsuario)
+			tuplasInsertadas = sqlRegistro.adicionarRegistro(pmf.getPersistenceManager(), idRegistro, idReserva, estadoCheckIn, estadoCheckOut, idRegistrador);
+			tx.commit();
+
+			System.out.println("Inserción de Plan: " + idRegistro + ": " + tuplasInsertadas + " tuplas insertadas");
+
+			return new Registro(idRegistro, idReserva, estadoCheckIn, estadoCheckOut, idRegistrador);
+
+
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
 			{
-				 tuplasInsertadas = sqlReserva.adicionarReserva(pmf.getPersistenceManager(), idUsuario, abono, idHabitacion, idHorario, idCliente, idHotel, idCuenta);
+				tx.rollback();
 			}
+			pm.close();
+		}
+	}
+	
+	public void modificarRegistro( long idRegistro)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			sqlRegistro.modificarRegistro(pm, idRegistro);
+			tx.commit();
+		}
+		catch(Exception e)
+		{
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	
+	//-------------------
+	//Metodos de reserva
+	//-------------------
+	
+	public Reserva adicionarReserva(long idReserva,long abono, long idHabitacion, long idHorario, long idCliente, long idHotel, long idCuenta) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+
+		try
+		{
+			tx.begin();
+			long tuplasInsertadas = 0;
+			tuplasInsertadas = sqlReserva.adicionarReserva(pmf.getPersistenceManager(), idCliente, abono, idHabitacion, idHorario, idCliente, idHotel, idCuenta);
 			tx.commit();
 
 			System.out.println("Inserción de cuenta: " + idCuenta + ": " + tuplasInsertadas + " tuplas insertadas");
 
-			return new Reserva(idUsuario, abono, idHabitacion, idHorario, idCliente, idHotel, idCuenta);
+			return new Reserva(idReserva, abono, idHabitacion, idHorario, idCliente, idHotel, idCuenta);
 
 
 		}
@@ -577,9 +656,9 @@ public class PersistenciaHotelAndes {
 		}
 	}
 	
-	//-------------------
+	//--------------------------
 	//Metodos de tipoHabitacion
-	//-------------------
+	//--------------------------
 
 	public TipoHabitacion adicionarTipoHabitacion(String nombreTipo, String descripcion) 
 	{
@@ -591,10 +670,7 @@ public class PersistenciaHotelAndes {
 			tx.begin();
 			long tuplasInsertadas = 0;
 			TipoHabitacion bd = sqlTipoHabitacion.darTipoHabitacionPorNombre(pm, nombreTipo);
-			if(bd.getNombreTipo() == nombreTipo)
-			{
-				tuplasInsertadas = sqlTipoHabitacion.adicionarTipoHabitacion(pmf.getPersistenceManager(), nombreTipo, descripcion);
-			}
+			tuplasInsertadas = sqlTipoHabitacion.adicionarTipoHabitacion(pmf.getPersistenceManager(), nombreTipo, descripcion);
 			tx.commit();
 
 			System.out.println("Inserción de cuenta: " + nombreTipo + ": " + tuplasInsertadas + " tuplas insertadas");
@@ -621,43 +697,321 @@ public class PersistenciaHotelAndes {
 	//Metodos de usuario
 	//-------------------
 		
-		public Usuario adicionarUsuario(String tipoDocumento, long numeroDocumento, String correoElectronico, String rol) 
+	public Usuario adicionarUsuario(long idUsuario, String tipoDocumento, long numeroDocumento, String correoElectronico, String rol) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+
+		try
 		{
-			PersistenceManager pm = pmf.getPersistenceManager();
-			Transaction tx=pm.currentTransaction();
+			tx.begin();
+			long tuplasInsertadas = 0;
+			tuplasInsertadas = sqlUsuario.adicionarUsuario(pmf.getPersistenceManager(), tipoDocumento, numeroDocumento, correoElectronico, rol, idUsuario);
+			tx.commit();
 
-			try
-			{
-				tx.begin();
-				long idUsuario = nextval ();
-				long tuplasInsertadas = 0;
-				Usuario bd = sqlUsuario.darUsuarioPorCedula(pm, numeroDocumento);
-				if(bd.getIdCuenta() == idUsuario)
-				{
-					 tuplasInsertadas = sqlUsuario.adicionarUsuario(pmf.getPersistenceManager(), tipoDocumento, numeroDocumento, correoElectronico, rol, idUsuario);
-				}
-				tx.commit();
+			System.out.println("Inserción de cuenta: " + idUsuario + ": " + tuplasInsertadas + " tuplas insertadas");
 
-				System.out.println("Inserción de cuenta: " + idUsuario + ": " + tuplasInsertadas + " tuplas insertadas");
-
-				return new Usuario(idReserva, abono, idHabitacion, idHorario, idCliente, idHotel, idCuenta);
+			return new Usuario(tipoDocumento, numeroDocumento, correoElectronico, rol, idUsuario);
 
 
-			}
-			catch (Exception e)
-			{
-	        	e.printStackTrace();
-				log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
-				return null;
-			}
-			finally
-			{
-				if (tx.isActive())
-				{
-					tx.rollback();
-				}
-				pm.close();
-			}
 		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+	
+	public Usuario darUsuarioPorId(long id)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			Usuario rta = sqlUsuario.darUsuarioPorId(pm, id);
+			tx.commit();
+			System.out.println("Obtencion de un usuario: " + id + ": " + rta!=null?1:0 + " tuplas encontradas");
+
+			return rta;
+		}
+		catch (Exception e)
+		{
+			        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+	
+	//----------------
+	//Metodos de plan
+	//----------------
+	
+	public Plan adicionarPlan(long idPlan, String nombrePlan, String tipo) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+
+		try
+		{
+			tx.begin();
+			long tuplasInsertadas = 0;
+			tuplasInsertadas = sqlPlan.adicionarPlan(pmf.getPersistenceManager(), idPlan, nombrePlan, tipo);
+			tx.commit();
+
+			System.out.println("Inserción de Plan: " + idPlan + ": " + tuplasInsertadas + " tuplas insertadas");
+
+			return new Plan(idPlan, nombrePlan, tipo, new Timestamp(0), new Timestamp(0));
+
+
+		}
+		catch (Exception e)
+		{
+        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+		
+	
+	//--------------------------------
+	//Metodo para servicio alojamiento
+	//--------------------------------
+	
+	public ServicioAlojamiento adicionarServicioAlojamiento(long idServicioAlojamiento, long cantidadPersonas, long idCuenta) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+
+		try
+		{
+			tx.begin();
+			long tuplasInsertadas = 0;
+			tuplasInsertadas = sqlServicioAlojamiento.adicionarServicioAloja(pmf.getPersistenceManager(), idServicioAlojamiento, cantidadPersonas, idCuenta);
+			tx.commit();
+
+			System.out.println("Inserción de Plan: " + idServicioAlojamiento + ": " + tuplasInsertadas + " tuplas insertadas");
+
+			return new ServicioAlojamiento(idServicioAlojamiento, cantidadPersonas, idCuenta);
+
+
+		}
+		catch (Exception e)
+		{
+        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+	
+	//-----------------------
+	//Metodos para consultas
+	//-----------------------
+
+	// req 1
+	public List<Object[]> dineroRecolectado(Timestamp fechaInicio, Timestamp fechaFinal){
+
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			String sql = "SELECT ha.idhabitacion AS \"NumeroHabitacion\" , SUM(cu.valor) AS \"DineroRecolectado\" " +
+					"FROM " + darTablaCuenta() + " cu " + 
+					"INNER JOIN CUENTAALOJAMIENTO ca ON cu.idcuenta = ca.idcuenta " +
+					"INNER JOIN SERVICIOALOJAMIENTO sa ON sa.idservicioalojamiento = ca.idservicioalojamiento" +
+					"INNER JOIN HABITACION ha ON re.idhabitacion = ha.idhabitacion " +
+					"INNER JOIN RESERVA re ON re.idCuenta = cu.idCuenta AND su.id = es.idsucursal " +
+					"INNER JOIN HORARIO ho ON re.idhorario = ho.idhorario " +
+					"GROUP BY ha.idhabitacion HAVING ho.fechainicio BETWEEN ? AND ?;";
+			Query q = pm.newQuery(SQL, sql);
+			q.setParameters(fechaInicio, fechaFinal);
+			List<Object[]> l = (List<Object[]>)q.executeList();
+			tx.commit();
+
+
+			return l;			
+		}
+		catch(Exception e)
+		{
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			e.printStackTrace();
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	//req 2
+	public List<Object[]> top20Servicios(){
+
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+
+			String sql = "SELECT idserviciocomplementario, count(idserviciocomplementario) FROM CUENTASERVICIO WHERE ROWNUM <= 20 ORDER BY count(idserviciocomplementario) desc;";
+			Query q = pm.newQuery(SQL,sql);
+			List<Object[]> l = (List<Object[]>)q.executeList();
+			tx.commit();
+
+
+			return l;			
+		}
+		catch(Exception e)
+		{
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			e.printStackTrace();
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	// req 3
+	public List<Object[]> indiceOcupacion(){
+
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+
+			String sql = "SELECT ha.IDHABITACION AS NUMHABITACION, (sa.CANTIDADPERSONAS/ha.CAPACIDADHABITACION) AS INDIC FROM HABITACION ha INNER JOIN SERVICIOALOJAMIENTOHABITACION sah ON sah.IDHABITACION = ha.IDHABITACION INNER JOIN SERVICIOALOJAMIENTO sa ON sa.IDSERVICIOALOJAMIENTO = sah.IDSERVICIOALOJAMIENTO";
+			Query q = pm.newQuery(SQL,sql);
+			List<Object[]> l = (List<Object[]>)q.executeList();
+			tx.commit();
+
+
+			return l;			
+		}
+		catch(Exception e)
+		{
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			e.printStackTrace();
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	// req 4
+	public List<Object[]> servicioYCaracteristica(long id, long valorMax, long valorMin, Timestamp fechaInicio, Timestamp fechaFinal, long idRegistrador){	
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+
+			String sql = "SELECT shc.idscomplementario, shc.nombreservicio, cu.valor, COUNT(cs.IDSERVICIOCOMPLEMENTARIO) AS CANTVECES, hor.FECHAINICIO, hor.FECHAFINAL, reg.IDREGISTRADOR FROM SERVICIOHOTELCOMPLEMENTARIO shc INNER JOIN CUENTASERVICIO cs ON  shc.IDSCOMPLEMENTARIO = cs.IDSERVICIOCOMPLEMENTARIO INNER JOIN CUENTA cu ON cs.IDCUENTA = cu.IDCUENTA  INNER JOIN RESERVA re ON re.IDRESERVA = cu.IDRESERVA INNER JOIN HORARIO hor ON hor.IDHORARIO = re.IDHORARIO   INNER JOIN REGISTRO reg ON reg.IDRESERVA = re.IDRESERVA  WHERE COUNT(cs.IDSERVICIOCOMPLEMENTARIO) > ? AND shc.NOMBRESERVICIO = ? AND cu.VALOR > ? AND cu.VALOR < ? AND hor.FECHAINICIO < ? AND hor.FECHAFINAL > ? AND reg.IDREGISTRADOR = ?";
+			Query q = pm.newQuery(SQL,sql);
+			q.setParameters(id, valorMax, valorMin, fechaInicio, fechaFinal, idRegistrador);
+			List<Object[]> l = (List<Object[]>)q.executeList();
+			tx.commit();
+
+
+			return l;			
+		}
+		catch(Exception e)
+		{
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			e.printStackTrace();
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	//Req 5
+	public List<Object[]> gastoCliente(long idCliente, Timestamp fechaInicio, Timestamp fechaFinal){	
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+
+			String sql = "SELECT SUM(cu.VALOR) FROM CLIENTE cli INNER JOIN cu ON cli.IDCLIENTE = cu.IDCLIENTE INNER JOIN RESERVA ON re.IDCUENTA = cu.IDCUENTA INNER JOIN HORARIO ON hor.IDHORARIO = re.IDHORARIO WHERE IDCLIENTE = ? AND hor.FECHAINICIO <= ? AND hor.FECHAFINAL >= ?";
+			Query q = pm.newQuery(SQL,sql);
+			q.setParameters(idCliente, fechaInicio, fechaFinal);
+			List<Object[]> l = (List<Object[]>)q.executeList();
+			tx.commit();
+
+
+			return l;			
+		}
+		catch(Exception e)
+		{
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			e.printStackTrace();
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
 
 }

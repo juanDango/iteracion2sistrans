@@ -5,7 +5,7 @@ import javax.jdo.Query;
 
 import uniandes.isis2304.hotelAndes.negocio.Usuario;
 
-public class SQLUsuario {
+public class SQLServicioAlojamiento {
 	//-----------
 	//Constantes
 	//-----------
@@ -22,7 +22,7 @@ public class SQLUsuario {
 	//Constructor
 	//------------
 
-	public SQLUsuario(PersistenciaHotelAndes pha){
+	public SQLServicioAlojamiento(PersistenciaHotelAndes pha){
 		this.pha = pha; 
 	}
 
@@ -30,18 +30,17 @@ public class SQLUsuario {
 	//Metodos para manejo de cadena hotelera
 	//---------------------------------------
 
-	public long adicionarUsuario(PersistenceManager pm, String tipoDocumento, long numeroDocumento, String correoElectronico, String rol, long idUsuario)
+	public long adicionarServicioAloja(PersistenceManager pm, long idServicioAlojamiento, long cantidadPersonas, long idCuenta)
 	{
-		Query q = pm.newQuery(SQL, "INSERT INTO" + pha.darTablaUsuario() + "(TIPODOCUMENTO, NUMERODOCUMENTO,CORREOELECTRONICO, ROL,IDUSUARIO) VALUES (?, ?, ?, ?, ?)");
-		q.setParameters(tipoDocumento, numeroDocumento, correoElectronico, rol, idUsuario);
+		Query q = pm.newQuery(SQL, "INSERT INTO" + pha.darTablaSevicioAlojamiento() + "(IDSERVICIOALOJAMIENTO, CANTIDADPERSONAS, IDCUENTA) VALUES (?, ?, ?);");
+		q.setParameters(idServicioAlojamiento, cantidadPersonas, idCuenta);
 		return (long)q.executeUnique();
 	}
 
-	public Usuario darUsuarioPorId (PersistenceManager pm, long idUsuario) 
-	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM Usuario WHERE idUsuario = ?");
+	public Usuario darUsuarioPorCedula(PersistenceManager pm, long cedula){
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pha.darTablaSevicioAlojamiento() + " WHERE IDSERVICIOALOJAMIENTO = ?");
 		q.setResultClass(Usuario.class);
-		q.setParameters(idUsuario);
+		q.setParameters(cedula);
 		return (Usuario) q.executeUnique();
 	}
 }
