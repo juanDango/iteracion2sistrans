@@ -1050,55 +1050,50 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 	
 	////////////////REQUERIMIENTOS ITERACION 2//////////////////////
 	//requ 12
-	public void registroConvencionYSevicios(){
-		long idConvencion = Long.parseLong(JOptionPane.showInputDialog(this, "Id de la convencion"));
-		long idHotel = Long.parseLong(JOptionPane.showInputDialog(this, "Id del hotel. Ej: 123"));
-		long numparticipantes  = Long.parseLong(JOptionPane.showInputDialog(this, "Numero de participantes"));
-		String nombreConvencion = JOptionPane.showInputDialog(this, "Nombre Convencion");
-
-		String fechaInicio = JOptionPane.showInputDialog(this, "Ingrese la fecha de inicio dd/MM/yy ", "dd/MM/yy");
-		
-		String fechaFinal = JOptionPane.showInputDialog(this, "Ingrese la fecha final dd/MM/yy ", "dd/MM/yy");
-		Convencion co=null;
-		
+	public void req12(){
 		try {
+			long idConvencion = Long.parseLong(JOptionPane.showInputDialog(this, "Id de la convencion"));
+			long idHotel = Long.parseLong(JOptionPane.showInputDialog(this, "Id del hotel. Ej: 123"));
+			long numparticipantes  = Long.parseLong(JOptionPane.showInputDialog(this, "Numero de participantes"));
+			String nombreConvencion = JOptionPane.showInputDialog(this, "Nombre Convencion");
+	
+			String fechaInicio = JOptionPane.showInputDialog(this, "Ingrese la fecha de inicio dd/MM/yy ", "dd/MM/yy");
+			
+			String fechaFinal = JOptionPane.showInputDialog(this, "Ingrese la fecha final dd/MM/yy ", "dd/MM/yy");
+			
+		
 			Timestamp finicio = new Timestamp(new SimpleDateFormat("dd/MM/yy").parse(fechaInicio).getTime());
 
 			Timestamp ffinal = new Timestamp(new SimpleDateFormat("dd/MM/yy").parse(fechaFinal).getTime());
 			Random r = new Random();
 			long idHorario = r.nextInt((1000 - 3) + 1) + 3;
-			Horario ho = hotelAndes.adicionarHorario(idHorario, Long.valueOf(0),Long.valueOf(0),finicio, ffinal);
-			co = hotelAndes.adicionarConvencion(idConvencion, idHotel, numparticipantes, nombreConvencion, idHorario);
+		
+			long idCliente = Long.parseLong(JOptionPane.showInputDialog(this, "id del organizador de eventos ej:4545"));
+	
+			long idCuenta = Long.parseLong(JOptionPane.showInputDialog(this, "id de la cuenta"));
+			// servicios
+			int cantServicios = Integer.parseInt(JOptionPane.showInputDialog(this, "Cantidad de servicios"));
+			ArrayList<Long> idsServicios = new ArrayList<>();
 
-		} catch (ParseException e) {
+			for (int i = 0; i < cantServicios; i++) {
+				long idServicioComplementario = Long.parseLong(JOptionPane.showInputDialog(this, "id del servicio"));
+				idsServicios.add(idServicioComplementario);
+			}
+			// tipos de habitaciones
+			int cantTipoHabitacion = Integer.parseInt(JOptionPane.showInputDialog(this, "Cantidad de tipos de habitacion"));
+			ArrayList<String> infoHabitaciones = new ArrayList<>();
+			for (int i = 0; i < cantTipoHabitacion; i++) {
+				String infoHabitacion = JOptionPane.showInputDialog(this, "Nombre habitacion separado por una coma de la cantidad de habitaciones .Ej: 4,Sencilla");
+				infoHabitaciones.add(infoHabitacion);
+			}
+			
+			
+			hotelAndes.req12(idConvencion,idHotel,numparticipantes,nombreConvencion,finicio,fechaFinal,idHorario,idCliente,idCuenta,idsServicios,infoHabitaciones);
+		}catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		long idCliente = Long.parseLong(JOptionPane.showInputDialog(this, "id del organizador de eventos ej:4545"));
-
-		long idCuenta = Long.parseLong(JOptionPane.showInputDialog(this, "id de la cuenta"));
-		Cuenta cu = hotelAndes.adicionarCuenta(idCuenta, 0, "efectivo", 0, idCliente, 0);
-		// servicios
-		int cantServicios = Integer.parseInt(JOptionPane.showInputDialog(this, "Cantidad de servicios"));
-		for (int i = 0; i < cantServicios; i++) {
-			long idServicioComplementario = Long.parseLong(JOptionPane.showInputDialog(this, "id del servicio"));
-			ConvencionRestauranteCafeteria crbc = hotelAndes.adicionarConvencionrestbarcafeteria(idServicioComplementario, co.getIdConvencion());
-		}
-		// tipos de habitaciones
-		int cantTipoHabitacion = Integer.parseInt(JOptionPane.showInputDialog(this, "Cantidad de tipos de habitacion"));
-
-		for (int i = 0; i < cantTipoHabitacion; i++) {
-			String nombreTipo = JOptionPane.showInputDialog(this, "Nombre habitacion");
-			int cantHabitaciones = Integer.parseInt(JOptionPane.showInputDialog(this, "cantidad de habitaciones del tipo "+nombreTipo));
-			
-			TipoHabitacion th = hotelAndes.adicionarTipoHabitacion(nombreTipo, "");
-			for (int j = 0; j < cantHabitaciones; j++){
-				Habitacion ha = hotelAndes.adicionaHabitacion(Long.valueOf(10000+j), nombreTipo, 40000, 1, 123, Long.valueOf(10000/2 + 1),"N");
-			
-			}
-		}
-		
-		panelDatos.actualizarInterfaz("se ha insertado la convecion: " + co.toString());
+		panelDatos.actualizarInterfaz("se ha insertado la convecion " );
 	}
 	
 	/**

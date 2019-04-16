@@ -49,6 +49,12 @@ import uniandes.isis2304.hotelAndes.negocio.ServicioReservado;
 import uniandes.isis2304.hotelAndes.negocio.TipoHabitacion;
 import uniandes.isis2304.hotelAndes.negocio.Usuario;
 import uniandes.isis2304.hotelAndes.negocio.VOServicioIncluido;
+import uniandes.isis2304.superAndes.negocio.Carrito;
+import uniandes.isis2304.superAndes.negocio.Estante;
+import uniandes.isis2304.superAndes.negocio.ProductoSuministrado;
+import uniandes.isis2304.superAndes.negocio.Promocion;
+import uniandes.isis2304.superAndes.negocio.PromocionDosProductos;
+import uniandes.isis2304.superAndes.negocio.PromocionPagueNLleveMUnidades;
 
 public class PersistenciaHotelAndes {
 
@@ -1388,10 +1394,9 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 	
 		try
 		{
-			tx.begin();
 			long tuplasInsertadas = 0;
 			tuplasInsertadas = sqlConvencion.adicionarConvencion(pmf.getPersistenceManager(), idConvencion, idHotel, numparticipantes, nombreConvencion, idHorario);
-			tx.commit();
+
 	
 			System.out.println("Inserción de convencion: " + idConvencion + ": " + tuplasInsertadas + " tuplas insertadas");
 	
@@ -1506,6 +1511,74 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 			pm.close();
 		}
 	}
+	public Convencion darConvencion(long id) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			Convencion rta = sqlConvencion.darConvencionPorId(pm, id);
+			tx.commit();
+
+			log.trace ("Consulta de Convencion: " + id + ": " + rta!=null?1:0 +" tuplas encontradas");
+
+			return rta; 
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+	
+	///////////////////REQUERIMIENTO 12/////////
+
+	public void req12(long idConvencion, long idHotel, long numparticipantes, String nombreConvencion,
+			Timestamp finicio, String fechaFinal, long idHorario, long idCliente, long idCuenta,
+			ArrayList<Long> idsServicios, ArrayList<String> infoHabitaciones) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+
+			tx.begin();
+			long tuplasInsertadas = sqlConvencion.adicionarConvencion(pmf.getPersistenceManager(), idConvencion, idHotel, numparticipantes, nombreConvencion, idHorario);
+
+			/*adicionarConvencion();
+			llamar metodos de adicionar;
+			tuplas
+			recorrems arreglo de 2 en 2 separando tipo  y cantidad de habitaciones
+			dar habitaciones libres por tipo
+			 
+if algo
+sino roll back*/
+
+		}
+		catch (Exception e)
+		{
+			//e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+	
 
 
 }
