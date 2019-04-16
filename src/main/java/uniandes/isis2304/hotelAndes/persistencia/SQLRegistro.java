@@ -31,16 +31,16 @@ public class SQLRegistro {
 	//Metodos para manejo de cadena hotelera
 	//---------------------------------------
 
-	public long adicionarRegistro(PersistenceManager pm, long idRegistro, long idReserva, char estadoCheckIn, char estadoCheckOut, long idRegistrador)
+	public long adicionarRegistro(PersistenceManager pm, long idRegistro, long idReserva, long idRegistrador)
 	{
-		Query q = pm.newQuery(SQL, "INSERT INTO" + pha.darTablaRegistro() + "(IDREGISTRO, IDRESERVA,ESTADOCHECKIN, ESTADOCHECKOUT, IDREGISTRADOR) VALUES (?, ?, ?, ?, ?);");
-		q.setParameters(idRegistro, idReserva, estadoCheckIn, estadoCheckOut, idRegistrador);
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pha.darTablaRegistro() + " (IDREGISTRO, IDRESERVA,ESTADOCHECKIN, ESTADOCHECKOUT, IDREGISTRADOR) VALUES (?, ?, 'E', 'F', ?)");
+		q.setParameters(idRegistro, idReserva, idRegistrador);
 		return (long)q.executeUnique();
 	}
 
 	public long modificarRegistro(PersistenceManager pm, long idRegistro)
 	{
-		Query q = pm.newQuery(SQL, "UPDATE REGISTRO SET ESTADOCHECKOUT = 'E' WHERE IDREGISTRO = ?;");
+		Query q = pm.newQuery(SQL, "UPDATE REGISTRO SET ESTADOCHECKOUT = 'E' WHERE IDREGISTRO = ?");
 		q.setParameters(idRegistro);
 		return (long)q.executeUnique();
 	}

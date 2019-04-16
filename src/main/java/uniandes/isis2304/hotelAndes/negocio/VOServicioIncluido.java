@@ -2,34 +2,16 @@ package uniandes.isis2304.hotelAndes.negocio;
 
 public interface VOServicioIncluido {
 
-	long getIdServicio();
+	String getnombre();
 
-	void setIdServicio(long idServicio);
+	void setnombre(String nombre);
 
-	String getNombreServicio();
+	long getCapacidad();
 
-	void setNombreServicio(String nombreServicio);
+	void setCapacidad(long capacidad);
 
-	String getTipo();
+	long getIdHotel();
 
-	void setTipo(String tipo);
-
-	long getCantuniandes();
-
-	void setCantuniandes(long cantuniandes);
-
-	String getNombreservicio();
-
-	void setNombreservicio(String nombreservicio);
-
-	String getDescripcion();
-
-	void setDescripcion(String descripcion);
-
-	long getCostounitario();
-
-	void setCostounitario(long costounitario);
-
-	String toString();
+	void setIdHotel(long idHotel);
 
 }

@@ -2,14 +2,6 @@ package uniandes.isis2304.hotelAndes.negocio;
 
 public interface VOServicioAlimentacion {
 
-	long getIdServicio();
-
-	void setIdServicio(long idServicio);
-
-	String getNombreServicio();
-
-	void setNombreServicio(String nombreServicio);
-
 	String getEstilo();
 
 	void setEstilo(String estilo);
@@ -22,17 +14,17 @@ public interface VOServicioAlimentacion {
 
 	void setTipo(String tipo);
 
+	char getEsConsumoHabitacion();
+
+	void setEsConsumoHabitacion(char esConsumoHabitacion);
+
+	long getIdHorario();
+
+	void setIdHorario(long idHorario);
+
 	String getDescripcion();
 
 	void setDescripcion(String descripcion);
-
-	boolean isEsconsumohabitacion();
-
-	void setEsconsumohabitacion(boolean esconsumohabitacion);
-
-	long getIdhorario();
-
-	void setIdhorario(long idhorario);
 
 	String toString();
 

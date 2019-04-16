@@ -56,6 +56,33 @@ public class HotelAndes {
 	}
 	
 	/* ****************************************************************
+	 *          Metodos para el manejo de las cuentas-servicio
+	 *****************************************************************/
+	
+	public CuentaServicio adicionarCuentaServicio(long idCuenta, long idServicioComplementario){
+		System.out.println("Adicionando cuenta : de " + idCuenta + " " + idServicioComplementario);
+		CuentaServicio cuen = pp.adicionarCuentaServicio(idCuenta, idServicioComplementario);
+		System.out.println("Adicionado " + cuen);
+		return cuen;
+	}
+	
+	/* ****************************************************************
+	 *          Metodos para el manejo de los habitacion
+	 *****************************************************************/
+	
+	public Habitacion adicionaHabitacion(long idHabitacion, String tipoHabitacion, long costoNoche, long capacidadHabitacion, long idHotel, long numeroHabitacion){
+		System.out.println("Adicionando plan :" + idHabitacion);
+		Habitacion us = pp.adicionarHabitacion(idHabitacion, tipoHabitacion, costoNoche, capacidadHabitacion, idHotel, numeroHabitacion);
+		System.out.println("Adicionado " + us);
+		return us;
+	}
+	
+	public long revisarCapacidad(long idHabitacion){
+		System.out.println("revisando la capacidad de: " + idHabitacion);
+		return pp.revisarCapacidad(idHabitacion);
+	}
+	
+	/* ****************************************************************
 	 *          Metodos para el manejo de los horarios
 	 *****************************************************************/
 	
@@ -81,11 +108,18 @@ public class HotelAndes {
 	 *          Metodos para el manejo de las registros
 	 *****************************************************************/
 	
-	public Registro adicionarRegistro(long idRegistro, long idReserva, char estadoCheckIn, char estadoCheckOut, long idRegistrador){
+	public Registro adicionarRegistro(long idRegistro, long idReserva, long idRegistrador){
 		System.out.println("Adicionando reserva : de cliente " + idRegistro);
-		Registro res = pp.adicionarRegistro(idRegistro, idReserva, estadoCheckIn, estadoCheckOut, idRegistrador);
+		Registro res = pp.adicionarRegistro(idRegistro, idReserva, idRegistrador);
 		System.out.println("Adicionado " + res);
 		return res;
+	}
+	
+	public void modificarRegistro(long idRegistro){
+		System.out.println("Adicionando reserva : de cliente " + idRegistro);
+		pp.modificarRegistro(idRegistro);
+		System.out.println("Modificado ");
+
 	}
 	
 	/* ****************************************************************
@@ -106,6 +140,40 @@ public class HotelAndes {
 	public ServicioAlojamiento adicionarServicioAlojamiento(long idServicioAlojamiento, long cantidadPersonas, long idCuenta){
 		System.out.println("Adicionando plan :" + idServicioAlojamiento);
 		ServicioAlojamiento us = pp.adicionarServicioAlojamiento(idServicioAlojamiento, cantidadPersonas, idCuenta);
+		System.out.println("Adicionado " + us);
+		return us;
+	}
+	
+	/* ****************************************************************
+	 *  Metodos para el manejo de los servicio alojamiento habitacion
+	 *****************************************************************/
+	
+	public ServicioAlojamientoHabitacion crearRelacionServHab(long idHabitacion, long idServicioAlojamiento){
+		System.out.println("Adicionando plan :" + idServicioAlojamiento);
+		ServicioAlojamientoHabitacion us = pp.crearRelacionServHab(idHabitacion, idServicioAlojamiento);
+		System.out.println("Adicionado " + us);
+		return us;
+	}
+	
+	public boolean disponibilidadHabitacion(long idHabitacion){
+		System.out.println("Revisando idHabitacion: " + idHabitacion);
+		return pp.buscarPorHabitacion(idHabitacion);
+	}
+	
+	/* ****************************************************************
+	 *  Metodos para el manejo de los servicio alojamiento habitacion
+	 *****************************************************************/
+	
+	public ServicioHotelComplementario crearServicioHotel(long idSComplementario, String nombreServicio, long idHotel){
+		System.out.println("Adicionando servicio : " + idSComplementario);
+		ServicioHotelComplementario us = pp.adicionarServicioHotel(idSComplementario, nombreServicio, idHotel);
+		System.out.println("Adicionado " + us);
+		return us;
+	}
+	
+	public ServicioIncluido crearServicioIncluido(long idServicio, String nombreServicio, long idHotel, String nombre, long capacidad){
+		System.out.println("Adicionando servicio : " + idServicio);
+		ServicioIncluido us = pp.adicionarServicioIncluido(idServicio, nombreServicio, idHotel, nombre, capacidad);
 		System.out.println("Adicionado " + us);
 		return us;
 	}
@@ -137,5 +205,21 @@ public class HotelAndes {
 		Usuario us = pp.darUsuarioPorId(id);
 		System.out.println("Adicionado " + us);
 		return us;
+	}
+	
+	/* ****************************************************************
+	 *          Metodos para el manejo de consultas
+	 *****************************************************************/
+	
+	public List<Object[]> darTop20(){
+		System.out.println("Pruebas");
+		List<Object[]> aRet = pp.top20Servicios();
+		return aRet;
+	}
+	
+	public List<Object[]> darpIndiceHabitaciones(){
+		System.out.println("Pruebas");
+		List<Object[]> aRet = pp.indiceOcupacion();
+		return aRet;
 	}
 }

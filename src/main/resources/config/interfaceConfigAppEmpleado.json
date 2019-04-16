@@ -10,7 +10,7 @@
 			[
 				{
 					"label": "RegistrarConsumo",
-					"event": "RegistrarConsumo"
+					"event": "registrarConsumo"
 				}
 			]
 		}

@@ -45,4 +45,10 @@ public class SQLCuenta {
 		return (Cuenta) q.executeUnique();
 	}
 	
+	public long adicionarUnValorALaCuenta(PersistenceManager pm, long idCuenta, long valor)
+	{
+		Query q = pm.newQuery(SQL, "UPDATE REGISTRO SET VALOR = VALOR + ?  WHERE IDREGISTRO = ?");
+		q.setParameters(valor, idCuenta);
+		return (long)q.executeUnique();
+	}
 }

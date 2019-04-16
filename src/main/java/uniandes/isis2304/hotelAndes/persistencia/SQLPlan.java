@@ -35,7 +35,7 @@ public class SQLPlan {
 
 	public long adicionarPlan(PersistenceManager pm, long idPlan, String nombrePlan, String tipo)
 	{
-		Query q = pm.newQuery(SQL, "INSERT INTO" + pha.darTablaPlan() + "(IDPLAN, NOMBREPLAN, TIPO) VALUES (?, ?, ?);");
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pha.darTablaPlan() + " (IDPLAN, NOMBREPLAN, TIPO) VALUES (?, ?, ?)");
 		q.setParameters(idPlan, nombrePlan, tipo);
 		return (long)q.executeUnique();
 	}

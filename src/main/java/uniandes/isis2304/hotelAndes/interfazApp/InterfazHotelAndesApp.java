@@ -219,7 +219,7 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 				guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ_HOTELANDES);
 			}
 		}
-		if(n == 4)
+		if(n == 3)
 		{
 			String id = JOptionPane.showInputDialog(this, "Digite su id", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
 			if(id.isEmpty())
@@ -234,6 +234,33 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 				System.exit(0);
 			}
 			else if(!hotelAndes.darUsuarioPorId(idInt).getRol().equals("Administrador"))
+			{
+				JOptionPane.showMessageDialog(this, "Lo sentimos, usted no es un Administrador", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
+				System.exit(0);
+			}
+			else
+			{
+				estadoAplicacion = 4;
+				identificacionCliente = idInt;
+				guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ_ADMIN);
+			}
+			
+		}
+		if(n == 4)
+		{
+			String id = JOptionPane.showInputDialog(this, "Digite su id", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
+			if(id.isEmpty())
+			{
+				JOptionPane.showMessageDialog(this, "Por favor ingrese un id valido", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
+				System.exit(0);
+			}
+			int idInt = Integer.parseInt(id);
+			if(hotelAndes.darUsuarioPorId(idInt) == null)
+			{
+				JOptionPane.showMessageDialog(this, "Lo sentimos, su ID no se encuentra en nuestros registros", "hotelAndes", JOptionPane.PLAIN_MESSAGE);
+				System.exit(0);
+			}
+			else if(!hotelAndes.darUsuarioPorId(idInt).getRol().equals("Gerente"))
 			{
 				JOptionPane.showMessageDialog(this, "Lo sentimos, usted no es un Administrador", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
 				System.exit(0);
@@ -768,6 +795,194 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 	/**
 	 * Muestra la documentación Javadoc del proyectp
 	 */
+	
+	//----------
+	//Cliente
+	//----------
+	
+	public void servicioAlojamiento()
+	{
+		try 
+		{
+			//Revisiones previas
+			String idHabitacion = JOptionPane.showInputDialog(this, "Id de la habitacion");
+			boolean prueba = hotelAndes.disponibilidadHabitacion(Long.parseLong(idHabitacion));
+			while(prueba){
+				JOptionPane.showMessageDialog(this, "la habitacion" + Long.parseLong(idHabitacion) + "está siendo ocupada");
+				idHabitacion = JOptionPane.showInputDialog(this, "Id de la habitacion");
+			}
+			String numeroPersonas = JOptionPane.showInputDialog(this, "Numero de personas a hospedar");
+			long personas = Long.parseLong(numeroPersonas);
+			long capacidad = hotelAndes.revisarCapacidad(Long.parseLong(idHabitacion));
+			while(capacidad < personas){
+				JOptionPane.showMessageDialog(this, "el numero excede la capacidad de la habitacion capacidad" + capacidad);
+				numeroPersonas = JOptionPane.showInputDialog(this, "Numero de personas a hospedar");
+				personas = Long.parseLong(numeroPersonas);
+			}
+			
+			//Creando horario
+			String idHorario = JOptionPane.showInputDialog(this, "Ingrese el id del horario a crear");
+			String fechaInicio = JOptionPane.showInputDialog(this, "Ingrese la fecha a la que desea llegar", "dd/MM/yyyy");
+			Timestamp inicio = new Timestamp(new SimpleDateFormat("dd/MM/yyyy").parse(fechaInicio).getTime());
+			String fechaFin = JOptionPane.showInputDialog(this, "Ingrese la fecha desea dejar el hotel", "dd/MM/yyyy");
+			Timestamp fin = new Timestamp(new SimpleDateFormat("dd/MM/yyyy").parse(fechaFin).getTime());
+			VOHorario a = hotelAndes.adicionarHorario(Long.parseLong(idHorario), 0, 0, inicio, fin);
+			
+			String idCuenta = JOptionPane.showInputDialog(this, "Ingrese el id de la cuenta a crear");
+			String valor = JOptionPane.showInputDialog(this, "Ingrese el valor inicial de la cuenta");
+			String[] options = {"Efectivo","Tarjeta","Electronico"};
+			int n = JOptionPane.showOptionDialog(this,"Como desea pagar?","hotelAndes",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[2]);
+			String idPlan = JOptionPane.showInputDialog(this, "Ingrese el id del plan asociado");
+			hotelAndes.adicionarCuenta(Long.parseLong(idCuenta), Long.parseLong(valor), options[n], Long.parseLong(idPlan), identificacionCliente, 98765);
+			
+			String idReserva = JOptionPane.showInputDialog(this, "Ingrese el id de la reserva");
+			String abono = JOptionPane.showInputDialog(this, "Ingrese el abono inicial");
+			String idHotel = JOptionPane.showInputDialog(this, "Ingrese el id del hotel a hospedar");
+			
+			hotelAndes.adicionarReserva(Long.parseLong(idReserva), Long.parseLong(abono), Long.parseLong(idHabitacion), Long.parseLong(idHorario), identificacionCliente, Long.parseLong(idHotel), Long.parseLong(idCuenta));
+			String idServicioAlojamiento = JOptionPane.showInputDialog(this, "Id del servicio de alojamiento");
+			
+			hotelAndes.adicionarServicioAlojamiento(Long.parseLong(idServicioAlojamiento), personas, Long.parseLong(idCuenta));
+			hotelAndes.crearRelacionServHab(Long.parseLong(idHabitacion), Long.parseLong(idServicioAlojamiento));
+		} 
+		catch (Exception e) 
+		{
+			// TODO: handle exception
+		}
+	}
+	
+	//--------
+	//Admin
+	//--------
+	
+	public void registroUsuario(){
+		String idUsuario = JOptionPane.showInputDialog(this, "Id del usuario a crear");
+
+		String[] tipoDocumento = {"Cedula","Tarjeta de identidad","Pasaporte"};
+		int n = JOptionPane.showOptionDialog(this,"Tipo de documento?","hotelAndes",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,null,tipoDocumento,tipoDocumento[2]);
+		
+		String numeroDocumento = JOptionPane.showInputDialog(this, "Numero del documento");
+
+		
+		String correoElectronico = JOptionPane.showInputDialog(this, "Correo electronico");
+		
+		String[] roles = {"Cliente","Recepcionista","Empleado","Administrador", "Gerente"};
+		int o = JOptionPane.showOptionDialog(this,"a quien desea adicionar?","hotelAndes",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,null,roles,roles[2]);
+		
+		Usuario us = hotelAndes.adicionarUsuario(Long.parseLong(idUsuario), tipoDocumento[n], Long.parseLong(numeroDocumento), correoElectronico, roles[o]);
+		
+		panelDatos.actualizarInterfaz("se ha insertado el usuario: " + us.toString());
+	}
+	
+	public void registroTipoHabitacion(){
+		
+		String nombreTipo = JOptionPane.showInputDialog(this, "nombre del tipo");
+		
+		String descripcion = JOptionPane.showInputDialog(this, "descripcion");
+		
+		TipoHabitacion tipo=hotelAndes.adicionarTipoHabitacion(nombreTipo, descripcion);
+		panelDatos.actualizarInterfaz("Se ha insertado el tipo: " + tipo.toString());
+	}
+	
+	public void registroHabitacion(){
+		String idHabitacion = JOptionPane.showInputDialog(this, "id de la habitacion a crear");
+		
+		String tipoHabitacion = JOptionPane.showInputDialog(this, "tipo de habitacion");
+		
+		String costoNoche = JOptionPane.showInputDialog(this, "costo por noche de la habitacion");
+		
+		String capacidadHabitacion = JOptionPane.showInputDialog(this, "capacidad habitacion");
+		
+		String idHotel = JOptionPane.showInputDialog(this, "id del hotel");
+		
+		String numeroHabitacion = JOptionPane.showInputDialog(this, "numero habitacion");
+		
+		Habitacion hab = hotelAndes.adicionaHabitacion(Long.parseLong(idHabitacion), tipoHabitacion, Long.parseLong(costoNoche), Long.parseLong(capacidadHabitacion), Long.parseLong(idHotel), Long.parseLong(numeroHabitacion));
+	
+		panelDatos.actualizarInterfaz("Se ha insertado la habitacion: " + hab.toString());
+	}
+	
+	public void registroPlanConsumo(){
+		
+		String idPlan = JOptionPane.showInputDialog(this, "id del plan a crear");
+		
+		String nombrePlan = JOptionPane.showInputDialog(this, "nombre del plan");
+		
+		String tipo = JOptionPane.showInputDialog(this, "tipo del plan");
+		
+		Plan p = hotelAndes.adicionarPlan(Long.parseLong(idPlan), nombrePlan, tipo);
+		
+		panelDatos.actualizarInterfaz("Se ha insertado el plan: " + p.toString());
+	}
+	
+	//-------------
+	//Registrador
+	//-------------
+	
+	public void checkIn(){
+		
+		String idRegistro= JOptionPane.showInputDialog(this, "id del registro");
+		
+		String idReserva = JOptionPane.showInputDialog(this, "id de la reserva");
+		
+		Registro reg = hotelAndes.adicionarRegistro(Long.parseLong(idRegistro), Long.parseLong(idReserva), identificacionCliente);
+		
+		panelDatos.actualizarInterfaz("Se ha realizado el check in: " + reg.toString());
+	}
+	
+	public void checkOut(){
+		
+		String idRegistro= JOptionPane.showInputDialog(this, "id del registro");
+		
+		hotelAndes.modificarRegistro(Long.parseLong(idRegistro));
+		
+		panelDatos.actualizarInterfaz("Se ha realizado el check out de: " + idRegistro);
+	}
+	
+	//----------
+	//Empleado
+	//----------
+	
+	public void registrarConsumo(){
+		
+		String idCuenta = JOptionPane.showInputDialog(this, "id de la cuenta");
+		
+		String idServicioComplementario = JOptionPane.showInputDialog(this, "id del servicio");
+		
+		hotelAndes.adicionarCuentaServicio(Long.parseLong(idCuenta), Long.parseLong(idServicioComplementario));
+		
+		panelDatos.actualizarInterfaz("Se ha realizado el consumo de la cuenta numero: " + idCuenta + " al servicio: " + idServicioComplementario);
+	}
+	
+	//----------
+	//Gerente
+	//----------
+	public void top20Mas(){
+		
+		List<Object[]> aMostrar = hotelAndes.darTop20();
+		
+		String aRevelar = "";
+		int i = 1;
+		for (Object[] objects : aMostrar) {
+			aRevelar+= i + ") idServicio " + objects[0] + " veces " + objects[1] + "\n";
+			i++;
+		}
+		panelDatos.actualizarInterfaz(aRevelar);
+	}
+	
+	public void indiceOcupacion()
+	{
+		List<Object[]> aMostrar = hotelAndes.darpIndiceHabitaciones();
+		
+		String aRevelar = "";
+		int i = 1;
+		for (Object[] objects : aMostrar) {
+			aRevelar+= i + ") La habitación número " + objects[0] + " tiene un indice de " + objects[1] + "\n";
+			i++;
+		}
+		panelDatos.actualizarInterfaz(aRevelar);
+	}
+	
 	public void mostrarJavadoc ()
 	{
 		mostrarArchivo ("doc/index.html");

@@ -32,7 +32,7 @@ public class SQLServicioAlojamiento {
 
 	public long adicionarServicioAloja(PersistenceManager pm, long idServicioAlojamiento, long cantidadPersonas, long idCuenta)
 	{
-		Query q = pm.newQuery(SQL, "INSERT INTO" + pha.darTablaSevicioAlojamiento() + "(IDSERVICIOALOJAMIENTO, CANTIDADPERSONAS, IDCUENTA) VALUES (?, ?, ?);");
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pha.darTablaSevicioAlojamiento() + " (IDSERVICIOALOJAMIENTO, CANTIDADPERSONAS, IDCUENTA) VALUES (?, ?, ?)");
 		q.setParameters(idServicioAlojamiento, cantidadPersonas, idCuenta);
 		return (long)q.executeUnique();
 	}

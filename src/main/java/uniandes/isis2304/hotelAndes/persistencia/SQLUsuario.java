@@ -32,7 +32,7 @@ public class SQLUsuario {
 
 	public long adicionarUsuario(PersistenceManager pm, String tipoDocumento, long numeroDocumento, String correoElectronico, String rol, long idUsuario)
 	{
-		Query q = pm.newQuery(SQL, "INSERT INTO" + pha.darTablaUsuario() + "(TIPODOCUMENTO, NUMERODOCUMENTO,CORREOELECTRONICO, ROL,IDUSUARIO) VALUES (?, ?, ?, ?, ?)");
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pha.darTablaUsuario() + "(TIPODOCUMENTO, NUMERODOCUMENTO,CORREOELECTRONICO, ROL,IDUSUARIO) VALUES (?, ?, ?, ?, ?)");
 		q.setParameters(tipoDocumento, numeroDocumento, correoElectronico, rol, idUsuario);
 		return (long)q.executeUnique();
 	}

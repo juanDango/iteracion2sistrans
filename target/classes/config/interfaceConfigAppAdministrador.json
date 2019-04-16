@@ -9,6 +9,14 @@
 		  "options":
 			[
 				{
+					"label": "RegistroUsuario",
+					"event": "registroUsuario"
+				},
+				{
+					"label": "RegistroTipoHabitacion",
+					"event": "registroTipoHabitacion"
+				},
+				{
 					"label": "RegistroHabitacion",
 					"event": "registroHabitacion"
 				},
@@ -19,10 +27,6 @@
 				{
 					"label": "RegistroPlanConsumo",
 					"event": "registroPlanConsumo"
-				},
-				{
-					"label": "RegistroCaracteristicaPlan",
-					"event": "registroCaracteristicaPlan"
 				}
 			]
 		}

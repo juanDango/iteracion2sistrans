@@ -37,6 +37,7 @@ import uniandes.isis2304.hotelAndes.negocio.Reserva;
 import uniandes.isis2304.hotelAndes.negocio.Salon;
 import uniandes.isis2304.hotelAndes.negocio.ServicioAlimentacion;
 import uniandes.isis2304.hotelAndes.negocio.ServicioAlojamiento;
+import uniandes.isis2304.hotelAndes.negocio.ServicioAlojamientoHabitacion;
 //import uniandes.isis2304.hotelAndes.negocio.ServicioAlojamientoHabitacion;
 import uniandes.isis2304.hotelAndes.negocio.ServicioHotelComplementario;
 import uniandes.isis2304.hotelAndes.negocio.ServicioIncluido;
@@ -44,6 +45,7 @@ import uniandes.isis2304.hotelAndes.negocio.ServicioLavanderia;
 import uniandes.isis2304.hotelAndes.negocio.ServicioReservado;
 import uniandes.isis2304.hotelAndes.negocio.TipoHabitacion;
 import uniandes.isis2304.hotelAndes.negocio.Usuario;
+import uniandes.isis2304.hotelAndes.negocio.VOServicioIncluido;
 
 public class PersistenciaHotelAndes {
 
@@ -107,17 +109,17 @@ public class PersistenciaHotelAndes {
 
 	//private SQLSalon sqlSalon;
 
-	//private SQLServicioAlimentacion sqlServicioAlimentacion;
+	private SQLServicioAlimentacion sqlServicioAlimentacion;
 
 	private SQLServicioAlojamiento sqlServicioAlojamiento;
 
-	//private SQLServicioAlojamientoHabitacion sqlServicioAlojamientoHabitacion;
+	private SQLServicioAlojamientoHabitacion sqlServicioAlojamientoHabitacion;
 	
 	//private SQLServicioArreglos sqlServicioArreglos;
 
-	//private SQLServicioHotelComplementario sqlServicioHotelComplementario;
+	private SQLServicioHotelComplementario sqlServicioHotelComplementario;
 
-	//private SQLServicioIncluido sqlServicioIncluido;
+	private SQLServicioIncluido sqlServicioIncluido;
 
 	//private SQLServicioLavanderia sqlServicioLavanderia;
 
@@ -252,12 +254,12 @@ public class PersistenciaHotelAndes {
 		sqlRegistro = new SQLRegistro(this);
 		sqlReserva = new SQLReserva(this);
 		//sqlSalon = new SQLSalon(this);
-		//sqlServicioAlimentacion = new SQLServicioAlimentacion(this);
+		sqlServicioAlimentacion = new SQLServicioAlimentacion(this);
 		sqlServicioAlojamiento = new SQLServicioAlojamiento(this);
-		//sqlServicioAlojamientoHabitacion = new SQLServicioAlojamientoHabitacion(this);
+		sqlServicioAlojamientoHabitacion = new SQLServicioAlojamientoHabitacion(this);
 		//sqlServicioArreglos = new SQLServicioArreglos(this);
-		//sqlServicioHotelComplementario = new SQLServicioHotelComplementario(this);
-		//sqlServicioIncluido = new SQLServicioIncluido(this);		
+		sqlServicioHotelComplementario = new SQLServicioHotelComplementario(this);
+		sqlServicioIncluido = new SQLServicioIncluido(this);		
 		//sqlServicioLavanderia = new SQLServicioLavanderia(this);
 		//sqlServicioReservado = new SQLServicioReservado(this);
 		sqlTipoHabitacion = new SQLTipoHabitacion(this);
@@ -282,42 +284,42 @@ public class PersistenciaHotelAndes {
 	
 	public String darTablaConvencion ()
 	{
-		return tablas.get (4);
+		return tablas.get (3);
 	}
 	
 	public String darTablaConvencionHabitacion ()
 	{
-		return tablas.get (5);
+		return tablas.get (4);
 	}
 	
 	public String darTablaConvencionRestBarCafeteria ()
 	{
-		return tablas.get (6);
+		return tablas.get (5);
 	}
 	
 	public String darTablaConvencionSalon ()
 	{
-		return tablas.get (7);
+		return tablas.get (6);
 	}
 	
 	public String darTablaCaracteristicaServicio ()
 	{
-		return tablas.get (8);
+		return tablas.get (7);
 	}
 
 	public String darTablaCuenta ()
 	{
-		return tablas.get (9);
+		return tablas.get (8);
 	}
 
 	public String darTablaCuentaAlojamiento ()
 	{
-		return tablas.get (10);
+		return tablas.get (9);
 	}
 
 	public String darTablaCuentaServicio ()
 	{
-		return tablas.get (11);
+		return tablas.get (10);
 	}
 
 	public String darTablaDotacion ()
@@ -517,6 +519,73 @@ public class PersistenciaHotelAndes {
 		}
 	}
 	
+	
+	//----------------------
+	//Metodos de habitacion
+	//----------------------
+
+	public Habitacion adicionarHabitacion( long idHabitacion, String tipoHabitacion, long costoNoche, long capacidadHabitacion, long idHotel, long numeroHabitacion) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+
+		try
+		{
+			tx.begin();
+			long tuplasInsertadas = 0;
+			tuplasInsertadas = sqlHabitacion.adicionarHabitacion(pmf.getPersistenceManager(), idHabitacion, tipoHabitacion, costoNoche, capacidadHabitacion, idHotel, numeroHabitacion);
+			tx.commit();
+
+			System.out.println("Inserción de horario: " + idHabitacion + ": " + tuplasInsertadas + " tuplas insertadas");
+
+			return new Habitacion(idHabitacion, tipoHabitacion, costoNoche, capacidadHabitacion, idHotel, numeroHabitacion);
+
+
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+	
+	public long revisarCapacidad( long idHabitacion) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+
+		try
+		{
+			tx.begin();
+			Habitacion hab = sqlHabitacion.darHabitacionPorId(pmf.getPersistenceManager(), idHabitacion);
+			tx.commit();
+			return hab.getCapacidadHabitacion();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return 0;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+	
 	//-------------------
 	//Metodos de horario
 	//-------------------
@@ -559,7 +628,7 @@ public class PersistenciaHotelAndes {
 	//Metodo para servicio alojamiento
 	//--------------------------------
 
-	public Registro adicionarRegistro(long idRegistro, long idReserva, char estadoCheckIn, char estadoCheckOut, long idRegistrador) 
+	public Registro adicionarRegistro(long idRegistro, long idReserva, long idRegistrador) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx=pm.currentTransaction();
@@ -568,12 +637,12 @@ public class PersistenciaHotelAndes {
 		{
 			tx.begin();
 			long tuplasInsertadas = 0;
-			tuplasInsertadas = sqlRegistro.adicionarRegistro(pmf.getPersistenceManager(), idRegistro, idReserva, estadoCheckIn, estadoCheckOut, idRegistrador);
+			tuplasInsertadas = sqlRegistro.adicionarRegistro(pmf.getPersistenceManager(), idRegistro, idReserva, idRegistrador);
 			tx.commit();
 
 			System.out.println("Inserción de Plan: " + idRegistro + ": " + tuplasInsertadas + " tuplas insertadas");
 
-			return new Registro(idRegistro, idReserva, estadoCheckIn, estadoCheckOut, idRegistrador);
+			return new Registro(idRegistro, idReserva, 'E', 'F', idRegistrador);
 
 
 		}
@@ -669,7 +738,6 @@ public class PersistenciaHotelAndes {
 		{
 			tx.begin();
 			long tuplasInsertadas = 0;
-			TipoHabitacion bd = sqlTipoHabitacion.darTipoHabitacionPorNombre(pm, nombreTipo);
 			tuplasInsertadas = sqlTipoHabitacion.adicionarTipoHabitacion(pmf.getPersistenceManager(), nombreTipo, descripcion);
 			tx.commit();
 
@@ -837,6 +905,186 @@ public class PersistenciaHotelAndes {
 		}
 	}
 	
+	public ServicioAlojamientoHabitacion crearRelacionServHab(long idHabitacion, long idServicioAlojamiento){
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+
+		try
+		{
+			tx.begin();
+			long tuplasInsertadas = 0;
+			ServicioAlojamientoHabitacion ser = sqlServicioAlojamientoHabitacion.darRelacionPorHabitacion(pm, idHabitacion);
+			if(ser == null){
+				tuplasInsertadas = sqlServicioAlojamientoHabitacion.adicionarServicioAlojaHabita(pm, idHabitacion, idServicioAlojamiento);
+			}
+			tx.commit();
+
+			System.out.println("Inserción de Plan: " + idServicioAlojamiento + ": " + tuplasInsertadas + " tuplas insertadas");
+
+			if(tuplasInsertadas == 0)
+			{
+				return null;
+			}
+			return new ServicioAlojamientoHabitacion(idHabitacion, idServicioAlojamiento);
+
+
+		}
+		catch (Exception e)
+		{
+        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+	
+	public boolean buscarPorHabitacion(long idHabitacion){
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+
+		try
+		{
+			tx.begin();
+			long tuplasInsertadas = 0;
+			ServicioAlojamientoHabitacion ser = sqlServicioAlojamientoHabitacion.darRelacionPorHabitacion(pm, idHabitacion);
+			tx.commit();
+
+			System.out.println(ser);
+			return ser != null;
+
+
+		}
+		catch (Exception e)
+		{
+        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return false;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+	
+	//-------------------------------------------
+	//Metodos para los servicios complementarios
+	//-------------------------------------------
+	
+	public ServicioHotelComplementario adicionarServicioHotel(long idSComplementario, String nombreServicio, long idHotel) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+
+		try
+		{
+			tx.begin();
+			long tuplasInsertadas = 0;
+			tuplasInsertadas = sqlServicioHotelComplementario.adicionarServHotelComplementario(pm, idSComplementario, nombreServicio, idHotel);
+			tx.commit();
+
+			System.out.println("Inserción de Plan: " + idSComplementario + ": " + tuplasInsertadas + " tuplas insertadas");
+
+			return new ServicioHotelComplementario(idSComplementario, nombreServicio, idHotel);
+
+
+		}
+		catch (Exception e)
+		{
+        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+	
+	//Servicio incluido
+	public ServicioIncluido adicionarServicioIncluido(long idServicio, String nombreServicio, long idHotel, String nombre,
+			long capacidad) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+
+		try
+		{
+			tx.begin();
+			long tuplasInsertadas = 0;
+			tuplasInsertadas = sqlServicioIncluido.adicionarServIncluido(pm, idServicio, nombre, capacidad, idHotel);
+			tx.commit();
+
+			System.out.println("Inserción de Plan: " + idServicio + ": " + tuplasInsertadas + " tuplas insertadas");
+
+			return new ServicioIncluido(idServicio, nombreServicio, idHotel, nombre, capacidad);
+
+
+		}
+		catch (Exception e)
+		{
+        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+	
+	//Servicio alimentacion
+	public ServicioAlimentacion adicionarServicioAlimentacion(long idServicio, String nombreSevicio, String estilo, long capacidad, String tipo, char esConsumoHabitacion, String descripcion) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+
+		try
+		{
+			tx.begin();
+			long tuplasInsertadas = 0;
+			tuplasInsertadas = sqlServicioAlimentacion.adicionarServAlimentacion(pm, idServicio, nombreSevicio, estilo, capacidad, tipo, esConsumoHabitacion, descripcion);
+			tx.commit();
+
+			System.out.println("Inserción de Plan: " + idServicio + ": " + tuplasInsertadas + " tuplas insertadas");
+
+			return new ServicioIncluido(idServicio, nombreServicio, idHotel, nombre, capacidad);
+
+
+		}
+		catch (Exception e)
+		{
+        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
 	//-----------------------
 	//Metodos para consultas
 	//-----------------------
@@ -890,12 +1138,12 @@ public class PersistenciaHotelAndes {
 		{
 			tx.begin();
 
-			String sql = "SELECT idserviciocomplementario, count(idserviciocomplementario) FROM CUENTASERVICIO WHERE ROWNUM <= 20 ORDER BY count(idserviciocomplementario) desc;";
+			String sql = "SELECT idserviciocomplementario, count(idserviciocomplementario) FROM CUENTASERVICIO WHERE ROWNUM <= 20 GROUP BY idServicioComplementario ORDER BY count(idserviciocomplementario) desc";
 			Query q = pm.newQuery(SQL,sql);
 			List<Object[]> l = (List<Object[]>)q.executeList();
 			tx.commit();
 
-
+			System.out.println(l.getClass());
 			return l;			
 		}
 		catch(Exception e)
@@ -923,10 +1171,17 @@ public class PersistenciaHotelAndes {
 		{
 			tx.begin();
 
-			String sql = "SELECT ha.IDHABITACION AS NUMHABITACION, (sa.CANTIDADPERSONAS/ha.CAPACIDADHABITACION) AS INDIC FROM HABITACION ha INNER JOIN SERVICIOALOJAMIENTOHABITACION sah ON sah.IDHABITACION = ha.IDHABITACION INNER JOIN SERVICIOALOJAMIENTO sa ON sa.IDSERVICIOALOJAMIENTO = sah.IDSERVICIOALOJAMIENTO";
-			Query q = pm.newQuery(SQL,sql);
-			List<Object[]> l = (List<Object[]>)q.executeList();
+			String sql = "SELECT tablita1.IDHABITACION AS NUMHABITACION, (sa.CANTIDADPERSONAS/tablita1.CAPACIDADHABITACION) AS INDICE " +
+					"FROM (SELECT ha.idhabitacion, ha.capacidadhabitacion, sah.idservicioalojamiento " +
+					"FROM HABITACION ha " +
+					"INNER JOIN SERVICIOALOJAMIENTOHABITACION sah " +
+					"ON sah.IDHABITACION = ha.IDHABITACION) tablita1 " +
+					"INNER JOIN SERVICIOALOJAMIENTO sa ON sa.IDSERVICIOALOJAMIENTO = tablita1.IDSERVICIOALOJAMIENTO";
+			Query q = pm.newQuery(SQL, sql);
+			List<Object[]> l = (List<Object[]>) q.executeList();
 			tx.commit();
+			System.out.println(l.getClass());
+			System.out.println(l.get(0)[0]);
 
 
 			return l;			

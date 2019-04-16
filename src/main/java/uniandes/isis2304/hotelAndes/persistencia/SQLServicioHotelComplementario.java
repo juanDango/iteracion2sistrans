@@ -3,9 +3,8 @@ package uniandes.isis2304.hotelAndes.persistencia;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import uniandes.isis2304.hotelAndes.negocio.Plan;
+public class SQLServicioHotelComplementario {
 
-public class SQLCuentaServicio {
 
 	//-----------
 	//Constantes
@@ -23,7 +22,7 @@ public class SQLCuentaServicio {
 	//Constructor
 	//------------
 
-	public SQLCuentaServicio(PersistenciaHotelAndes pha){
+	public SQLServicioHotelComplementario(PersistenciaHotelAndes pha){
 		this.pha = pha; 
 	}
 
@@ -31,10 +30,10 @@ public class SQLCuentaServicio {
 	//Metodos para manejo de cadena hotelera
 	//---------------------------------------
 
-	public long adicionarCuentaServicio(PersistenceManager pm, long idCuenta, long idServicioComplementario)
+	public long adicionarServHotelComplementario(PersistenceManager pm, long idSComplementario, String nombreServicio, long idHotel)
 	{
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pha.darTablaCuentaServicio() + " (IDCUENTA, IDSERVICIOCOMPLEMENTARIO) VALUES (?, ?)");
-		q.setParameters(idCuenta, idServicioComplementario);
+		Query q = pm.newQuery(SQL, "INSERT INTO" + pha.darTablaServicioHotelComplementario() + "(IDSCOMPLEMENTARIO, NOMBRESERVICIO,IDHOTEL)  VALUES (?, ?, ?)");
+		q.setParameters(idSComplementario, nombreServicio, idHotel);
 		return (long)q.executeUnique();
 	}
 	
