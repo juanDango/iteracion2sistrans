@@ -1,7 +1,7 @@
 package uniandes.isis2304.hotelAndes.persistencia;
 
 
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
@@ -34,10 +34,10 @@ public class SQLHabitacion {
 	//Metodos para manejo de cadena hotelera
 	//---------------------------------------
 
-	public long adicionarHabitacion(PersistenceManager pm, long idHabitacion, String tipoHabitacion, long costoNoche, long capacidadHabitacion, long idHotel, long numeroHabitacion)
+	public long adicionarHabitacion(PersistenceManager pm, long idHabitacion, String tipoHabitacion, long costoNoche, long capacidadHabitacion, long idHotel, long numeroHabitacion,String disponible)
 	{
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pha.darTablaHabitacion() + " (IDHABITACION, TIPOHABITACION, COSTONOCHE, CAPACIDADHABITACION, IDHOTEL, NUMEROHABITACION, DISPONIBILIDAD) VALUES (?, ?, ?, ?, ?, ?, 'S')");
-		q.setParameters(idHabitacion, tipoHabitacion, costoNoche, capacidadHabitacion, idHotel, numeroHabitacion);
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pha.darTablaHabitacion() + " (IDHABITACION, TIPOHABITACION, COSTONOCHE, CAPACIDADHABITACION, IDHOTEL, NUMEROHABITACION, disponible) VALUES (?, ?, ?, ?, ?, ?,?)");
+		q.setParameters(idHabitacion, tipoHabitacion, costoNoche, capacidadHabitacion, idHotel, numeroHabitacion,disponible);
 		return (long)q.executeUnique();
 	}
 
@@ -47,12 +47,12 @@ public class SQLHabitacion {
 		q.setParameters(id);
 		return (Habitacion) q.executeUnique();
 	}
-	
-	public long darActualizarPorEstado(PersistenceManager pm, long id, String estado){
-		Query q = pm.newQuery(SQL, "UPDATE " + pha.darTablaHabitacion() + "SET DISPONIBILIDAD = '?' WHERE IDHABITACION = ?");
+
+	public ArrayList<Habitacion> darHabitacionesPorTipo(PersistenceManager pm, String tipo) {
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pha.darTablaHabitacion() + " WHERE TIPOHABITACION = ?");
 		q.setResultClass(Habitacion.class);
-		q.setParameters(estado, id);
-		return (long) q.executeUnique();
+		q.setParameters(tipo);
+		return (ArrayList<Habitacion>) q.executeUnique();
 	}
 	
 }

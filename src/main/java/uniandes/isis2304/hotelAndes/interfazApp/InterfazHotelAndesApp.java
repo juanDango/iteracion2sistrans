@@ -16,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.jdo.JDODataStoreException;
 import javax.swing.Icon;
@@ -897,7 +898,7 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 		
 		String numeroHabitacion = JOptionPane.showInputDialog(this, "numero habitacion");
 		
-		Habitacion hab = hotelAndes.adicionaHabitacion(Long.parseLong(idHabitacion), tipoHabitacion, Long.parseLong(costoNoche), Long.parseLong(capacidadHabitacion), Long.parseLong(idHotel), Long.parseLong(numeroHabitacion));
+		Habitacion hab = hotelAndes.adicionaHabitacion(Long.parseLong(idHabitacion), tipoHabitacion, Long.parseLong(costoNoche), Long.parseLong(capacidadHabitacion), Long.parseLong(idHotel), Long.parseLong(numeroHabitacion), "N");
 	
 		panelDatos.actualizarInterfaz("Se ha insertado la habitacion: " + hab.toString());
 	}
@@ -1016,7 +1017,60 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 		}
 	}
 
+	
+	////////////////REQUERIMIENTOS ITERACION 2//////////////////////
+	//requ 12
+	public void registroConvencionYSevicios(){
+		long idConvencion = Long.parseLong(JOptionPane.showInputDialog(this, "Id de la convencion"));
+		long idHotel = Long.parseLong(JOptionPane.showInputDialog(this, "Id del hotel. Ej: 123"));
+		long numparticipantes  = Long.parseLong(JOptionPane.showInputDialog(this, "Numero de participantes"));
+		String nombreConvencion = JOptionPane.showInputDialog(this, "Nombre Convencion");
 
+		String fechaInicio = JOptionPane.showInputDialog(this, "Ingrese la fecha de inicio dd/MM/yy ", "dd/MM/yy");
+		
+		String fechaFinal = JOptionPane.showInputDialog(this, "Ingrese la fecha final dd/MM/yy ", "dd/MM/yy");
+		Convencion co=null;
+		
+		try {
+			Timestamp finicio = new Timestamp(new SimpleDateFormat("dd/MM/yy").parse(fechaInicio).getTime());
+
+			Timestamp ffinal = new Timestamp(new SimpleDateFormat("dd/MM/yy").parse(fechaFinal).getTime());
+			Random r = new Random();
+			long idHorario = r.nextInt((1000 - 3) + 1) + 3;
+			Horario ho = hotelAndes.adicionarHorario(idHorario, Long.valueOf(0),Long.valueOf(0),finicio, ffinal);
+			co = hotelAndes.adicionarConvencion(idConvencion, idHotel, numparticipantes, nombreConvencion, idHorario);
+
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		long idCliente = Long.parseLong(JOptionPane.showInputDialog(this, "id del organizador de eventos ej:4545"));
+
+		long idCuenta = Long.parseLong(JOptionPane.showInputDialog(this, "id de la cuenta"));
+		Cuenta cu = hotelAndes.adicionarCuenta(idCuenta, 0, "efectivo", 0, idCliente, 0);
+		// servicios
+		int cantServicios = Integer.parseInt(JOptionPane.showInputDialog(this, "Cantidad de servicios"));
+		for (int i = 0; i < cantServicios; i++) {
+			long idServicioComplementario = Long.parseLong(JOptionPane.showInputDialog(this, "id del servicio"));
+			ConvencionRestauranteCafeteria crbc = hotelAndes.adicionarConvencionrestbarcafeteria(idServicioComplementario, co.getIdConvencion());
+		}
+		// tipos de habitaciones
+		int cantTipoHabitacion = Integer.parseInt(JOptionPane.showInputDialog(this, "Cantidad de tipos de habitacion"));
+
+		for (int i = 0; i < cantTipoHabitacion; i++) {
+			String nombreTipo = JOptionPane.showInputDialog(this, "Nombre habitacion");
+			int cantHabitaciones = Integer.parseInt(JOptionPane.showInputDialog(this, "cantidad de habitaciones del tipo "+nombreTipo));
+			
+			TipoHabitacion th = hotelAndes.adicionarTipoHabitacion(nombreTipo, "");
+			for (int j = 0; j < cantHabitaciones; j++){
+				Habitacion ha = hotelAndes.adicionaHabitacion(Long.valueOf(10000+j), nombreTipo, 40000, 1, 123, Long.valueOf(10000/2 + 1),"N");
+			
+			}
+		}
+		
+		panelDatos.actualizarInterfaz("se ha insertado la convecion: " + co.toString());
+	}
+	
 	/**
 	 * Método para la ejecución de los eventos que enlazan el menú con los métodos de negocio
 	 * Invoca al método correspondiente según el evento recibido

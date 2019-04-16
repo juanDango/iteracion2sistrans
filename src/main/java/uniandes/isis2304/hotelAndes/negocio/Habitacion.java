@@ -41,7 +41,7 @@ public class Habitacion implements VOHabitacion {
 		this.capacidadHabitacion = 0;
 		this.idHotel = 0;
 		this.numeroHabitacion = 0;
-		disponible = "";
+		this.disponible = "S";
 	}
 	
 	//------------------
@@ -142,14 +142,6 @@ public class Habitacion implements VOHabitacion {
 	@Override
 	public void setNumeroHabitacion(long numeroHabitacion) {
 		this.numeroHabitacion = numeroHabitacion;
-	}
-	
-	public String getDisponible(){
-		return disponible;
-	}
-	
-	public void setDisponible(String disponible){
-		this.disponible = disponible;
 	}
 	
 	//----------

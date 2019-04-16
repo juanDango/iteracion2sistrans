@@ -9,7 +9,7 @@ public class Convencion implements VOConvencion {
 	private long idConvencion;
 	
 	private long idHotel;
-	
+	private long idHorario;
 	private long numParticipantes;
 	
 	private String nombreConvencion;
@@ -18,11 +18,12 @@ public class Convencion implements VOConvencion {
 	//Constructor
 	//------------
 	
-	public Convencion(long idConvencion, long idHotel, long numParticipantes, String nombreConvencion) {
+	public Convencion(long idConvencion, long idHotel, long numParticipantes, String nombreConvencion, long idHorario) {
 		this.idConvencion = idConvencion;
 		this.idHotel = idHotel;
 		this.numParticipantes = numParticipantes;
 		this.nombreConvencion = nombreConvencion;
+		this.idHorario = idHorario;
 	}
 	
 	public Convencion() {
@@ -32,10 +33,8 @@ public class Convencion implements VOConvencion {
 		this.nombreConvencion = "";
 	}
 	
-	//------------------
-	//Getters y Setters
-	//------------------
 	
+
 	/* (non-Javadoc)
 	 * @see uniandes.isis2304.hotelAndes.negocio.VOConvencion#getIdConvencion()
 	 */

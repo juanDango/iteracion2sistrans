@@ -1,6 +1,7 @@
 package uniandes.isis2304.hotelAndes.negocio;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -70,9 +71,9 @@ public class HotelAndes {
 	 *          Metodos para el manejo de los habitacion
 	 *****************************************************************/
 	
-	public Habitacion adicionaHabitacion(long idHabitacion, String tipoHabitacion, long costoNoche, long capacidadHabitacion, long idHotel, long numeroHabitacion){
+	public Habitacion adicionaHabitacion(long idHabitacion, String tipoHabitacion, long costoNoche, long capacidadHabitacion, long idHotel, long numeroHabitacion,String disponible){
 		System.out.println("Adicionando plan :" + idHabitacion);
-		Habitacion us = pp.adicionarHabitacion(idHabitacion, tipoHabitacion, costoNoche, capacidadHabitacion, idHotel, numeroHabitacion);
+		Habitacion us = pp.adicionarHabitacion(idHabitacion, tipoHabitacion, costoNoche, capacidadHabitacion, idHotel, numeroHabitacion, disponible);
 		System.out.println("Adicionado " + us);
 		return us;
 	}
@@ -252,5 +253,37 @@ public class HotelAndes {
 		System.out.println("Pruebas");
 		long aRet = pp.darAgruparPorTipo(tipo);
 		return aRet;
+	}
+public Convencion adicionarConvencion(long idConvencion, long idHotel, long numparticipantes,
+		String nombreConvencion, long idHorario) {
+		System.out.println("Adicionando convencion " + nombreConvencion);
+		Convencion us = pp.adicionarConvencion(idConvencion, idHotel, numparticipantes, nombreConvencion, idHorario);
+		System.out.println("Adicionado " + us);
+		return us;
+	}
+
+	public ConvencionRestauranteCafeteria adicionarConvencionrestbarcafeteria(long idServicioComplementario,
+			long idConvencion) {
+		
+			System.out.println("Adicionando ConvencionRestauranteCafeteria " + idServicioComplementario + idConvencion);
+			ConvencionRestauranteCafeteria us = pp.adicionarConvencionrestbarcafeteria(idConvencion, idServicioComplementario);
+			System.out.println("Adicionado " + us);
+			return us;
+	}
+	
+	public Habitacion darHabitacion(String nit)
+	{
+		log.info ("Dando Habitacion :  " + nit);
+		Habitacion clienEmp = pp.darHabitacion(nit);
+		log.info ("Dando Habitacion :  " + clienEmp);
+		return clienEmp;
+	}
+
+	public ArrayList<Habitacion> darHabitacionPorTipo(String nit)
+	{
+		log.info ("Dando Habitacion :  " + nit);
+		ArrayList<Habitacion> clienEmp = pp.darHabitacionTipo(nit);
+		log.info ("Dando Habitacion :  " + clienEmp);
+		return clienEmp;
 	}
 }
