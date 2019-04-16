@@ -1,0 +1,38 @@
+{
+	"title": "Aplicación transaccional de Parranderos Uniandes",
+	"frameH": 600,
+	"frameW": 800,
+	"bannerPath": "./src/main/resources/config/logo.png",
+	"menuBar":
+	[
+		{ "menuTitle": "Requerimientos",
+		  "options":
+			[
+				{
+					"label": "REQ12",
+					"event": "req12"
+				},
+				{
+					"label": "REQ13",
+					"event": "req13"
+				},
+				{
+					"label": "REQ14",
+					"event": "req14"
+				},
+				{
+					"label": "REQ15",
+					"event": "req15"
+				},
+				{
+					"label": "REQ16",
+					"event": "req16"
+				}
+			]
+		}
+		
+			
+		
+	]
+}
+	

@@ -77,6 +77,9 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 	 */
 	private static final String CONFIG_INTERFAZ_ADMIN = "./src/main/resources/config/interfaceConfigAppAdministrador.json";
 	
+	private static final String CONFIG_INTERFAZ_ORGANIZADOREVENTOS = "./src/main/resources/config/interfaceConfigAppOrganizadorEventos.json";
+
+	
 	/**
 	 * Ruta al archivo de configuración de la interfaz PARA LOS GERENTES
 	 */
@@ -141,7 +144,7 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 		tableConfig = openConfig ("Tablas BD", CONFIG_TABLAS);
 		hotelAndes = new HotelAndes (tableConfig);
 
-		Object[] options = {"Cliente","Recepcionista","Empleado","Administrador", "Gerente"};
+		Object[] options = {"Cliente","Recepcionista","Empleado","Administrador", "Gerente","OrganizadorEventos"};
 		int n = JOptionPane.showOptionDialog(this,"Como desea ingresar?","hotelAndes",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[2]);
 		if(n == 0)
 		{
@@ -271,6 +274,33 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 				estadoAplicacion = 4;
 				identificacionCliente = idInt;
 				guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ_GERENTES);
+			}
+			
+		}
+		if(n == 5)
+		{
+			String id = JOptionPane.showInputDialog(this, "Digite su id", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
+			if(id.isEmpty())
+			{
+				JOptionPane.showMessageDialog(this, "Por favor ingrese un id valido", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
+				System.exit(0);
+			}
+			int idInt = Integer.parseInt(id);
+			if(hotelAndes.darUsuarioPorId(idInt) == null)
+			{
+				JOptionPane.showMessageDialog(this, "Lo sentimos, su ID no se encuentra en nuestros registros", "hotelAndes", JOptionPane.PLAIN_MESSAGE);
+				System.exit(0);
+			}
+			else if(!hotelAndes.darUsuarioPorId(idInt).getRol().equals("OrganizadorEventos"))
+			{
+				JOptionPane.showMessageDialog(this, "Lo sentimos, usted no es un Administrador", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
+				System.exit(0);
+			}
+			else
+			{
+				estadoAplicacion = 4;
+				identificacionCliente = idInt;
+				guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ_ORGANIZADOREVENTOS);
 			}
 			
 		}
