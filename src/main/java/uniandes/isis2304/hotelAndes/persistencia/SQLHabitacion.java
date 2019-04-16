@@ -1,6 +1,8 @@
 package uniandes.isis2304.hotelAndes.persistencia;
 
 
+import java.util.List;
+
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
@@ -34,7 +36,7 @@ public class SQLHabitacion {
 
 	public long adicionarHabitacion(PersistenceManager pm, long idHabitacion, String tipoHabitacion, long costoNoche, long capacidadHabitacion, long idHotel, long numeroHabitacion)
 	{
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pha.darTablaHabitacion() + " (IDHABITACION, TIPOHABITACION, COSTONOCHE, CAPACIDADHABITACION, IDHOTEL, NUMEROHABITACION) VALUES (?, ?, ?, ?, ?, ?)");
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pha.darTablaHabitacion() + " (IDHABITACION, TIPOHABITACION, COSTONOCHE, CAPACIDADHABITACION, IDHOTEL, NUMEROHABITACION, DISPONIBILIDAD) VALUES (?, ?, ?, ?, ?, ?, 'S')");
 		q.setParameters(idHabitacion, tipoHabitacion, costoNoche, capacidadHabitacion, idHotel, numeroHabitacion);
 		return (long)q.executeUnique();
 	}
@@ -44,6 +46,13 @@ public class SQLHabitacion {
 		q.setResultClass(Habitacion.class);
 		q.setParameters(id);
 		return (Habitacion) q.executeUnique();
+	}
+	
+	public long darActualizarPorEstado(PersistenceManager pm, long id, String estado){
+		Query q = pm.newQuery(SQL, "UPDATE " + pha.darTablaHabitacion() + "SET DISPONIBILIDAD = '?' WHERE IDHABITACION = ?");
+		q.setResultClass(Habitacion.class);
+		q.setParameters(estado, id);
+		return (long) q.executeUnique();
 	}
 	
 }

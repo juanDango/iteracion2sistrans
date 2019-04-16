@@ -1,70 +1,66 @@
 package uniandes.isis2304.hotelAndes.negocio;
 
-public class ServicioLavanderia implements VOServicioLavanderia {
-	public ServicioLavanderia(long idServicio, String nombreServicio, String tipo, long cantuniandes,
-			String nombreservicio2, String descripcion, long costounitario) {
-		super();
-		this.idServicio = idServicio;
-		this.nombreServicio = nombreServicio;
-		this.tipo = tipo;
-		this.cantuniandes = cantuniandes;
-		nombreservicio = nombreservicio2;
-		this.descripcion = descripcion;
-		this.costounitario = costounitario;
-	}
-	private long idServicio;
-	private String nombreServicio;
-	private String tipo;
-	private long cantuniandes;
-	private String nombreservicio;
+public class ServicioLavanderia extends ServicioHotelComplementario {
+	
 	private String descripcion;
-	private long costounitario;
-	public long getIdServicio() {
-		return idServicio;
-	}
-	public void setIdServicio(long idServicio) {
-		this.idServicio = idServicio;
-	}
-	public String getNombreServicio() {
-		return nombreServicio;
-	}
-	public void setNombreServicio(String nombreServicio) {
-		this.nombreServicio = nombreServicio;
-	}
-	public String getTipo() {
-		return tipo;
-	}
-	public void setTipo(String tipo) {
+	
+	private String tipo;
+	
+	private long costoUnitario;
+	
+	private long cantUnidades;
+
+	public ServicioLavanderia(long idSComplementario, String nombreServicio, long idHotel, String descripcion,
+			String tipo, long costoUnitario, long cantUnidades) {
+		super(idSComplementario, nombreServicio, idHotel);
+		this.descripcion = descripcion;
 		this.tipo = tipo;
+		this.costoUnitario = costoUnitario;
+		this.cantUnidades = cantUnidades;
 	}
-	public long getCantuniandes() {
-		return cantuniandes;
+
+	public ServicioLavanderia() {
+		super();
+		this.descripcion = "";
+		this.tipo = "";
+		this.costoUnitario = 0;
+		this.cantUnidades = 0;
 	}
-	public void setCantuniandes(long cantuniandes) {
-		this.cantuniandes = cantuniandes;
-	}
-	public String getNombreservicio() {
-		return nombreservicio;
-	}
-	public void setNombreservicio(String nombreservicio) {
-		this.nombreservicio = nombreservicio;
-	}
+
 	public String getDescripcion() {
 		return descripcion;
 	}
+
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public long getCostounitario() {
-		return costounitario;
+
+	public String getTipo() {
+		return tipo;
 	}
-	public void setCostounitario(long costounitario) {
-		this.costounitario = costounitario;
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
+
+	public long getCostoUnitario() {
+		return costoUnitario;
+	}
+
+	public void setCostoUnitario(long costoUnitario) {
+		this.costoUnitario = costoUnitario;
+	}
+
+	public long getCantUnidades() {
+		return cantUnidades;
+	}
+
+	public void setCantUnidades(long cantUnidades) {
+		this.cantUnidades = cantUnidades;
+	}
+	
 	@Override
 	public String toString() {
-		return "ServicioLavanderia [idServicio=" + idServicio + ", nombreServicio=" + nombreServicio + ", tipo=" + tipo
-				+ ", cantuniandes=" + cantuniandes + ", nombreservicio=" + nombreservicio + ", descripcion="
-				+ descripcion + ", costounitario=" + costounitario + "]";
+		return "ServicioLavanderia "+ super.toStringTemporal()+", descripcion="+descripcion+", tipo="+tipo+", costoUnitario="+costoUnitario+", cantUnidades="+cantUnidades+"]";	
 	}
 }

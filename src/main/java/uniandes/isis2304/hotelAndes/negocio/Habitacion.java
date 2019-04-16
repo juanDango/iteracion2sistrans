@@ -18,18 +18,20 @@ public class Habitacion implements VOHabitacion {
 	
 	private long numeroHabitacion;
 	
+	private String disponible;
 	//------------
 	//Constructor
 	//------------
 
 	public Habitacion(long idHabitacion, String tipoHabitacion, long costoNoche, long capacidadHabitacion, long idHotel,
-			long numeroHabitacion) {
+			long numeroHabitacion, String disponible) {
 		this.idHabitacion = idHabitacion;
 		this.tipoHabitacion = tipoHabitacion;
 		this.costoNoche = costoNoche;
 		this.capacidadHabitacion = capacidadHabitacion;
 		this.idHotel = idHotel;
 		this.numeroHabitacion = numeroHabitacion;
+		this.disponible = disponible;
 	}
 
 	public Habitacion() {
@@ -39,6 +41,7 @@ public class Habitacion implements VOHabitacion {
 		this.capacidadHabitacion = 0;
 		this.idHotel = 0;
 		this.numeroHabitacion = 0;
+		disponible = "";
 	}
 	
 	//------------------
@@ -139,6 +142,14 @@ public class Habitacion implements VOHabitacion {
 	@Override
 	public void setNumeroHabitacion(long numeroHabitacion) {
 		this.numeroHabitacion = numeroHabitacion;
+	}
+	
+	public String getDisponible(){
+		return disponible;
+	}
+	
+	public void setDisponible(String disponible){
+		this.disponible = disponible;
 	}
 	
 	//----------

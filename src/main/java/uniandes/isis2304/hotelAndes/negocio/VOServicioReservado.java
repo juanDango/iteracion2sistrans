@@ -2,10 +2,6 @@ package uniandes.isis2304.hotelAndes.negocio;
 
 public interface VOServicioReservado {
 
-	long getIdServicio();
-
-	void setIdServicio(long idServicio);
-
 	String getNombreEspecifico();
 
 	void setNombreEspecifico(String nombreEspecifico);
@@ -17,10 +13,6 @@ public interface VOServicioReservado {
 	long getDuracion();
 
 	void setDuracion(long duracion);
-
-	String getNombreservicio();
-
-	void setNombreservicio(String nombreservicio);
 
 	String getDescripcion();
 

@@ -178,6 +178,27 @@ public class HotelAndes {
 		return us;
 	}
 	
+	public ServicioAlimentacion crearServicioAlimentacion(long idServicio, long idHotel, String nombreSevicio, String estilo, long capacidad, String tipo, char esConsumoHabitacion, long idHorario, String descripcion){
+		System.out.println("Adicionando servicio : " + idServicio);
+		ServicioAlimentacion us = pp.adicionarServicioAlimentacion(idServicio, idHotel, nombreSevicio, estilo, capacidad, tipo, esConsumoHabitacion, idHorario, descripcion);
+		System.out.println("Adicionado " + us);
+		return us;
+	}
+	
+	public Salon crearSalon(long idServicio, String nombreServicio, long idHotel, String nombre, long capacidad, long costoPorHora, String tipo){
+		System.out.println("Adicionando servicio : " + idServicio);
+		Salon us = pp.adicionarSalon(idServicio, nombreServicio, idHotel, nombre, capacidad, costoPorHora, tipo);
+		System.out.println("Adicionado " + us);
+		return us;
+	}
+	
+	public ServicioLavanderia crearServicioLavanderia(long idServicio, String nombreServicio, long idHotel, String descripcion, String tipo, long costoUnitario, long cantUnidades){
+		System.out.println("Adicionando servicio : " + idServicio);
+		ServicioLavanderia us = pp.adicionarServicioLavanderia(idServicio, nombreServicio, idHotel, descripcion, tipo, costoUnitario, cantUnidades);
+		System.out.println("Adicionado " + us);
+		return us;
+	}
+	
 	/* ****************************************************************
 	 *          Metodos para el manejo de los tipos de habitacion
 	 *****************************************************************/
@@ -220,6 +241,16 @@ public class HotelAndes {
 	public List<Object[]> darpIndiceHabitaciones(){
 		System.out.println("Pruebas");
 		List<Object[]> aRet = pp.indiceOcupacion();
+		return aRet;
+	}
+	
+	/* ****************************************************************
+	 *          Metodos auxiliares
+	 *****************************************************************/
+	
+	public long darNumeroDisponiblePorTipo(String tipo){
+		System.out.println("Pruebas");
+		long aRet = pp.darAgruparPorTipo(tipo);
 		return aRet;
 	}
 }

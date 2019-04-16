@@ -1,38 +1,33 @@
 package uniandes.isis2304.hotelAndes.negocio;
 
-public class ServicioReservado implements VOServicioReservado {
-	public ServicioReservado(long idServicio, String nombreEspecifico, String tipo, long duracion,
-			String nombreservicio, String descripcion, long costo) {
-		super();
-		this.idServicio = idServicio;
-		this.nombreEspecifico = nombreEspecifico;
-		this.tipo = tipo;
-		this.duracion = duracion;
-		this.nombreservicio = nombreservicio;
-		this.descripcion = descripcion;
-		this.costo = costo;
-	}
-	private long idServicio;
+public class ServicioReservado extends ServicioHotelComplementario implements VOServicioReservado {
+
+	
 	private String nombreEspecifico;
 	private String tipo;
 	private long duracion;
-	private String nombreservicio;
 	private String descripcion;
 	private long costo;
-	/* (non-Javadoc)
-	 * @see uniandes.isis2304.hotelAndes.negocio.VOServicioReservado#getIdServicio()
-	 */
-	@Override
-	public long getIdServicio() {
-		return idServicio;
+	
+	public ServicioReservado(long idSComplementario, String nombreServicio, long idHotel, String nombreEspecifico,
+			String tipo, long duracion, String descripcion, long costo) {
+		super(idSComplementario, nombreServicio, idHotel);
+		this.nombreEspecifico = nombreEspecifico;
+		this.tipo = tipo;
+		this.duracion = duracion;
+		this.descripcion = descripcion;
+		this.costo = costo;
 	}
-	/* (non-Javadoc)
-	 * @see uniandes.isis2304.hotelAndes.negocio.VOServicioReservado#setIdServicio(long)
-	 */
-	@Override
-	public void setIdServicio(long idServicio) {
-		this.idServicio = idServicio;
+	
+	public ServicioReservado() {
+		super();
+		this.nombreEspecifico = "";
+		this.tipo = "";
+		this.duracion = 0;
+		this.descripcion = "";
+		this.costo = 0;
 	}
+
 	/* (non-Javadoc)
 	 * @see uniandes.isis2304.hotelAndes.negocio.VOServicioReservado#getNombreEspecifico()
 	 */
@@ -40,6 +35,7 @@ public class ServicioReservado implements VOServicioReservado {
 	public String getNombreEspecifico() {
 		return nombreEspecifico;
 	}
+
 	/* (non-Javadoc)
 	 * @see uniandes.isis2304.hotelAndes.negocio.VOServicioReservado#setNombreEspecifico(java.lang.String)
 	 */
@@ -47,6 +43,7 @@ public class ServicioReservado implements VOServicioReservado {
 	public void setNombreEspecifico(String nombreEspecifico) {
 		this.nombreEspecifico = nombreEspecifico;
 	}
+
 	/* (non-Javadoc)
 	 * @see uniandes.isis2304.hotelAndes.negocio.VOServicioReservado#getTipo()
 	 */
@@ -54,6 +51,7 @@ public class ServicioReservado implements VOServicioReservado {
 	public String getTipo() {
 		return tipo;
 	}
+
 	/* (non-Javadoc)
 	 * @see uniandes.isis2304.hotelAndes.negocio.VOServicioReservado#setTipo(java.lang.String)
 	 */
@@ -61,6 +59,7 @@ public class ServicioReservado implements VOServicioReservado {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+
 	/* (non-Javadoc)
 	 * @see uniandes.isis2304.hotelAndes.negocio.VOServicioReservado#getDuracion()
 	 */
@@ -68,6 +67,7 @@ public class ServicioReservado implements VOServicioReservado {
 	public long getDuracion() {
 		return duracion;
 	}
+
 	/* (non-Javadoc)
 	 * @see uniandes.isis2304.hotelAndes.negocio.VOServicioReservado#setDuracion(long)
 	 */
@@ -75,20 +75,7 @@ public class ServicioReservado implements VOServicioReservado {
 	public void setDuracion(long duracion) {
 		this.duracion = duracion;
 	}
-	/* (non-Javadoc)
-	 * @see uniandes.isis2304.hotelAndes.negocio.VOServicioReservado#getNombreservicio()
-	 */
-	@Override
-	public String getNombreservicio() {
-		return nombreservicio;
-	}
-	/* (non-Javadoc)
-	 * @see uniandes.isis2304.hotelAndes.negocio.VOServicioReservado#setNombreservicio(java.lang.String)
-	 */
-	@Override
-	public void setNombreservicio(String nombreservicio) {
-		this.nombreservicio = nombreservicio;
-	}
+
 	/* (non-Javadoc)
 	 * @see uniandes.isis2304.hotelAndes.negocio.VOServicioReservado#getDescripcion()
 	 */
@@ -96,6 +83,7 @@ public class ServicioReservado implements VOServicioReservado {
 	public String getDescripcion() {
 		return descripcion;
 	}
+
 	/* (non-Javadoc)
 	 * @see uniandes.isis2304.hotelAndes.negocio.VOServicioReservado#setDescripcion(java.lang.String)
 	 */
@@ -103,6 +91,7 @@ public class ServicioReservado implements VOServicioReservado {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
 	/* (non-Javadoc)
 	 * @see uniandes.isis2304.hotelAndes.negocio.VOServicioReservado#getCosto()
 	 */
@@ -110,6 +99,7 @@ public class ServicioReservado implements VOServicioReservado {
 	public long getCosto() {
 		return costo;
 	}
+
 	/* (non-Javadoc)
 	 * @see uniandes.isis2304.hotelAndes.negocio.VOServicioReservado#setCosto(long)
 	 */
@@ -117,13 +107,9 @@ public class ServicioReservado implements VOServicioReservado {
 	public void setCosto(long costo) {
 		this.costo = costo;
 	}
+	
 	@Override
 	public String toString() {
-		return "ServicioReservado [idServicio=" + idServicio + ", nombreEspecifico=" + nombreEspecifico + ", tipo="
-				+ tipo + ", duracion=" + duracion + ", nombreservicio=" + nombreservicio + ", descripcion="
-				+ descripcion + ", costo=" + costo + "]";
+		return "ServicioReservado "+ super.toStringTemporal()+", nombreEspecifico="+nombreEspecifico+", tipo="+tipo+", duracion="+duracion+", descripcion="+descripcion+", costo="+costo+"]";	
 	}
-
-
-
 }
