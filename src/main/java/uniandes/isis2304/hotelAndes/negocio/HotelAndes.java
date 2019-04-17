@@ -309,9 +309,9 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 
 	}
 
-	public void req15(ArrayList<Long> idHabitaciones, ArrayList<Long> idServicios) {
+	public void req15(ArrayList<Long> idHabitaciones) {
 			log.info ("Realizando mantenimiento ");
-			pp.req15(idHabitaciones,idServicios);
+			pp.req15(idHabitaciones);
 			log.info ("Se realizo mantenimiento ");		
 	}
 

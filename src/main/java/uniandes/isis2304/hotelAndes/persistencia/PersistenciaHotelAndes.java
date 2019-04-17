@@ -1660,12 +1660,15 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 	}
 
 	 
-	public void req15(ArrayList<Long> idHabitaciones, ArrayList<Long> idServicios) {
+	public void req15(ArrayList<Long> idHabitaciones) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx=pm.currentTransaction();
 		try
 		{
 			tx.begin();
+			for (int i = 0; i < idHabitaciones.size(); i++) {
+				adicionarServicioArregloH(idHabitaciones.get(i),Long.valueOf((i+2000)/3));
+			}
 			
 			tx.commit();
 
@@ -1683,6 +1686,26 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 			}
 			pm.close();
 		}
+	}
+
+	private void adicionarServicioArregloH(long idHabitacion, long idserv) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			Query q = pm.newQuery(SQL, "INSERT INTO SERVICIOARREGLO (IDSERVICIO,TIPOARREGLO,IDHABITACION,IDDOTACION)VALUES (?,?,?,?)" );
+			q.setParameters(idserv,"Mantenimiento",idHabitacion,0);
+			q.executeUnique();
+			
+			tx.commit();
+
+		}
+		catch (Exception e)
+		{
+			        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+		}		
 	}
 
 	public void req16(long idMantenimiento) {
