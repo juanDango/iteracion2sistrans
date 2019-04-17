@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.sun.media.sound.FFT;
 
 import uniandes.isis2304.hotelAndes.negocio.CadenaHotelera;
 import uniandes.isis2304.hotelAndes.negocio.CaracteristicaAdicional;
@@ -82,7 +83,7 @@ public class PersistenciaHotelAndes {
 	
 	private SQLConvencion sqlConvencion;
 	
-	//private SQLConvencionHabitacion sqlConvencionHabitacion;
+	private SQLConvencionHabitacion sqlConvencionHabitacion;
 	
 	private SQLConvencionrestbarcafeteria sqlConvencionRestBarCafeteria;
 	
@@ -602,15 +603,11 @@ public class PersistenciaHotelAndes {
 	
 	public Horario adicionarHorario(long idHorario,long horaInicio, long horaFinal, Timestamp fechaInicio, Timestamp fechaFinal) 
 	{
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx=pm.currentTransaction();
 
 		try
 		{
-			tx.begin();
 			long tuplasInsertadas = 0;
 			tuplasInsertadas = sqlHorario.adicionarHorario(pmf.getPersistenceManager(), idHorario, horaInicio, horaFinal, fechaInicio, fechaFinal);
-			tx.commit();
 
 			System.out.println("Inserción de horario: " + idHorario + ": " + tuplasInsertadas + " tuplas insertadas");
 
@@ -624,14 +621,7 @@ public class PersistenciaHotelAndes {
 			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			return null;
 		}
-		finally
-		{
-			if (tx.isActive())
-			{
-				tx.rollback();
-			}
-			pm.close();
-		}
+		
 	}
 	
 	//--------------------------------
@@ -1389,17 +1379,13 @@ public class PersistenciaHotelAndes {
 
 public Convencion adicionarConvencion(long idConvencion, long idHotel, long numparticipantes,
 			String nombreConvencion, long idHorario) {
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx=pm.currentTransaction();
-	
+		
 		try
 		{
 			long tuplasInsertadas = 0;
 			tuplasInsertadas = sqlConvencion.adicionarConvencion(pmf.getPersistenceManager(), idConvencion, idHotel, numparticipantes, nombreConvencion, idHorario);
 
-	
-			System.out.println("Inserción de convencion: " + idConvencion + ": " + tuplasInsertadas + " tuplas insertadas");
-	
+		
 			return new Convencion(idConvencion, idHotel, numparticipantes, nombreConvencion, idHorario);
 	
 	
@@ -1410,14 +1396,7 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			return null;
 		}
-		finally
-		{
-			if (tx.isActive())
-			{
-				tx.rollback();
-			}
-			pm.close();
-		}
+		
 	}
 
 	public ConvencionRestauranteCafeteria adicionarConvencionrestbarcafeteria(long idConvencion, long idServicioComplementario) {
@@ -1541,10 +1520,10 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 		}
 	}
 	
-	///////////////////REQUERIMIENTO 12/////////
+	///////////////////REQUERIMIENTO 12///////////////////////
 
 	public void req12(long idConvencion, long idHotel, long numparticipantes, String nombreConvencion,
-			Timestamp finicio, String fechaFinal, long idHorario, long idCliente, long idCuenta,
+			Timestamp finicio,Timestamp ffinal, long idHorario, long idCliente, long idCuenta,
 			ArrayList<Long> idsServicios, ArrayList<String> infoHabitaciones) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx=pm.currentTransaction();
@@ -1553,15 +1532,24 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 
 			tx.begin();
 			long tuplasInsertadas = sqlConvencion.adicionarConvencion(pmf.getPersistenceManager(), idConvencion, idHotel, numparticipantes, nombreConvencion, idHorario);
-
-			/*adicionarConvencion();
-			llamar metodos de adicionar;
-			tuplas
-			recorrems arreglo de 2 en 2 separando tipo  y cantidad de habitaciones
-			dar habitaciones libres por tipo
-			 
-if algo
-sino roll back*/
+			adicionarHorario(idHorario, 0,0,finicio, ffinal);
+			adicionarConvencion(idConvencion, idHotel, numparticipantes, nombreConvencion, idHorario);
+			adicionarCuenta(idCuenta, 0, "", 0, idCliente, 0);
+			for (int i = 0; i < infoHabitaciones.size(); i++) {
+				String[] info = infoHabitaciones.get(i).split(",");
+				 ArrayList<Habitacion> habs = darHabitacionesLibresPorTipo(info[1]);
+				if(habs.size()<Integer.parseInt(info[0])) 
+					tx.rollback();
+				else {
+					for (int j = 0; j < Integer.parseInt(info[0]); j++) {
+						Habitacion hab = habs.get(j);
+						adicionarHabitacion(hab.getIdHabitacion(),hab.getTipoHabitacion(),hab.getCostoNoche(),hab.getCapacidadHabitacion(),idHotel,hab.getNumeroHabitacion(),"N");
+						adicionarServicioAlojamiento(j+1000,1,idCuenta);
+						adicionarServicioAlojamientoHabitacion(j+1000,hab.getIdHabitacion());
+						adicionarConvencionHabitacion(idConvencion,hab.getIdHabitacion());
+					}
+				}
+			}	
 
 		}
 		catch (Exception e)
@@ -1580,5 +1568,83 @@ sino roll back*/
 	}
 	
 
+	
+
+	private void adicionarConvencionHabitacion(long idConvencion, long idHabitacion) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+
+			long tuplasInsertadas = 0;
+			tuplasInsertadas = sqlConvencionHabitacion.adicionarCondicionHabitacion(pm, idConvencion, idHabitacion);
+			tx.commit();
+
+		}
+		catch (Exception e)
+		{
+			        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+		}
+	}
+
+	private void adicionarServicioAlojamientoHabitacion(int i, long idHabitacion) {
+		
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			long tuplasInsertadas = 0;
+			tuplasInsertadas = sqlServicioAlojamientoHabitacion.adicionarServicioAlojaHabita(pm, idHabitacion, i);
+			tx.commit();
+
+		}
+		catch (Exception e)
+		{
+			        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+				
+	}
+
+	public ArrayList<Habitacion> darHabitacionesLibresPorTipo (String nombreTipo){
+		ArrayList<Habitacion> lasHabitaciones = new ArrayList<Habitacion>();
+		
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			lasHabitaciones = sqlHabitacion.darHabitacionesLibresPorTipo(pm, nombreTipo);
+			tx.commit();
+
+		}
+		catch (Exception e)
+		{
+			        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+		
+		return lasHabitaciones;
+	}
 
 }

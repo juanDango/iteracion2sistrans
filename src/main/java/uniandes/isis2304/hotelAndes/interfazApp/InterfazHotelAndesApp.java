@@ -1088,7 +1088,7 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 			}
 			
 			
-			hotelAndes.req12(idConvencion,idHotel,numparticipantes,nombreConvencion,finicio,fechaFinal,idHorario,idCliente,idCuenta,idsServicios,infoHabitaciones);
+			hotelAndes.req12(idConvencion,idHotel,numparticipantes,nombreConvencion,finicio,ffinal,idHorario,idCliente,idCuenta,idsServicios,infoHabitaciones);
 		}catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1116,6 +1116,9 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 		} 
 	}
 
+	public void req13(){
+		//idconvencion y canthabitacion
+	}
 	/* ****************************************************************
 	 * 			Programa principal
 	 *****************************************************************/

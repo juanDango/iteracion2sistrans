@@ -32,7 +32,7 @@ public class SQLServicioAlojamientoHabitacion {
 	//Metodos para manejo de cadena hotelera
 	//---------------------------------------
 
-	public long adicionarServicioAlojaHabita(PersistenceManager pm, long idHabitacion, long idServicioAlojamiento)
+	public long adicionar(PersistenceManager pm, long idHabitacion, long idServicioAlojamiento)
 	{
 		Query q = pm.newQuery(SQL, "INSERT INTO servicioalojamientohabitacion (IDHABITACION, IDSERVICIOALOJAMIENTO)  VALUES (? ,?)");
 		q.setParameters(idHabitacion, idServicioAlojamiento);

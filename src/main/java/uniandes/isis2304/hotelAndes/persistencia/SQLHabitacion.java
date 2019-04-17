@@ -7,6 +7,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.hotelAndes.negocio.Habitacion;
+import uniandes.isis2304.hotelAndes.negocio.Usuario;
 
 public class SQLHabitacion {
 
@@ -52,6 +53,14 @@ public class SQLHabitacion {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pha.darTablaHabitacion() + " WHERE TIPOHABITACION = ?");
 		q.setResultClass(Habitacion.class);
 		q.setParameters(tipo);
+		return (ArrayList<Habitacion>) q.executeUnique();
+	}
+
+	public ArrayList<Habitacion>  darHabitacionesLibresPorTipo(PersistenceManager pm, String nombreTipo) {
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pha.darTablaHabitacion() + " WHERE TIPOHABITACION = ? AND DISPONIBLE = 'S'");
+		q.setResultClass(Habitacion.class);
+		q.setParameters(nombreTipo);
+		
 		return (ArrayList<Habitacion>) q.executeUnique();
 	}
 	

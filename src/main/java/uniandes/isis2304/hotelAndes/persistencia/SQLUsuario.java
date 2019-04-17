@@ -1,8 +1,11 @@
 package uniandes.isis2304.hotelAndes.persistencia;
 
+import java.util.ArrayList;
+
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import uniandes.isis2304.hotelAndes.negocio.Habitacion;
 import uniandes.isis2304.hotelAndes.negocio.Usuario;
 
 public class SQLUsuario {
@@ -44,4 +47,6 @@ public class SQLUsuario {
 		q.setParameters(idUsuario);
 		return (Usuario) q.executeUnique();
 	}
+	
+	
 }

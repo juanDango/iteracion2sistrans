@@ -288,10 +288,10 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 	}
 
 	public void req12(long idConvencion, long idHotel, long numparticipantes, String nombreConvencion,
-			Timestamp finicio, String fechaFinal, long idHorario, long idCliente, long idCuenta,
+			Timestamp finicio, Timestamp ffinal, long idHorario, long idCliente, long idCuenta,
 			ArrayList<Long> idsServicios, ArrayList<String> infoHabitaciones) {
 		log.info ("Dando Convencion: "+idConvencion);
-		pp.req12(idConvencion,idHotel,numparticipantes,nombreConvencion,finicio,fechaFinal,idHorario,idCliente,idCuenta,idsServicios,infoHabitaciones);
+		pp.req12(idConvencion,idHotel,numparticipantes,nombreConvencion,finicio,ffinal,idHorario,idCliente,idCuenta,idsServicios,infoHabitaciones);
 		log.info ("Dando Convencion :  " + idConvencion);
 	}
 }
