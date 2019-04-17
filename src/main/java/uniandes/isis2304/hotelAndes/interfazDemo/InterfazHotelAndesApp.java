@@ -816,7 +816,6 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 			for (int i = 952; i < 955; i++) {
 				hotelAndes.adicionarConvencionrestbarcafeteria(i, convencion.getIdConvencion());
 				resultado += "Adicionando servicio " + i + "\n";
-
 			}
 			
 			////////////// CONVENCION FINALIZADA
@@ -832,6 +831,24 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 		}
     }
 
+    
+    
+    public void demoMantenimiento( )
+    {
+    	try 
+    	{
+    		String resultado = "----------------------";
+
+    		
+			panelDatos.actualizarInterfaz(resultado);
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
    
     
 	private String darDetalleException(Exception e) 
