@@ -301,4 +301,17 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 		log.info ("Borrando habitaciones o servicios de Convencion: "+idConvencion);
 
 	}
+	
+	public void req14(long idConvencion) {
+		log.info ("Finalizando Convencion: "+idConvencion);
+		pp.req14(idConvencion);
+		log.info ("Finalizo: "+idConvencion);
+
+	}
+
+	public void req15(ArrayList<Long> idHabitaciones, ArrayList<Long> idServicios) {
+			log.info ("Realizando mantenimiento ");
+			pp.req15(idHabitaciones,idServicios);
+			log.info ("Se realizo mantenimiento ");		
+	}
 }

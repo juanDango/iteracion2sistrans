@@ -1580,6 +1580,8 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 			for (int i = 0; i < idsServicios.size(); i++) {
 				adicionarConvencionRestBarCafeteria(idConvencion,idsServicios.get(i));
 			}
+			tx.commit();
+
 
 		}
 		catch (Exception e)
@@ -1604,13 +1606,51 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 		Transaction tx=pm.currentTransaction();
 		try
 		{
+			tx.begin();
 			ArrayList<Habitacion> habs = darHabitacionesConConvencion(idConvencion);
-		//hacen query que de los id estadias de esa condicion y se elminana los primeros
 			for (int i = 0; i < canthabitacion; i++) {
 				Query q = pm.newQuery(SQL, "DELETE FROM " + darTablaConvencionHabitacion() + " WHERE IDCONVENCION = ?  AND idhabitacion = ?" );
 				q.setParameters(idConvencion, habs.get(i));
+				q.executeUnique();
 			}
 			
+				Query q = pm.newQuery(SQL, "DELETE FROM " + darTablaConvencionrestbarcafeteria() + " WHERE IDCONVENCION = ?" );
+				q.setParameters(idConvencion);
+				q.executeUnique();
+			
+				tx.commit();
+
+		}
+		catch (Exception e)
+		{
+			        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+		}
+	}
+
+	public void req14(long idConvencion) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			Query q = pm.newQuery(SQL, " UPDATE (SELECT * FROM HABITACION INNER JOIN (SELECT IDHABITACION AS HAB FROM " + darTablaConvencionHabitacion() + " WHERE IDCONVENCION = ?)T1 ON T1.HAB = IDHABITACION ) SET DISPONIBLE = 'S'" );
+			q.setParameters(idConvencion);
+			q.executeUnique();
+			
+			q = pm.newQuery(SQL, "DELETE FROM " + darTablaConvencionHabitacion() + " WHERE IDCONVENCION = ?" );
+			q.setParameters(idConvencion);
+			q.executeUnique();
+
+			q= pm.newQuery(SQL, "DELETE FROM " + darTablaConvencionrestbarcafeteria() + " WHERE IDCONVENCION = ?" );
+			q.setParameters(idConvencion);
+			q.executeUnique();
+			
+			q= pm.newQuery(SQL, "DELETE FROM " + darTablaConvencionrestbarcafeteria() + " WHERE IDCONVENCION = ?" );
+			q.setParameters(idConvencion);
+			q.executeUnique();
+			tx.commit();
+
 		}
 		catch (Exception e)
 		{
@@ -1620,7 +1660,30 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 	}
 
 	 
-	
+	public void req15(ArrayList<Long> idHabitaciones, ArrayList<Long> idServicios) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+
+			tx.begin();
+			
+
+		}
+		catch (Exception e)
+		{
+			//e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
 
 	private void adicionarConvencionRestBarCafeteria(long idConvencion, Long long1) {
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -1718,5 +1781,7 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 		
 		return lasHabitaciones;
 	}
+
+	
 
 }

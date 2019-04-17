@@ -1129,6 +1129,38 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 		}
 
 	}
+	
+	public void req14(){
+		int cantTipoHabitacion = Integer.parseInt(JOptionPane.showInputDialog(this, "Cantidad de tipos de habitacion"));
+		ArrayList<Long> idHabitaciones = new ArrayList<>();
+		for (int i = 0; i < cantTipoHabitacion; i++) {
+			long infoHabitacion = Long.parseLong(JOptionPane.showInputDialog(this, "idHabitacion"));
+			idHabitaciones.add(infoHabitacion);
+		}
+		int cantServicios = Integer.parseInt(JOptionPane.showInputDialog(this, "Cantidad de servicios"));
+		ArrayList<Long> idServicios = new ArrayList<>();
+		for (int i = 0; i < cantServicios; i++) {
+			long infoHabitacion = Long.parseLong(JOptionPane.showInputDialog(this, "idServicio"));
+			idServicios.add(infoHabitacion);
+		}
+		try {
+			hotelAndes.req14(idConvencion);
+
+		}catch (Exception e) {
+			e.printStackTrace( );
+		}
+	}
+	
+	public void req15(){
+		long idConvencion = Long.parseLong(JOptionPane.showInputDialog(this, "Id de la convencion"));
+		
+		try {
+			hotelAndes.req14(idConvencion);
+
+		}catch (Exception e) {
+			e.printStackTrace( );
+		}
+	}
 	/* ****************************************************************
 	 * 			Programa principal
 	 *****************************************************************/
