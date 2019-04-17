@@ -41,6 +41,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.hotelAndes.negocio.*;
+import uniandes.isis2304.hotelAndes.negocio.VOConvencion;
 
 /**
  * Clase principal de la interfaz
@@ -346,7 +347,7 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 		{
 			//			e.printStackTrace ();
 			log.info ("NO se encontró un archivo de configuración válido");			
-			JOptionPane.showMessageDialog(null, "No se encontró un archivo de configuración de interfaz válido: " + tipo, "Parranderos App", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "No se encontró un archivo de configuración de interfaz válido: " + tipo, "hotelAndes App", JOptionPane.ERROR_MESSAGE);
 		}	
 		return config;
 	}
@@ -363,7 +364,7 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 		if ( guiConfig == null )
 		{
 			log.info ( "Se aplica configuración por defecto" );			
-			titulo = "Parranderos APP Default";
+			titulo = "hotelAndes APP Default";
 			alto = 300;
 			ancho = 500;
 		}
@@ -700,6 +701,86 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 		panelDatos.actualizarInterfaz(aRevelar);
 	}
 	
+	
+	/* ****************************************************************
+	 * 			Demos de Convencion
+	 *****************************************************************/
+    /**
+     * Demostración de creación, consulta y borrado de convencion
+     * Muestra la traza de la ejecución en el panelDatos
+     * 
+     * Pre: La base de datos está vacía
+     * Post: La base de datos está vacía
+     */
+    public void demoConvencion( )
+    {
+    	try 
+    	{
+    		// Ejecución de la demo y recolección de los resultados
+			// ATENCIÓN: En una aplicación real, los datos JAMÁS están en el código
+			String nombreConvencion = "Filbo";
+			boolean errorTipoBebida = false;
+			//Creacion de horario
+			String fechaInicio =  "04/04/2019";
+			Timestamp inicio = new Timestamp(new SimpleDateFormat("dd/MM/yyyy").parse(fechaInicio).getTime());
+			String fechaFin =  "09/04/2019";
+			Timestamp fin = new Timestamp(new SimpleDateFormat("dd/MM/yyyy").parse(fechaFin).getTime());
+			Horario a = hotelAndes.adicionarHorario(0, 0, inicio, fin);
+			
+			VOConvencion convencion = hotelAndes.adicionarConvencion(005, 123, 10, nombreConvencion, a.getIdHorario());
+			if (convencion == null)
+			{
+				convencion = hotelAndes.darConvencionPorId (convencion.getIdConvencion());
+				errorTipoBebida = true;
+			}
+			
+			// Generación de la cadena de caracteres con la traza de la ejecución de la demo
+			String resultado = "Demo de creación y listado de Convencion\n\n";
+			resultado += "\n\n************ Generando datos de prueba ************ \n";
+			if (errorTipoBebida)
+			{
+				resultado += "*** Exception creando tipo de bebida !!\n";
+				resultado += "*** Es probable que ese tipo de bebida ya existiera y hay restricción de UNICIDAD sobre el nombre del tipo de bebida\n";
+				resultado += "*** Revise el log de hotelAndes para más detalles\n";
+			}
+			resultado += "Adicionado el tipo de bebida con nombre: " + nombreConvencion + "\n";
+			
+			
+   
+			panelDatos.actualizarInterfaz(resultado);
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+
+	private String darDetalleException(Exception e) 
+	{
+		String resp = "";
+		if (e.getClass().getName().equals("javax.jdo.JDODataStoreException"))
+		{
+			JDODataStoreException je = (javax.jdo.JDODataStoreException) e;
+			return je.getNestedExceptions() [0].getMessage();
+		}
+		return resp;
+	}
+
+	/**
+	 * Genera una cadena para indicar al usuario que hubo un error en la aplicación
+	 * @param e - La excepción generada
+	 * @return La cadena con la información de la excepción y detalles adicionales
+	 */
+	private String generarMensajeError(Exception e) 
+	{
+		String resultado = "************ Error en la ejecución\n";
+		resultado += e.getLocalizedMessage() + ", " + darDetalleException(e);
+		resultado += "\n\nRevise datanucleus.log y parranderos.log para más detalles";
+		return resultado;
+	}
+
 	/* ****************************************************************
 	 * 			Programa principal
 	 *****************************************************************/

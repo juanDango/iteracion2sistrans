@@ -2500,5 +2500,47 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 			pm.close();
 		}
 	}
+	private long nextval ()
+	{
+        long resp = sqlUtil.nextval (pmf.getPersistenceManager());
+        log.trace ("Generando secuencia: " + resp);
+        return resp;
+    }
+	
+	public Horario adicionarHorario(long horaInicio, long horaFinal, Timestamp fechaInicial, Timestamp fechaFinal) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long idHorario = nextval ();
+            long tuplasInsertadas = sqlHorario.adicionarHorario(pm, idHorario, horaInicio, horaFinal, fechaInicial, fechaFinal);
+            tx.commit();
+
+            log.trace ("Inserción de Horario: " + idHorario + ": " + tuplasInsertadas + " tuplas insertadas");
+
+            return new Horario  (idHorario,horaInicio, horaFinal,fechaInicial,fechaFinal);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	public Convencion darConvencionPorId (long idDotacion)
+	{
+		return sqlConvencion.darConvencionPorId (pmf.getPersistenceManager(), idDotacion);
+	}
 
 }

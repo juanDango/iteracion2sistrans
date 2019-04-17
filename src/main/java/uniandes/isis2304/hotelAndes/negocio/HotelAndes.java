@@ -346,4 +346,18 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 		List<BigDecimal> aRet = pp.darBuenosClientes();
 		return aRet;
 	}
+
+	public Horario adicionarHorario(long horaInicio, long horaFinal, Timestamp fechaInicial, Timestamp fechaFinal)
+	{
+		log.info ("Adicionando horario :  " +  horaInicio + "---" + horaFinal + "---" + fechaInicial + "---" +  fechaFinal);
+		Horario bod = pp.adicionarHorario( horaInicio,  horaFinal,  fechaInicial, fechaFinal);
+		log.info ("Adicionando horario :  " + bod);
+		return bod;
+	}
+
+	public VOConvencion darConvencionPorId(long nombreConvencion) {
+		VOConvencion bod = pp.darConvencionPorId(nombreConvencion);
+		log.info ("Dando convencion :  " + nombreConvencion);
+		return bod;
+	}
 }
