@@ -62,30 +62,13 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 	/**
 	 * Ruta al archivo de configuración de la interfaz PARA LOS CLIENTES
 	 */
-	private static final String CONFIG_INTERFAZ_CLIENTES = "./src/main/resources/config/interfaceConfigAppCliente.json"; 
-
-	/**
-	 * Ruta al archivo de configuración de la interfaz PARA LOS RECEPCIONISTAS
-	 */
-	private static final String CONFIG_INTERFAZ_RECEPCIONISTA = "./src/main/resources/config/interfaceConfigAppRecepcionista.json"; 
-
-	/**
-	 * Ruta al archivo de configuración de la interfaz PARA LOS USUARIOS DE EMPLEADOS
-	 */
-	private static final String CONFIG_INTERFAZ_HOTELANDES = "./src/main/resources/config/interfaceConfigAppEmpleado.json"; 
-
-	/**
-	 * Ruta al archivo de configuración de la interfaz PARA LOS ADMINISTRADORES
-	 */
-	private static final String CONFIG_INTERFAZ_ADMIN = "./src/main/resources/config/interfaceConfigAppAdministrador.json";
 	
-	private static final String CONFIG_INTERFAZ_ORGANIZADOREVENTOS = "./src/main/resources/config/interfaceConfigAppOrganizadorEventos.json";
 
 	
 	/**
 	 * Ruta al archivo de configuración de la interfaz PARA LOS GERENTES
 	 */
-	private static final String CONFIG_INTERFAZ_GERENTES = "./src/main/resources/config/interfaceConfigAppAndes.json";
+	private static final String CONFIG_INTERFAZ = "./src/main/resources/config/interfaceConfigDemoAndes.json";
 	
 	/**
 	 * Ruta al archivo de configuración de los nombres de tablas de la base de datos
@@ -146,166 +129,12 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 		tableConfig = openConfig ("Tablas BD", CONFIG_TABLAS);
 		hotelAndes = new HotelAndes (tableConfig);
 
-		Object[] options = {"Cliente","Recepcionista","Empleado","Administrador", "Gerente","OrganizadorEventos"};
-		int n = JOptionPane.showOptionDialog(this,"Como desea ingresar?","hotelAndes",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[2]);
-		if(n == 0)
-		{
-			String cedula = JOptionPane.showInputDialog(this, "Digite su id", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
-			if(cedula.isEmpty())
-			{
-				JOptionPane.showMessageDialog(this, "Por favor ingrese un id valido", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
-				System.exit(0);
-			}
-			int ced = Integer.parseInt(cedula);
-			if(hotelAndes.darUsuarioPorId(ced) == null)
-			{
-				JOptionPane.showMessageDialog(this, "Lo sentimos, su id no se encuentra en nuestros registros", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
-				System.exit(0);
-			}
-			else if(!hotelAndes.darUsuarioPorId(ced).getRol().equals("Cliente"))
-			{
-				JOptionPane.showMessageDialog(this, "Lo sentimos, usted no es un cliente", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
-				System.exit(0);
-			}
-			else{
-				estadoAplicacion = 1;
-				identificacionCliente = ced;
-				guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ_CLIENTES);
-			}
-		}
-		if(n == 1)
-		{
-			String id = JOptionPane.showInputDialog(this, "Digite su id", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
-			if(id.isEmpty())
-			{
-				JOptionPane.showMessageDialog(this, "Por favor ingrese un id valido", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
-				System.exit(0);
-			}
-			int idInt = Integer.parseInt(id);
-			if(hotelAndes.darUsuarioPorId(idInt) == null)
-			{
-				JOptionPane.showMessageDialog(this, "Lo sentimos, su ID no se encuentra en nuestros registros", "hotelAndes", JOptionPane.PLAIN_MESSAGE);
-				System.exit(0);
-			}
-			else if(!hotelAndes.darUsuarioPorId(idInt).getRol().equals("Recepcionista"))
-			{
-				JOptionPane.showMessageDialog(this, "Lo sentimos, usted no es un recepcionista", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
-				System.exit(0);
-			}
-			else
-			{
-				estadoAplicacion = 2;
-				identificacionCliente = idInt;
-				guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ_RECEPCIONISTA);
-			}
-		}
-		if(n == 2)
-		{
-			String id = JOptionPane.showInputDialog(this, "Digite su id", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
-			if(id.isEmpty())
-			{
-				JOptionPane.showMessageDialog(this, "Por favor ingrese un id valido", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
-				System.exit(0);
-			}
-			int idInt = Integer.parseInt(id);
-			if(hotelAndes.darUsuarioPorId(idInt) == null)
-			{
-				JOptionPane.showMessageDialog(this, "Lo sentimos, su ID no se encuentra en nuestros registros", "hotelAndes", JOptionPane.PLAIN_MESSAGE);
-				System.exit(0);
-			}
-			else if(!hotelAndes.darUsuarioPorId(idInt).getRol().equals("Empleado"))
-			{
-				JOptionPane.showMessageDialog(this, "Lo sentimos, usted no es un empleado", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
-				System.exit(0);
-			}
-			else
-			{
-				estadoAplicacion = 3;
-				identificacionCliente = idInt;
-				guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ_HOTELANDES);
-			}
-		}
-		if(n == 3)
-		{
-			String id = JOptionPane.showInputDialog(this, "Digite su id", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
-			if(id.isEmpty())
-			{
-				JOptionPane.showMessageDialog(this, "Por favor ingrese un id valido", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
-				System.exit(0);
-			}
-			int idInt = Integer.parseInt(id);
-			if(hotelAndes.darUsuarioPorId(idInt) == null)
-			{
-				JOptionPane.showMessageDialog(this, "Lo sentimos, su ID no se encuentra en nuestros registros", "hotelAndes", JOptionPane.PLAIN_MESSAGE);
-				System.exit(0);
-			}
-			else if(!hotelAndes.darUsuarioPorId(idInt).getRol().equals("Administrador"))
-			{
-				JOptionPane.showMessageDialog(this, "Lo sentimos, usted no es un Administrador", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
-				System.exit(0);
-			}
-			else
-			{
-				estadoAplicacion = 4;
-				identificacionCliente = idInt;
-				guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ_ADMIN);
-			}
-			
-		}
-		if(n == 4)
-		{
-			String id = JOptionPane.showInputDialog(this, "Digite su id", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
-			if(id.isEmpty())
-			{
-				JOptionPane.showMessageDialog(this, "Por favor ingrese un id valido", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
-				System.exit(0);
-			}
-			int idInt = Integer.parseInt(id);
-			if(hotelAndes.darUsuarioPorId(idInt) == null)
-			{
-				JOptionPane.showMessageDialog(this, "Lo sentimos, su ID no se encuentra en nuestros registros", "hotelAndes", JOptionPane.PLAIN_MESSAGE);
-				System.exit(0);
-			}
-			else if(!hotelAndes.darUsuarioPorId(idInt).getRol().equals("Gerente"))
-			{
-				JOptionPane.showMessageDialog(this, "Lo sentimos, usted no es un Administrador", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
-				System.exit(0);
-			}
-			else
-			{
-				estadoAplicacion = 4;
-				identificacionCliente = idInt;
-				guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ_GERENTES);
-			}
-			
-		}
-		if(n == 5)
-		{
-			String id = JOptionPane.showInputDialog(this, "Digite su id Ej.4545", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
-			if(id.isEmpty())
-			{
-				JOptionPane.showMessageDialog(this, "Por favor ingrese un id valido", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
-				System.exit(0);
-			}
-			int idInt = Integer.parseInt(id);
-			if(hotelAndes.darUsuarioPorId(idInt) == null)
-			{
-				JOptionPane.showMessageDialog(this, "Lo sentimos, su ID no se encuentra en nuestros registros", "hotelAndes", JOptionPane.PLAIN_MESSAGE);
-				System.exit(0);
-			}
-			else if(!hotelAndes.darUsuarioPorId(idInt).getRol().equals("OrganizadorEventos"))
-			{
-				JOptionPane.showMessageDialog(this, "Lo sentimos, usted no es un Administrador", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
-				System.exit(0);
-			}
-			else
-			{
-				estadoAplicacion = 4;
-				identificacionCliente = idInt;
-				guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ_ORGANIZADOREVENTOS);
-			}
-			
-		}
+		
+		
+		estadoAplicacion = 1;
+		guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ);
+		
+		
 
 		// Configura la apariencia del frame que contiene la interfaz gráfica
 		configurarFrame ( );
@@ -838,8 +667,17 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
     	try 
     	{
     		String resultado = "----------------------";
-
-    		
+    		Long idServicio = Long.valueOf(6789);
+    		int cantidadHabitaciones = 4;
+    		ArrayList <Long> ids = new ArrayList<>();
+    		for (int i = 1; i <= cantidadHabitaciones; i++) {
+    			ids.add(Long.valueOf(i));
+    			resultado+= "Habitacion en mantenimiento: " + i + "\n";
+			}
+    		hotelAndes.req15(ids);
+			resultado+= "Acabar mantenimiento \n";
+			
+    		hotelAndes.req16(idServicio);
 			panelDatos.actualizarInterfaz(resultado);
 		} 
     	catch (Exception e) 

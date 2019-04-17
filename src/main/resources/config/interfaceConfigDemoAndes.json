@@ -1,0 +1,23 @@
+{
+	"title": "Aplicación transaccional de Parranderos Uniandes",
+	"frameH": 600,
+	"frameW": 800,
+	"bannerPath": "./src/main/resources/config/banner.png",
+	"menuBar":
+	[
+		{ "menuTitle": "Demo",
+		  "options":
+			[
+				{
+					"label": "DemoConvencion",
+					"event": "demoConvencion"
+				},
+				{
+					"label": "DemoMantenimiento",
+					"event": "demoMantenimiento"
+				}
+			]
+		}		
+	]
+}
+	
