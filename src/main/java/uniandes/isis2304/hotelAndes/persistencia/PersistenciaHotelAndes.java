@@ -50,12 +50,7 @@ import uniandes.isis2304.hotelAndes.negocio.ServicioReservado;
 import uniandes.isis2304.hotelAndes.negocio.TipoHabitacion;
 import uniandes.isis2304.hotelAndes.negocio.Usuario;
 import uniandes.isis2304.hotelAndes.negocio.VOServicioIncluido;
-import uniandes.isis2304.superAndes.negocio.Carrito;
-import uniandes.isis2304.superAndes.negocio.Estante;
-import uniandes.isis2304.superAndes.negocio.ProductoSuministrado;
-import uniandes.isis2304.superAndes.negocio.Promocion;
-import uniandes.isis2304.superAndes.negocio.PromocionDosProductos;
-import uniandes.isis2304.superAndes.negocio.PromocionPagueNLleveMUnidades;
+
 
 public class PersistenciaHotelAndes {
 
