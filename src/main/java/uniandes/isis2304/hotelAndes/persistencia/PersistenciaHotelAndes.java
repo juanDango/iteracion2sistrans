@@ -915,7 +915,7 @@ public class PersistenciaHotelAndes {
 			long tuplasInsertadas = 0;
 			ServicioAlojamientoHabitacion ser = sqlServicioAlojamientoHabitacion.darRelacionPorHabitacion(pm, idHabitacion);
 			if(ser == null){
-				tuplasInsertadas = sqlServicioAlojamientoHabitacion.adicionarServicioAlojaHabita(pm, idHabitacion, idServicioAlojamiento);
+				tuplasInsertadas = sqlServicioAlojamientoHabitacion.adicionar(pm, idHabitacion, idServicioAlojamiento);
 			}
 			tx.commit();
 
