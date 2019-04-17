@@ -1615,7 +1615,7 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 		{
 			        	e.printStackTrace();
 			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
-		}
+		} 
 	}
 
 	private void adicionarServicioAlojamientoHabitacion(int i, long idHabitacion) {
