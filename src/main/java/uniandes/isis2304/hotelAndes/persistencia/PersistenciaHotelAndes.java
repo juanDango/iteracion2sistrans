@@ -1626,7 +1626,7 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 		{
 			tx.begin();
 			long tuplasInsertadas = 0;
-			tuplasInsertadas = sqlServicioAlojamientoHabitacion.adicionarServicioAlojaHabita(pm, idHabitacion, i);
+			tuplasInsertadas = sqlServicioAlojamientoHabitacion.adicionar(pm, idHabitacion, i);
 			tx.commit();
 
 		}
