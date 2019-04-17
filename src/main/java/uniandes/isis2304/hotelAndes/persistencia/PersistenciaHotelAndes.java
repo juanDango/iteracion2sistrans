@@ -1485,6 +1485,37 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 			pm.close();
 		}
 	}
+	
+	public ArrayList<Habitacion> darHabitacionesConConvencion(long idConvencion) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			
+
+			Query q = pm.newQuery(SQL, "SELECT * FROM HABITACION INNER JOIN (SELECT IDHABITACION AS ELID FROM CONVENCIONHABITACION WHERE IDCONVENCION = ?)T1  ON T1.ELID = IDHABITACION" );
+			q.setParameters(idConvencion );
+			ArrayList<Habitacion> resp = (ArrayList<Habitacion>) q.executeUnique();
+			tx.commit();
+			return resp;
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+	
 	public Convencion darConvencion(long id) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -1569,9 +1600,26 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 	
 
 	public void req13(long idConvencion, int canthabitacion, int cantServicios) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			ArrayList<Habitacion> habs = darHabitacionesConConvencion(idConvencion);
 		//hacen query que de los id estadias de esa condicion y se elminana los primeros
+			for (int i = 0; i < canthabitacion; i++) {
+				Query q = pm.newQuery(SQL, "DELETE FROM " + darTablaConvencionHabitacion() + " WHERE IDCONVENCION = ?  AND idhabitacion = ?" );
+				q.setParameters(idConvencion, habs.get(i));
+			}
+			
+		}
+		catch (Exception e)
+		{
+			        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+		}
 	}
 
+	 
 	
 
 	private void adicionarConvencionRestBarCafeteria(long idConvencion, Long long1) {
