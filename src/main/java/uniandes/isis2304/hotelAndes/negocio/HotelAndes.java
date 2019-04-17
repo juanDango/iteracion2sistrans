@@ -1,5 +1,6 @@
 package uniandes.isis2304.hotelAndes.negocio;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -320,5 +321,29 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 		pp.req16(idConvencion);
 		log.info ("Finalizo: ");
 		
+	}
+	
+	public List<Object[]>[] analisisOperacionHotelAndes(String tipo, String unidad , String determinado)
+	{
+		List<Object[]>[] l = new List[3];
+
+		Object[] o = pp.analisisOperacionHotelAndes(tipo, unidad, determinado);
+
+		Object[] demand = (Object[]) o[0];
+		List<Object[]> maxDemand = (List<Object[]>) demand[0];
+		List<Object[]> minDemand = (List<Object[]>) demand[1];
+
+		List<Object[]> ingr = (List<Object[]>) o[1];
+
+		l[0] = maxDemand; 
+		l[1] = minDemand;
+		l[2] = ingr;
+
+		return l;
+	}
+	
+	public List<BigDecimal> buenosClientes(){
+		List<BigDecimal> aRet = pp.darBuenosClientes();
+		return aRet;
 	}
 }

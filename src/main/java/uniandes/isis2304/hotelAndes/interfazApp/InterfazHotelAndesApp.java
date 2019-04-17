@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -1166,6 +1167,105 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 		}catch (Exception e) {
 			e.printStackTrace( );
 		}
+	}
+	
+	public void reqC1()
+	{
+		String[] options = {"mes","anio"};
+		int tipo = JOptionPane.showOptionDialog(this,"En que unidades desea?","HotelAndes",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
+		String estado = JOptionPane.showInputDialog(this, "Por favor ingrese el tipo de habitacion", "HotelAndes", JOptionPane.INFORMATION_MESSAGE);
+		List<Object[]>[] arr = null;
+		if(tipo == 0)
+		{
+			String mes = JOptionPane.showInputDialog(this, "Ingrese el mes");
+			String anio = JOptionPane.showInputDialog(this, "Ingrese el anio");
+			arr = hotelAndes.analisisOperacionHotelAndes(estado, options[tipo], mes+"-"+anio);
+		}
+		if(tipo == 1)
+		{
+			String anio = JOptionPane.showInputDialog(this, "Ingrese el anio");
+			arr = hotelAndes.analisisOperacionHotelAndes(estado, options[tipo], anio);
+		}
+		
+		System.out.println(arr[0].size()+" --- " + arr[1].size()+" ---- " + arr[2].size());
+		
+		if(tipo == 1)
+		{
+			String texto = "Mayor demanda \n";
+			for (int i = 0; i < arr[0].size(); i++) 
+			{
+				String a = "HABITACION " + (BigDecimal)arr[0].get(i)[0] + " ";
+				String b = "DIA " + (BigDecimal)arr[0].get(i)[1] + " ";
+				String c = "MES " + (BigDecimal)arr[0].get(i)[2] + " ";
+				String d = "DEMANDA " + (BigDecimal)arr[0].get(i)[3] + " ";
+				texto += (a + b + c + d + "\n");
+			}
+			
+			texto += "Menor demanda \n";
+			for (int i = 0; i < arr[1].size(); i++) 
+			{
+				String a = "HABITACION " + (BigDecimal)arr[1].get(i)[0] + " ";
+				String b = "DIA " + (BigDecimal)arr[1].get(i)[1] + " ";
+				String c = "MES " + (BigDecimal)arr[1].get(i)[2] + " ";
+				String d = "DEMANDA " + (BigDecimal)arr[1].get(i)[3] + " ";
+				texto += (a + b + c + d + "\n");
+			}
+			
+			texto += "Mayores ingresos \n";
+			for (int i = 0; i < arr[2].size(); i++) 
+			{
+				String a = "HABITACION " + (BigDecimal)arr[2].get(i)[0] + " ";
+				String b = "DIA " + (BigDecimal)arr[2].get(i)[1] + " ";
+				String c = "MES " + (BigDecimal)arr[2].get(i)[2] + " ";
+				String d = "INGRESOS " + (BigDecimal)arr[2].get(i)[3] + " ";
+				texto += (a + b + c + d + "\n");
+			}
+			panelDatos.actualizarInterfaz(texto);
+		}
+		
+		else
+		{
+			String texto = "Mayor demanda \n";
+			for (int i = 0; i < arr[0].size(); i++) 
+			{
+				String a = "HABITACION " + (BigDecimal)arr[0].get(i)[0] + " ";
+				String b = "DIA " + (BigDecimal)arr[0].get(i)[1] + " ";
+				String c = "DEMANDA " + (BigDecimal)arr[0].get(i)[2] + " ";
+				texto += (a + b + c + "\n");
+			}
+			
+			texto += "Menor demanda \n";
+			for (int i = 0; i < arr[1].size(); i++) 
+			{
+				String a = "HABITACION " + (BigDecimal)arr[1].get(i)[0];
+				String b = "DIA " + (BigDecimal)arr[1].get(i)[1];
+				String c = "DEMANDA " + (BigDecimal)arr[1].get(i)[2];
+				texto += (a + b + c + "\n");
+			}
+			
+			for (int i = 0; i < arr[2].size(); i++) 
+			{
+				String a = "HABITACION " + (BigDecimal)arr[2].get(i)[0] + " ";
+				String b = "DIA " + (BigDecimal)arr[2].get(i)[1] + " ";
+				String c = "INGRESO " + (BigDecimal)arr[2].get(i)[2] + " ";
+				texto += (a + b + c + "\n");
+			}
+			panelDatos.actualizarInterfaz(texto);
+		}
+	}
+	
+	//Req 7
+	public void darMejoresClientes()
+	{
+		List<BigDecimal> aMostrar = hotelAndes.buenosClientes();
+
+		String aRevelar = "";
+		int i = 1;
+		for (BigDecimal objects : aMostrar) {
+			aRevelar+= "El cliente " + objects + " es un buen cliente";
+			i++;
+		}
+		panelDatos.actualizarInterfaz(aRevelar);
 	}
 	
 	/* ****************************************************************

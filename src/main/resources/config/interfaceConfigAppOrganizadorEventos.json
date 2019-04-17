@@ -29,7 +29,24 @@
 					"event": "req16"
 				}
 			]
-		}
+		},
+		{ "menuTitle": "Consultas",
+			"options":
+			  [
+				  {
+					  "label": "REQUC1",
+					  "event": "reqc1"
+				  },
+				  {
+					  "label": "REQC2",
+					  "event": "reqc2"
+				  },
+				  {
+					  "label": "REQC3",
+					  "event": "rec3"
+				  }
+			  ]
+		  }
 		
 			
 		

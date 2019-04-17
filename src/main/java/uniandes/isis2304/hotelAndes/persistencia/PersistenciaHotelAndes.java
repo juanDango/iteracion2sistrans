@@ -1925,6 +1925,580 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 		return lasHabitaciones;
 	}
 
+	public Object[] analisisOperacionHotelAndes(String tipo, String unidad , String determinado)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			Object[] mayorDemanda = mayorDemandaHotelAndes(pm, tipo, unidad, determinado);
+			tx.commit();
+			tx.begin();
+			List<Object[]> mayorIngreso = ingresoHotelAndes(pm, tipo, unidad, determinado);
+			tx.commit();
+
+
+			return new Object[] {mayorDemanda, mayorIngreso};			
+		}
+		catch(Exception e)
+		{
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			e.printStackTrace();
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
 	
+	//Metodo para mayor demanda
+	
+	@SuppressWarnings("deprecation")
+	private Object[] mayorDemandaHotelAndes(PersistenceManager pm , String tipoHabitacion, String unidad , String determinado)
+	{
+		if(unidad.equals("anio"))
+		{
+			int anio = Integer.parseInt(determinado);
+			//Maxima demanda
+			String sql = "SELECT tt.hotel, " +
+					"dm.\"dia\", " +
+					"dm.\"mes\", " +
+					"tt.maxi " +
+					"FROM   (SELECT hotel, "+
+					"Max(ingremax) AS maxi " + 
+					"FROM   (SELECT hotel, " +
+					"\"mes\", " + 
+					"\"dia\", " + 
+					"Sum(monto) AS INGREMAX " + 
+					"FROM   (SELECT ha.idhotel AS hotel, " +
+                    "Extract (day FROM h.fechainicio)  AS \"dia\", " +
+                    "Extract(month FROM h.fechainicio) AS \"mes\",  " +
+                    "ha.capacidadhabitacion AS monto " +
+                    "FROM hotel hot, " +
+                    "servicioalojamiento sa, " +
+                    "horario h, " +
+                    "reserva re, " +
+                    "cuenta cu, " +
+                    "habitacion ha, " +
+                    "tipohabitacion th, " +
+                    "servicioalojamientohabitacion sah " +
+                    "WHERE  re.idcuenta = cu.idcuenta " +
+                    "AND hot.idhotel = ha.idhotel " +
+                    "AND h.idhorario = re.idhorario " +
+                    "AND th.nombretipo = ha.tipohabitacion " +
+                    "AND sa.idservicioalojamiento = sah.idservicioalojamiento " +
+                    "AND sah.idhabitacion = ha.idhabitacion " +
+                    "AND ha.tipohabitacion LIKE ? " +
+                    "AND Extract(year FROM h.fechainicio) = ?) " +
+                    "GROUP  BY hotel, " + 
+                    "\"mes\", " + 
+                    "\"dia\") " + 
+                    "GROUP  BY hotel) tt, " + 
+                    "(SELECT hotel, " +
+                    "\"mes\", " +
+                    "\"dia\", " +
+                    "Sum(monto) AS demandamaxima " +
+                    "FROM   (SELECT ha.idhotel AS hotel, " +
+                    "Extract (day FROM h.fechainicio)  AS \"dia\", " + 
+                    "Extract(month FROM h.fechainicio) AS \"mes\", " + 
+                    "ha.capacidadhabitacion AS monto " +
+                    "FROM   hotel hot, " +
+                    "servicioalojamiento sa, " +               
+                    "horario h, " +
+                    "reserva re, " +
+                    "cuenta cu, " +
+                    "habitacion ha, "+
+                    "tipohabitacion th, " +
+                    "servicioalojamientohabitacion sah " +
+                    "WHERE  re.idcuenta = cu.idcuenta " +
+                    "AND hot.idhotel = ha.idhotel " +
+                    "AND h.idhorario = re.idhorario " +
+                    "AND th.nombretipo = ha.tipohabitacion " +
+                    "AND sa.idservicioalojamiento = sah.idservicioalojamiento " +
+                    "AND sah.idhabitacion = ha.idhabitacion " +
+                    "AND ha.tipohabitacion LIKE ? " +
+                    "AND Extract(year FROM h.fechainicio) = ?) " +
+                    "GROUP  BY hotel, " +
+                    "\"mes\", " + 
+                    "\"dia\") dm  " +
+                    "WHERE  tt.maxi = dm.demandamaxima ";
+			Query q = pm.newQuery(SQL,sql);
+			q.setParameters(tipoHabitacion, anio, tipoHabitacion, anio);
+
+
+			List<Object[]> listaMaxima = (List<Object[]>) q.executeList();
+
+
+			String sql1 = "SELECT tt.hotel, " + 
+					"dm.\"dia\", " + 
+					"dm.\"mes\", " +
+					"tt.maxi " + 
+					"FROM   (SELECT hotel, " +
+					"Min(ingremax) AS maxi " +
+					"FROM   (SELECT hotel, " +
+					"\"mes\", "+ 
+					"\"dia\", "+ 
+					"Sum(monto) AS INGREMAX " +
+					"FROM   (SELECT ha.idhotel AS hotel, " +
+                    "Extract (day FROM h.fechainicio)  AS \"dia\", " + 
+                    "Extract(month FROM h.fechainicio) AS \"mes\", " +
+                    "ha.capacidadhabitacion AS monto " +
+                    "FROM   hotel hot, " +
+                    "servicioalojamiento sa, " +
+                    "horario h, " +
+                    "reserva re, " +
+                    "cuenta cu, " +
+                    "habitacion ha, " +
+                    "tipohabitacion th, " +
+                    "servicioalojamientohabitacion sah " +
+                    "WHERE  re.idcuenta = cu.idcuenta " +
+                    "AND hot.idhotel = ha.idhotel " +
+                    "AND h.idhorario = re.idhorario " +
+                    "AND th.nombretipo = ha.tipohabitacion " +
+                    "AND sa.idservicioalojamiento = sah.idservicioalojamiento " +
+                    "AND sah.idhabitacion = ha.idhabitacion " +
+                    "AND ha.tipohabitacion LIKE ? " +
+                    "AND Extract(year FROM h.fechainicio) = ?) " +
+                    "AND Extract(month FROM h.fechainicio) = ?) " + 
+                    "GROUP  BY hotel, " +
+                  	"\"mes\", " + 
+                  	"\"dia\") " + 
+                  	"GROUP  BY hotel) tt, " +
+                  	"(SELECT hotel, " + 
+                  	"\"mes\", " + 
+                  	"\"dia\", " + 
+                  	"Sum(monto) AS demandamaxima " +
+                  	"FROM   (SELECT ha.idhotel AS hotel, " + 
+                    "Extract (day FROM h.fechainicio)  AS \"dia\", " + 
+                    "Extract(month FROM h.fechainicio) AS \"mes\", " +  
+                    "ha.capacidadhabitacion AS monto " +
+                    "FROM   hotel hot, " +
+                    "servicioalojamiento sa, " +
+                    "horario h, " +
+                    "reserva re, " +
+                    "cuenta cu, " +
+                    "habitacion ha, " +
+                    "tipohabitacion th, " +
+                    "servicioalojamientohabitacion sah " +
+                    "WHERE  re.idcuenta = cu.idcuenta " +
+                    "AND hot.idhotel = ha.idhotel " +
+                    "AND h.idhorario = re.idhorario " +
+                    "AND th.nombretipo = ha.tipohabitacion " +
+                    "AND sa.idservicioalojamiento = sah.idservicioalojamiento " +
+                    "AND sah.idhabitacion = ha.idhabitacion " +
+                    "AND ha.tipohabitacion LIKE ? " +
+                    "AND Extract(year FROM h.fechainicio) = ?) " + 
+                    "AND Extract(month FROM h.fechainicio) = ?) " + 
+                    "GROUP  BY hotel, " +
+                    "\"mes\", "+ 
+                    "\"dia\") dm  " +
+                    "WHERE  tt.maxi = dm.demandamaximaC";
+
+			Query q1 = pm.newQuery(SQL,sql1);
+			q1.setParameters(tipoHabitacion, anio, tipoHabitacion, anio);
+			List<Object[]> listaMinima = (List<Object[]>) q1.executeList();
+
+			return new Object[] {listaMaxima, listaMinima};
+
+
+		}
+		if(unidad.equals("mes"))
+		{
+			//06-2018
+			String p[] =  determinado.split("-");
+
+
+			String sql = "SELECT tt.hotel, " +
+					"dm.\"dia\", " +
+					"dm.\"mes\", " +
+					"tt.maxi " +
+					"FROM   (SELECT hotel, "+
+					"Max(ingremax) AS maxi " + 
+					"FROM   (SELECT hotel, " +
+					"\"mes\", " + 
+					"\"dia\", " + 
+					"Sum(monto) AS INGREMAX " + 
+					"FROM   (SELECT ha.idhotel AS hotel, " +
+                    "Extract (day FROM h.fechainicio)  AS \"dia\", " +
+                    "Extract(month FROM h.fechainicio) AS \"mes\",  " +
+                    "ha.capacidadhabitacion AS monto " +
+                    "FROM hotel hot, " +
+                    "servicioalojamiento sa, " +
+                    "horario h, " +
+                    "reserva re, " +
+                    "cuenta cu, " +
+                    "habitacion ha, " +
+                    "tipohabitacion th, " +
+                    "servicioalojamientohabitacion sah " +
+                    "WHERE  re.idcuenta = cu.idcuenta " +
+                    "AND hot.idhotel = ha.idhotel " +
+                    "AND h.idhorario = re.idhorario " +
+                    "AND th.nombretipo = ha.tipohabitacion " +
+                    "AND sa.idservicioalojamiento = sah.idservicioalojamiento " +
+                    "AND sah.idhabitacion = ha.idhabitacion " +
+                    "AND ha.tipohabitacion LIKE ? " +
+                    "AND Extract(year FROM h.fechainicio) = ?) " +
+                    "AND Extract(month FROM tc.fechainicio) = ?) " + 
+                    "GROUP  BY hotel, " + 
+                    "\"mes\", " + 
+                    "\"dia\") " + 
+                    "GROUP  BY hotel) tt, " + 
+                    "(SELECT hotel, " +
+                    "\"mes\", " +
+                    "\"dia\", " +
+                    "Sum(monto) AS demandamaxima " +
+                    "FROM   (SELECT ha.idhotel AS hotel, " +
+                    "Extract (day FROM h.fechainicio)  AS \"dia\", " + 
+                    "Extract(month FROM h.fechainicio) AS \"mes\", " + 
+                    "ha.capacidadhabitacion AS monto " +
+                    "FROM   hotel hot, " +
+                    "servicioalojamiento sa, " +               
+                    "horario h, " +
+                    "reserva re, " +
+                    "cuenta cu, " +
+                    "habitacion ha, "+
+                    "tipohabitacion th, " +
+                    "servicioalojamientohabitacion sah " +
+                    "WHERE  re.idcuenta = cu.idcuenta " +
+                    "AND hot.idhotel = ha.idhotel " +
+                    "AND h.idhorario = re.idhorario " +
+                    "AND th.nombretipo = ha.tipohabitacion " +
+                    "AND sa.idservicioalojamiento = sah.idservicioalojamiento " +
+                    "AND sah.idhabitacion = ha.idhabitacion " +
+                    "AND ha.tipohabitacion LIKE ? " +
+                    "AND Extract(year FROM h.fechainicio) = ?) " +
+                    "AND Extract(month FROM h.fechainicio) = ?) " + 
+                    "GROUP  BY hotel, " +
+                    "\"mes\", " + 
+                    "\"dia\") dm  " +
+                    "WHERE  tt.maxi = dm.demandamaxima ";
+
+			Query q = pm.newQuery(SQL, sql);
+			q.setParameters(tipoHabitacion, p[1] , p[0] , tipoHabitacion, p[1] , p[0] );
+			List<Object[]> listaMaximo = q.executeList();
+
+
+			String sql1 = "SELECT tt.hotel, " + 
+					"dm.\"dia\", " + 
+					"dm.\"mes\", " +
+					"tt.maxi " + 
+					"FROM   (SELECT hotel, " +
+					"Min(ingremax) AS maxi " +
+					"FROM   (SELECT hotel, " +
+					"\"mes\", "+ 
+					"\"dia\", "+ 
+					"Sum(monto) AS INGREMAX " +
+					"FROM   (SELECT ha.idhotel AS hotel, " +
+                    "Extract (day FROM h.fechainicio)  AS \"dia\", " + 
+                    "Extract(month FROM h.fechainicio) AS \"mes\", " +
+                    "ha.capacidadhabitacion AS monto " +
+                    "FROM   hotel hot, " +
+                    "servicioalojamiento sa, " +
+                    "horario h, " +
+                    "reserva re, " +
+                    "cuenta cu, " +
+                    "habitacion ha, " +
+                    "tipohabitacion th, " +
+                    "servicioalojamientohabitacion sah " +
+                    "WHERE  re.idcuenta = cu.idcuenta " +
+                    "AND hot.idhotel = ha.idhotel " +
+                    "AND h.idhorario = re.idhorario " +
+                    "AND th.nombretipo = ha.tipohabitacion " +
+                    "AND sa.idservicioalojamiento = sah.idservicioalojamiento " +
+                    "AND sah.idhabitacion = ha.idhabitacion " +
+                    "AND ha.tipohabitacion LIKE ? " +
+                    "AND Extract(year FROM h.fechainicio) = ?) " +
+                    "AND Extract(month FROM h.fechainicio) = ?) " + 
+                    "GROUP  BY hotel, " +
+                  	"\"mes\", " + 
+                  	"\"dia\") " + 
+                  	"GROUP  BY hotel) tt, " +
+                  	"(SELECT hotel, " + 
+                  	"\"mes\", " + 
+                  	"\"dia\", " + 
+                  	"Sum(monto) AS demandamaxima " +
+                  	"FROM   (SELECT ha.idhotel AS hotel, " + 
+                    "Extract (day FROM h.fechainicio)  AS \"dia\", " + 
+                    "Extract(month FROM h.fechainicio) AS \"mes\", " +  
+                    "ha.capacidadhabitacion AS monto " +
+                    "FROM   hotel hot, " +
+                    "servicioalojamiento sa, " +
+                    "horario h, " +
+                    "reserva re, " +
+                    "cuenta cu, " +
+                    "habitacion ha, " +
+                    "tipohabitacion th, " +
+                    "servicioalojamientohabitacion sah " +
+                    "WHERE  re.idcuenta = cu.idcuenta " +
+                    "AND hot.idhotel = ha.idhotel " +
+                    "AND h.idhorario = re.idhorario " +
+                    "AND th.nombretipo = ha.tipohabitacion " +
+                    "AND sa.idservicioalojamiento = sah.idservicioalojamiento " +
+                    "AND sah.idhabitacion = ha.idhabitacion " +
+                    "AND ha.tipohabitacion LIKE ? " +
+                    "AND Extract(year FROM h.fechainicio) = ?) " + 
+                    "AND Extract(month FROM h.fechainicio) = ?) " + 
+                    "GROUP  BY hotel, " +
+                    "\"mes\", "+ 
+                    "\"dia\") dm  " +
+                    "WHERE  tt.maxi = dm.demandamaximaC";
+
+			Query q1 = pm.newQuery(SQL, sql1);
+			q1.setParameters(tipoHabitacion, p[1] , p[0] , tipoHabitacion, p[1] , p[0] );
+			List<Object[]> listaMinimo = q1.executeList();
+
+			return new Object[] {listaMaximo, listaMinimo};
+
+
+		}
+		return null;
+	}
+	
+	//Analisis ingresos
+	
+	@SuppressWarnings("deprecation")
+	private List<Object[]> ingresoHotelAndes(PersistenceManager pm , String tipo, String unidad  , String determinado)
+	{
+		if(unidad.equals("anio"))
+		{
+			int anio = Integer.parseInt(determinado);
+			//Maxima demanda
+			String sql = "SELECT tt.hotel, " +
+					"dm.\"dia\", " + 
+					"dm.\"mes\", " + 
+					"tt.maxi " +
+					"FROM   (SELECT hotel, " +
+					"Max(ingremax) AS maxi " +
+					"FROM   (SELECT hotel, " +
+					"\"mes\", " + 
+					"\"dia\", " + 
+					"Sum(monto) AS INGREMAX " +
+					"FROM   (SELECT ha.idhotel AS hotel, " +
+                    "Extract (day FROM h.fechainicio)  AS \"dia\", " + 
+                    "Extract(month FROM h.fechainicio) AS \"mes\", " + 
+                    "cu.valor AS monto " +
+                    "FROM   hotel hot, " +
+                    "servicioalojamiento sa, " +
+                    "horario h, " +
+                    "reserva re, " +
+                    "cuenta cu, " +
+                    "habitacion ha, " +
+                    "tipohabitacion th, " +
+                    "servicioalojamientohabitacion sah " +
+                    "WHERE  re.idcuenta = cu.idcuenta " +
+                    "AND hot.idhotel = ha.idhotel " +
+                    "AND h.idhorario = re.idhorario " +
+                    "AND th.nombretipo = ha.tipohabitacion " +
+                    "AND sa.idservicioalojamiento = sah.idservicioalojamiento " +
+                    "AND sah.idhabitacion = ha.idhabitacion " +
+                    "AND ha.tipohabitacion LIKE ? " +
+                    "AND Extract(year FROM h.fechainicio) = ?) " +
+                    "GROUP  BY hotel, " +
+                    "\"mes\", " + 
+                    "\"dia\") " + 
+                    "GROUP  BY hotel) tt, " +
+                    "(SELECT hotel, " + 
+                    "\"mes\", " + 
+                    "\"dia\", " + 
+                    "Sum(monto) AS demandamaxima " +
+                    "FROM   (SELECT ha.idhotel AS hotel, " +
+                    "Extract (day FROM h.fechainicio)  AS \"dia\", " + 
+                    "Extract(month FROM h.fechainicio) AS \"mes\", " + 
+                    "cu.valor AS monto " +
+                    "FROM   hotel hot, " +
+                    "servicioalojamiento sa, " +
+                    "horario h, " +
+                    "reserva re, " +
+                    "cuenta cu, " +
+                    "habitacion ha, " +
+                    "tipohabitacion th, " +
+                    "servicioalojamientohabitacion sah " +
+                    "WHERE  re.idcuenta = cu.idcuenta " +
+                    "AND hot.idhotel = ha.idhotel " +
+                    "AND h.idhorario = re.idhorario " +
+                    "AND th.nombretipo = ha.tipohabitacion " +
+                    "AND sa.idservicioalojamiento = sah.idservicioalojamiento " +
+                    "AND sah.idhabitacion = ha.idhabitacion " +
+                    "AND ha.tipohabitacion LIKE ? " +
+                    "AND Extract(year FROM h.fechainicio) = ?) " +
+                    "GROUP  BY hotel, " +
+                    "\"mes\", " + 
+                    "\"dia\") dm " + 
+                    "WHERE  tt.maxi = dm.demandamaxima; ";
+			Query q = pm.newQuery(SQL,sql);
+			q.setParameters(tipo,anio,tipo,anio);
+
+
+			List<Object[]> listaMaxima = (List<Object[]>) q.executeList();
+
+			return listaMaxima;
+
+
+		}
+		if(unidad.equals("mes"))
+		{
+			//06-2018
+			String p[] =  determinado.split("-");
+
+
+			String sql = "SELECT tt.hotel, " +
+					"dm.\"dia\", " + 
+					"dm.\"mes\", " + 
+					"tt.maxi " +
+					"FROM   (SELECT hotel, " +
+					"Max(ingremax) AS maxi " +
+					"FROM   (SELECT hotel, " +
+					"\"mes\", " + 
+					"\"dia\", " + 
+					"Sum(monto) AS INGREMAX " +
+					"FROM   (SELECT ha.idhotel AS hotel, " +
+                    "Extract (day FROM h.fechainicio)  AS \"dia\", " + 
+                    "Extract(month FROM h.fechainicio) AS \"mes\", " + 
+                    "cu.valor AS monto " +
+                    "FROM   hotel hot, " +
+                    "servicioalojamiento sa, " +
+                    "horario h, " +
+                    "reserva re, " +
+                    "cuenta cu, " +
+                    "habitacion ha, " +
+                    "tipohabitacion th, " +
+                    "servicioalojamientohabitacion sah " +
+                    "WHERE  re.idcuenta = cu.idcuenta " +
+                    "AND hot.idhotel = ha.idhotel " +
+                    "AND h.idhorario = re.idhorario " +
+                    "AND th.nombretipo = ha.tipohabitacion " +
+                    "AND sa.idservicioalojamiento = sah.idservicioalojamiento " +
+                    "AND sah.idhabitacion = ha.idhabitacion " +
+                    "AND ha.tipohabitacion LIKE ? " +
+                    "AND Extract(year FROM h.fechainicio) = ?) " +
+                    "AND Extract(month FROM h.fechainicio) = ?) " + 
+                    "GROUP  BY hotel, " +
+                    "\"mes\", " + 
+                    "\"dia\") " + 
+                    "GROUP  BY hotel) tt, " +
+                    "(SELECT hotel, " + 
+                    "\"mes\", " + 
+                    "\"dia\", " + 
+                    "Sum(monto) AS demandamaxima " +
+                    "FROM   (SELECT ha.idhotel AS hotel, " +
+                    "Extract (day FROM h.fechainicio)  AS \"dia\", " + 
+                    "Extract(month FROM h.fechainicio) AS \"mes\", " + 
+                    "cu.valor AS monto " +
+                    "FROM   hotel hot, " +
+                    "servicioalojamiento sa, " +
+                    "horario h, " +
+                    "reserva re, " +
+                    "cuenta cu, " +
+                    "habitacion ha, " +
+                    "tipohabitacion th, " +
+                    "servicioalojamientohabitacion sah " +
+                    "WHERE  re.idcuenta = cu.idcuenta " +
+                    "AND hot.idhotel = ha.idhotel " +
+                    "AND h.idhorario = re.idhorario " +
+                    "AND th.nombretipo = ha.tipohabitacion " +
+                    "AND sa.idservicioalojamiento = sah.idservicioalojamiento " +
+                    "AND sah.idhabitacion = ha.idhabitacion " +
+                    "AND ha.tipohabitacion LIKE ? " +
+                    "AND Extract(year FROM h.fechainicio) = ?) " +
+                    "AND Extract(month FROM h.fechainicio) = ?) " + 
+                    "GROUP  BY hotel, " +
+                    "\"mes\", " + 
+                    "\"dia\") dm " + 
+                    "WHERE  tt.maxi = dm.demandamaxima; ";
+
+			Query q = pm.newQuery(SQL, sql);
+			q.setParameters(tipo, p[1] , p[0] , tipo, p[1] , p[0] );
+			List<Object[]> listaMaximo = q.executeList();
+
+
+
+			return  listaMaximo;
+
+
+		}
+		return null;
+	}
+	
+	//Req 7
+	
+	public List<BigDecimal> darBuenosClientes()
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+
+			String sql = "SELECT idcliente " +
+					"FROM   (SELECT idcliente, " + 
+					"Count(*) AS MESESCONSECUTIVOS " +
+					"FROM   (SELECT idcliente, " + 
+                    "mes, " +
+                    "anio, " +
+                    "Count(*) compras " +
+                    "FROM   (SELECT re.idcliente, " +
+                    "Extract (month FROM h.fechaInicio) AS mes, " +
+                    "Extract (year FROM h.fechaInicio)  AS anio " +
+                    "FROM   horario h, " +
+                    "cuenta cu, " +
+                    "reserva re, " +
+                    "servicioalojamiento sa " +
+                    "WHERE  h.idhorario = re.idhorario " +
+                    "AND sa.idcuenta = cu.idcuenta " +
+                    "AND (DATEDIFF(DAY, h.fechainicio, h.fechafinal)>=14) OR cu.valor >= 15000000) " +
+                    "GROUP  BY mes, " +
+                    "anio, " +
+                    "idcliente) " + 
+                    "WHERE  compras >= 2 " +
+                    "GROUP  BY idcliente) " +
+                    "WHERE  mesesconsecutivos >= ( ( (SELECT Extract(year FROM sysdate) " + 
+                    "FROM   dual) - (SELECT Extract( " +
+                    "year FROM fechamenor) " + 
+                    "FROM   (SELECT " +
+                    "Min(h.fechaInicio) AS fechaMenor " +
+                    "FROM reserva re, horario h " +
+                    "WHERE re.idhorario = h.idhorario " +
+                    ")) ) * 12 ) " +
+                    "+ " + 
+                    "( (SELECT Extract( " +
+                    "month FROM sysdate) " +
+                    "FROM   dual) - " +
+                    "(SELECT " + 
+                    "Extract(month FROM " +
+                    "fechamenor) " +
+                    "FROM " +
+                    "(SELECT Min(h.fechaInicio) AS " +
+                    "fechaMenor " +
+                    "FROM   reserva re, horario h " +
+                    "WHERE re.idhorario = h.idhorario)) " +
+                    ")"; 
+			Query q = pm.newQuery(SQL, sql);
+			List<BigDecimal> l = (List<BigDecimal>) q.executeList();
+			tx.commit();
+
+
+			return l;			
+		}
+		catch(Exception e)
+		{
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			e.printStackTrace();
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
 
 }
