@@ -2542,5 +2542,37 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 	{
 		return sqlConvencion.darConvencionPorId (pmf.getPersistenceManager(), idDotacion);
 	}
+	
+	public List<BigDecimal> darPocaDemanda()
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+
+			String sql = "SELECT t1.cod FROM (SELECT ip.codigoproducto AS cod , EXTRACT(week from shc.fechaInicio) AS semana , COUNT(*) AS contador FROM horario h INNER JOIN servicioHotelComplementario shc ON shc.idhorario = h.idhorario GROUP BY h.fechaInicio  ORDER BY cod, h.fechaInicio )t1 WHERE t1.contador < 3"; 
+			Query q = pm.newQuery(SQL, sql);
+			List<BigDecimal> l = (List<BigDecimal>) q.executeList();
+			tx.commit();
+
+
+			return l;			
+		}
+		catch(Exception e)
+		{
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			e.printStackTrace();
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
 
 }

@@ -360,4 +360,9 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 		log.info ("Dando convencion :  " + nombreConvencion);
 		return bod;
 	}
+	
+	public List<BigDecimal> pocaDemanda(){
+		List<BigDecimal> aRet = pp.darPocaDemanda();
+		return aRet;
+	}
 }

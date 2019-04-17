@@ -1169,7 +1169,7 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 		}
 	}
 	
-	public void reqC1()
+	public void reqc1()
 	{
 		String[] options = {"mes","anio"};
 		int tipo = JOptionPane.showOptionDialog(this,"En que unidades desea?","HotelAndes",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
@@ -1255,7 +1255,7 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 	}
 	
 	//Req 7
-	public void darMejoresClientes()
+	public void reqc2()
 	{
 		List<BigDecimal> aMostrar = hotelAndes.buenosClientes();
 
@@ -1267,6 +1267,20 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 		}
 		panelDatos.actualizarInterfaz(aRevelar);
 	}
+	
+	public void reqc3()
+	{
+		List<BigDecimal> aMostrar = hotelAndes.pocaDemanda();
+
+		String aRevelar = "";
+		int i = 1;
+		for (BigDecimal objects : aMostrar) {
+			aRevelar+= "El cliente " + objects + " es un buen cliente";
+			i++;
+		}
+		panelDatos.actualizarInterfaz(aRevelar);
+	}
+	
 	
 	/* ****************************************************************
 	 * 			Programa principal
