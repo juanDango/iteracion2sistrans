@@ -43,6 +43,8 @@ public class SQLConvencionrestbarcafeteria {
 		q.setParameters(id);
 		return (Cuenta) q.executeUnique();
 	}
+
+	
 	
 	
 }

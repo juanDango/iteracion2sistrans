@@ -279,7 +279,7 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 		}
 		if(n == 5)
 		{
-			String id = JOptionPane.showInputDialog(this, "Digite su id", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
+			String id = JOptionPane.showInputDialog(this, "Digite su id Ej.4545", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
 			if(id.isEmpty())
 			{
 				JOptionPane.showMessageDialog(this, "Por favor ingrese un id valido", "HotelAndes", JOptionPane.PLAIN_MESSAGE);
@@ -1117,7 +1117,17 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 	}
 
 	public void req13(){
-		//idconvencion y canthabitacion
+		long idConvencion = Long.parseLong(JOptionPane.showInputDialog(this, "Id de la convencion"));
+		int canthabitacion = Integer.parseInt(JOptionPane.showInputDialog(this, "De cantidad de habitaciones a borrar"));
+		int cantServicios = Integer.parseInt(JOptionPane.showInputDialog(this, "De cantidad de servicios a borrar"));
+
+		try {
+			hotelAndes.req13(idConvencion,canthabitacion,cantServicios);
+
+		}catch (Exception e) {
+			e.printStackTrace( );
+		}
+
 	}
 	/* ****************************************************************
 	 * 			Programa principal

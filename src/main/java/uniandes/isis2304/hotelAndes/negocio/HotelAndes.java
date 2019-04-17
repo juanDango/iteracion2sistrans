@@ -294,4 +294,11 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 		pp.req12(idConvencion,idHotel,numparticipantes,nombreConvencion,finicio,ffinal,idHorario,idCliente,idCuenta,idsServicios,infoHabitaciones);
 		log.info ("Dando Convencion :  " + idConvencion);
 	}
+
+	public void req13(long idConvencion, int canthabitacion, int cantServicios) {
+		log.info ("Borrando habitaciones o servicios de Convencion: "+idConvencion);
+		pp.req13(idConvencion,canthabitacion,cantServicios);
+		log.info ("Borrando habitaciones o servicios de Convencion: "+idConvencion);
+
+	}
 }

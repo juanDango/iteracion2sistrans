@@ -1568,7 +1568,7 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 	
 	
 
-	public void req13() {
+	public void req13(long idConvencion, int canthabitacion, int cantServicios) {
 		//hacen query que de los id estadias de esa condicion y se elminana los primeros
 	}
 
