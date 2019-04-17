@@ -1665,9 +1665,9 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 		Transaction tx=pm.currentTransaction();
 		try
 		{
-
 			tx.begin();
 			
+			tx.commit();
 
 		}
 		catch (Exception e)

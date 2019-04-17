@@ -1130,7 +1130,7 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 
 	}
 	
-	public void req14(){
+	public void req15(){
 		int cantTipoHabitacion = Integer.parseInt(JOptionPane.showInputDialog(this, "Cantidad de tipos de habitacion"));
 		ArrayList<Long> idHabitaciones = new ArrayList<>();
 		for (int i = 0; i < cantTipoHabitacion; i++) {
@@ -1144,14 +1144,14 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 			idServicios.add(infoHabitacion);
 		}
 		try {
-			hotelAndes.req14(idConvencion);
+			hotelAndes.req15(idHabitaciones,idServicios);
 
 		}catch (Exception e) {
 			e.printStackTrace( );
 		}
 	}
 	
-	public void req15(){
+	public void req14(){
 		long idConvencion = Long.parseLong(JOptionPane.showInputDialog(this, "Id de la convencion"));
 		
 		try {
