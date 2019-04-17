@@ -739,14 +739,89 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 			resultado += "\n\n************ Generando datos de prueba ************ \n";
 			if (errorTipoBebida)
 			{
-				resultado += "*** Exception creando tipo de bebida !!\n";
-				resultado += "*** Es probable que ese tipo de bebida ya existiera y hay restricción de UNICIDAD sobre el nombre del tipo de bebida\n";
+				resultado += "*** Exception creando convencion !!\n";
+				resultado += "*** Es probable que ese convencion ya existiera y hay restricción de UNICIDAD sobre el nombre del tipo de bebida\n";
 				resultado += "*** Revise el log de hotelAndes para más detalles\n";
 			}
-			resultado += "Adicionado el tipo de bebida con nombre: " + nombreConvencion + "\n";
+			resultado += "Adicionado la convencion con nombre: " + nombreConvencion + "\n";
+			
+			int numeroDeTiposHab = 2;
+			String[] tipos = {"Sencilla","Doble"};
+			for (int i = 0; i < numeroDeTiposHab; i++) {
+				int numeroHabs = 3;
+				for (int j = 0; j < numeroHabs; j++) {
+					Habitacion h = hotelAndes.darHabitacionPorTipo(tipos[i]).get(j);
+					hotelAndes.adicionaHabitacion(h.getIdHabitacion(), h.getTipoHabitacion(), h.getCostoNoche(), h.getCapacidadHabitacion(), h.getIdHotel(), h.getNumeroHabitacion(), "S");
+					resultado += "Adicionando habitacion " + h.getIdHabitacion() + "\n";
+
+				}
+				
+			}
+			
+			int numeroServs = 3;
+
+			for (int i = 952; i < 955; i++) {
+				hotelAndes.adicionarConvencionrestbarcafeteria(i, convencion.getIdConvencion());
+				resultado += "Adicionando servicio " + i + "\n";
+
+			}
 			
 			
-   
+			//////////////CANCELAR CONVENCION
+			hotelAndes.req13(convencion.getIdConvencion(), numeroDeTiposHab, numeroServs);
+			resultado += "Convencion cancelada " +"\n";
+			resultado += "Se crea de nuevo la convencion " +"\n";
+
+			 nombreConvencion = "Filbo";
+			 errorTipoBebida = false;
+			//Creacion de horario
+			 fechaInicio =  "04/04/2019";
+			 inicio = new Timestamp(new SimpleDateFormat("dd/MM/yyyy").parse(fechaInicio).getTime());
+			 fechaFin =  "09/04/2019";
+			 fin = new Timestamp(new SimpleDateFormat("dd/MM/yyyy").parse(fechaFin).getTime());
+			 a = hotelAndes.adicionarHorario(0, 0, inicio, fin);
+			
+			 convencion = hotelAndes.adicionarConvencion(005, 123, 10, nombreConvencion, a.getIdHorario());
+			if (convencion == null)
+			{
+				convencion = hotelAndes.darConvencionPorId (convencion.getIdConvencion());
+				errorTipoBebida = true;
+			}
+			
+			// Generación de la cadena de caracteres con la traza de la ejecución de la demo
+			 resultado += "Demo de creación y listado de Convencion\n\n";
+			resultado += "\n\n************ Generando datos de prueba ************ \n";
+			if (errorTipoBebida)
+			{
+				resultado += "*** Exception creando convencion !!\n";
+				resultado += "*** Es probable que ese convencion ya existiera y hay restricción de UNICIDAD sobre el nombre del tipo de bebida\n";
+				resultado += "*** Revise el log de hotelAndes para más detalles\n";
+			}
+			resultado += "Adicionado la convencion con nombre: " + nombreConvencion + "\n";
+			
+			numeroDeTiposHab = 2;
+			for (int i = 0; i < numeroDeTiposHab; i++) {
+				int numeroHabs = 3;
+				for (int j = 0; j < numeroHabs; j++) {
+					Habitacion h = hotelAndes.darHabitacionPorTipo(tipos[i]).get(j);
+					hotelAndes.adicionaHabitacion(h.getIdHabitacion(), h.getTipoHabitacion(), h.getCostoNoche(), h.getCapacidadHabitacion(), h.getIdHotel(), h.getNumeroHabitacion(), "S");
+					resultado += "Adicionando habitacion " + h.getIdHabitacion() + "\n";
+
+				}
+				
+			}
+			
+			 numeroServs = 3;
+
+			for (int i = 952; i < 955; i++) {
+				hotelAndes.adicionarConvencionrestbarcafeteria(i, convencion.getIdConvencion());
+				resultado += "Adicionando servicio " + i + "\n";
+
+			}
+			
+			////////////// CONVENCION FINALIZADA
+			hotelAndes.req14(convencion.getIdConvencion());
+			resultado += "Convencion finalizada " +"\n";
 			panelDatos.actualizarInterfaz(resultado);
 		} 
     	catch (Exception e) 
@@ -757,6 +832,8 @@ public class InterfazHotelAndesApp extends JFrame implements ActionListener
 		}
     }
 
+   
+    
 	private String darDetalleException(Exception e) 
 	{
 		String resp = "";
