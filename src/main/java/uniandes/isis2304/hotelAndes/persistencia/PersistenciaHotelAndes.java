@@ -1547,9 +1547,13 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 						adicionarServicioAlojamiento(j+1000,1,idCuenta);
 						adicionarServicioAlojamientoHabitacion(j+1000,hab.getIdHabitacion());
 						adicionarConvencionHabitacion(idConvencion,hab.getIdHabitacion());
+						adicionarReserva(j+1000,0,hab.getIdHabitacion(),idHorario,idCliente, idHotel,idCuenta);
 					}
 				}
 			}	
+			for (int i = 0; i < idsServicios.size(); i++) {
+				adicionarConvencionRestBarCafeteria(idConvencion,idsServicios.get(i));
+			}
 
 		}
 		catch (Exception e)
@@ -1567,9 +1571,34 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 		}
 	}
 	
+	
+
+	public void req13() {
+		//hacen query que de los id estadias de esa condicion y se elminana los primeros
+	}
 
 	
 
+	private void adicionarConvencionRestBarCafeteria(long idConvencion, Long long1) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+
+			long tuplasInsertadas = 0;
+			tuplasInsertadas = sqlConvencionRestBarCafeteria.adicionarConvencionrestbarcafeteria(pm, idConvencion, long1);
+			tx.commit();
+
+		}
+		catch (Exception e)
+		{
+			        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+		}
+		
+	}
+	
 	private void adicionarConvencionHabitacion(long idConvencion, long idHabitacion) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx=pm.currentTransaction();
@@ -1578,7 +1607,7 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 			tx.begin();
 
 			long tuplasInsertadas = 0;
-			tuplasInsertadas = sqlConvencionHabitacion.adicionarCondicionHabitacion(pm, idConvencion, idHabitacion);
+			tuplasInsertadas = sqlConvencionHabitacion.adicionar(pm, idConvencion, idHabitacion);
 			tx.commit();
 
 		}
