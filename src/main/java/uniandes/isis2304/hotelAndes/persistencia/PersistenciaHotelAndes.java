@@ -1698,6 +1698,7 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 			q.setParameters(idserv,"Mantenimiento",idHabitacion,0);
 			q.executeUnique();
 			
+			cambiarHabitacion(idHabitacion);
 			tx.commit();
 
 		}
@@ -1708,13 +1709,41 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 		}		
 	}
 
-	public void req16(long idMantenimiento) {
+	private void cambiarHabitacion(long idHabitacion) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx=pm.currentTransaction();
 		try
 		{
 			tx.begin();
 			
+			Habitacion habNueva = darHabitacionesLibresPorTipo("Sencilla").get(0);
+			Query q = pm.newQuery(SQL, "UPDATE FROM SERVICIOALOJAMIENTOHABITACION SET IDHABITACION = ?" );
+			q.setParameters(habNueva.getIdHabitacion());
+			q.executeUnique();
+			cambiarHabitacionADisponible(idHabitacion,"N");
+
+			cambiarHabitacion(idHabitacion);
+			tx.commit();
+
+		}
+		catch (Exception e)
+		{
+			        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+		}	
+		
+	}
+
+	public void req16(long idMantenimiento) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			Habitacion hab = darHabitacioPorServ(idMantenimiento);
+			cambiarHabitacionADisponible(hab.getIdHabitacion(),"S");
+			borrarServicioArreglo(idMantenimiento);
+
 			tx.commit();
 
 		}
@@ -1733,6 +1762,72 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 		}
 	}
 	
+	private void cambiarHabitacionADisponible(long idHabitacion, String estado) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			
+			Query q = pm.newQuery(SQL, "UPDATE FROM HABITACION SET DISPONIBLE = ? WHERE IDHABITACION = ?" );
+			q.setParameters(estado, idHabitacion);
+			q.executeUnique();
+			
+			tx.commit();
+
+		}
+		catch (Exception e)
+		{
+			        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+		}	
+		
+	}
+
+	private Habitacion darHabitacioPorServ(long idMantenimiento) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		Habitacion hab=null;
+		try
+		{
+			tx.begin();
+			
+			Query q = pm.newQuery(SQL, "SELECT * FROM HABITACION INNER JOIN (SELECT IDHABITACION AS ELID FROM SERVICIOARREGLO WHEN IDSERVICIO = ?)T1 T1.ELID = IDHABITACION" );
+			q.setParameters(idMantenimiento);
+			hab = (Habitacion) q.executeUnique();
+			
+			tx.commit();
+
+		}
+		catch (Exception e)
+		{
+			        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+		}	
+		return hab;
+	}
+
+	private void borrarServicioArreglo(long idMantenimiento) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			
+			Query q = pm.newQuery(SQL, "DELETE FROM SERVICIOARREGLO WHERE IDSERVICIO = ?" );
+			q.setParameters(idMantenimiento);
+			q.executeUnique();
+			
+			tx.commit();
+
+		}
+		catch (Exception e)
+		{
+			        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+		}		
+	}
+
 	private void adicionarConvencionRestBarCafeteria(long idConvencion, Long long1) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx=pm.currentTransaction();
