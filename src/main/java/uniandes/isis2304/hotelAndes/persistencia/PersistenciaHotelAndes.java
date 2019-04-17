@@ -1685,6 +1685,31 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 		}
 	}
 
+	public void req16(long idMantenimiento) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			
+			tx.commit();
+
+		}
+		catch (Exception e)
+		{
+			//e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+	
 	private void adicionarConvencionRestBarCafeteria(long idConvencion, Long long1) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx=pm.currentTransaction();

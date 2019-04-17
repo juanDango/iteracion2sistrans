@@ -314,4 +314,11 @@ public Convencion adicionarConvencion(long idConvencion, long idHotel, long nump
 			pp.req15(idHabitaciones,idServicios);
 			log.info ("Se realizo mantenimiento ");		
 	}
+
+	public void req16(long idConvencion) {
+		log.info ("Finalizando mantenimiento: ");
+		pp.req16(idConvencion);
+		log.info ("Finalizo: ");
+		
+	}
 }
